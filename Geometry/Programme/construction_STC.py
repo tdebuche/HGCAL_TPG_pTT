@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import os
+os.chdir("../")
 from shapely.geometry import Polygon
 from prelim import etaphitoXY
 from prelim import etaphiRADtoXY
@@ -16,7 +17,7 @@ from prelim import BintoBinSommets
 from prelim import STCtoSTCSommets
 
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../Ressources")
 Binetaphi = np.load('Binetaphi.npy')
 G = np.load('Geometry.npy')
 Z = np.load('Z.npy')

@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+os.chdir("../")
 from prelim import etaphitoXY
 from prelim import etaphiRADtoXY
 from prelim import XYtoetaphi
@@ -14,7 +15,7 @@ from prelim import BintoBinSommets
 from prelim import STCtoSTCSommets
 
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../Ressources")
 Z = np.load("Z.npy")
 G = np.load('Geometry.npy')
 UV = np.load('uv.npy')
@@ -106,12 +107,13 @@ for i in range(20):
     plt.annotate('eta='+str(i),(x,y),size =  '8')"""
 
 """
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/LayerswithUV")
+os.chdir("../Ressources")
 plt.savefig('pTT of layer '+str(Layer)+'.png')"""
 
 #record  all layers
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/Info_Layers/LayerswithSTCs")
+os.chdir("../Ressources")
+"""
 for k in range(0,34):
     if k <13:
         Layer = 2 *k+1
@@ -157,4 +159,4 @@ for k in range(0,34):
                     if j< len(STCSommets[i]):
                         stc = STCSommets[i][j]
                         plt.plot(stc[0]+[stc[0][0]],stc[1]+[stc[1][0]],linewidth = 0.2,color  = 'blue') #STC
-    plt.savefig('Modules of layer '+str(Layer)+'.png')
+    plt.savefig('Modules of layer '+str(Layer)+'.png')"""

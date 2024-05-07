@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-#données
+#Entries
 etamin = 1.305
 etamax = etamin + np.pi *20/36
 
@@ -12,9 +12,8 @@ phimax = 120
 nb_binphi = 24
 nb_bineta = 20
 
-############### BUILD THE VERTICES OF EACH BIN, THE FORMAT IS  array (480,2,4), [phi0,eta0....eta19,phi2,eta0....] ###############
-
-def positions(emin,nbeta,nbphi): #sommets des bins, array (480,2,4), [phi0,eta0....eta19,phi2,eta0....]
+#Build an array with the vertices of each bin. Bins are sorted by phi,eta
+def Bins(emin,nbeta,nbphi): 
     L = np.zeros((480,2,4))
     phirun = 0
     etarun = 0
@@ -26,22 +25,9 @@ def positions(emin,nbeta,nbphi): #sommets des bins, array (480,2,4), [phi0,eta0.
     return(L)
 
 
-def bineta(emin,nbeta):
-    return(np.array([etatorad(j * np.pi/36 + emin) for j in range(nbeta+1)]))
 
-def binphi(nphi):
-    return(np.array([i * np.pi/36 for i in range(nphi +1)]))
-
-
-def etatorad(eta):
-    return(2*np.arctan(np.exp(-eta)))
-
-def radtodegré(rad):
-    return(rad/np.pi * 180)
-
-
-#fichier à enregistrer
-BIN = positions(etamin,nb_bineta,nb_binphi)
+#record the file
+BIN = Bins(etamin,nb_bineta,nb_binphi)
 os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
 np.save('Binetaphi',BIN)
 

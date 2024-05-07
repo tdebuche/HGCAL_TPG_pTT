@@ -4,7 +4,7 @@ import os
 
 nom_fichier = 'Geometrymodule'
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("")
 f = open(nom_fichier + '.xml', 'r')
 
 fichier = f.readlines()

@@ -33,5 +33,5 @@ plt.plot(Z,[0 for i in Z],'o', color = 'black')
 
 
 plt.show()
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../Ressources")
 np.save('Z.npy',Z)

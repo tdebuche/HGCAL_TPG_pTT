@@ -4,7 +4,7 @@ import os
 
 nom_fichier = 'Geometrymodule'
 
-os.chdir("")
+os.chdir("../Ressources")
 f = open(nom_fichier + '.xml', 'r')
 
 fichier = f.readlines()
@@ -26,7 +26,7 @@ def geometrymodules(file):
             l2 = []
             lay +=1
         if x[0:10] == '\t\t\t<Module':
-            l.append(module_position(x))
+            l.append(module_vertices(x))
             u,v,layer = module_number(x)
             l2.append([u,v])
         if x == '\t</Plane>\n':
@@ -34,19 +34,18 @@ def geometrymodules(file):
             L2.append(l2)
     return(L,L2)
 
-#Remark :  Scintillator IDs are not the same as the module ones --> problem in the layer number
 
 
 
 
-def module_number(str) : #calcul u,v,layer d'un Module
+def module_number(str) : #u,v,layer of a Module
     code = str[15:25]    # ID du module 0x60013200
     v = hexanumber(code[7])
     u =  hexanumber(code[6])
     layer = hexanumber(code[4:6])
     return (u,v,layer)
 
-def module_position(x):  #sommets d'un module
+def module_vertices(x):  #Vertices of a module
     str = x[:-5]
     j = len(str)-1
     pos = ''
@@ -108,8 +107,8 @@ for i in range(47):
         UV[i,j,1] = int(L2[i][j][1])
 
 
-#fichier à enregistrer
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+#record the files
+os.chdir("../Ressources")
 np.save('Geometry',G)
 np.save('uv.npy',UV)
 

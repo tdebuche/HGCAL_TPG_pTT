@@ -28,7 +28,7 @@ def Bins(emin,nbeta,nbphi):
 
 #record the file
 BIN = Bins(etamin,nb_bineta,nb_binphi)
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../Ressources")
 np.save('Binetaphi',BIN)
 
 plt.show()

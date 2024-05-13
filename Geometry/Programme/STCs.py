@@ -2,19 +2,18 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import os
-os.chdir("../")
-from shapely.geometry import Polygon
-from prelim import etaphitoXY
-from prelim import etaphiRADtoXY
-from prelim import XYtoetaphi
-from prelim import polygontopoints
-from prelim import pointtopolygon
-from prelim import binetaphitoXY
-from prelim import binetaphiRADtoXY
-from prelim import etaphicentre
-from prelim import ModulestoSommets
-from prelim import BintoBinSommets
-from prelim import STCtoSTCSommets
+
+from functions import etaphitoXY
+from functions import etaphiRADtoXY
+from functions import XYtoetaphi
+from functions import polygontopoints
+from functions import pointtopolygon
+from functions import binetaphitoXY
+from functions import binetaphiRADtoXY
+from functions import etaphicentre
+from functions import ModulestoSommets
+from functions import BintoBinSommets
+from functions import STCtoSTCSommets
 
 
 os.chdir("../Ressources")

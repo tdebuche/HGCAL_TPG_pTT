@@ -12,7 +12,7 @@ phimax = 120
 nb_binphi = 24
 nb_bineta = 20
 
-#Build an array with the vertices of each bin. Bins are sorted by phi,eta
+#Create an array with the vertices of each bin. Bins are sorted by phi,eta
 def Bins(emin,nbeta,nbphi): 
     L = np.zeros((nbeta*nbphi,2,4))
     phirun = 0
@@ -30,10 +30,10 @@ def Bins(emin,nbeta,nbphi):
 BIN = Bins(etamin,nb_bineta,nb_binphi)
 
 os.chdir("../Ressources")
-np.save('Binetaphi'+str(nbeta)+str(nbphi),BIN)
+np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
 
 os.chdir("../../ProgrammesRessources")
-np.save('Binetaphi'+str(nbeta)+str(nbphi),BIN)
+np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
 
 
 plt.show()

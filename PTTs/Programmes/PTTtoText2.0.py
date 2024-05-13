@@ -17,7 +17,7 @@ from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../../Ressources")
 
 UV = np.load('uv.npy')
 Binetaphi = np.load('Binetaphi.npy')
@@ -566,9 +566,11 @@ def PTTmodulestoTextwithSTC(Geometry,Board):
 
 
 ##################################################################################################################################
+
+# to test
 """
 Board = 0
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/Brouillon")
+os.chdir("../../Ressources")
 textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board)
 name = "PTTs_Board"+  str(Board)
 file = open(name+"CEE"+".txt", "w")
@@ -579,10 +581,10 @@ file = open(name+"CEH"+".txt", "w")
 file.write(textCEH)
 file.close()"""
 
-#with STCs
-
+# Record with STCs
+"""
 for Board in range(14):
-    os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/pTTSwithSilliconSTCs")
+    os.chdir("../../Ressources")
     textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board)
     name = 'CE_E_'+  str(Board)+ '_v1'
     file = open(name+".vh", "w")
@@ -591,11 +593,13 @@ for Board in range(14):
     name = 'CE_H_'+  str(Board)+ '_v1'
     file = open(name+".vh", "w")
     file.write(textCEH)
-    file.close()
-#without STCs
+    file.close()"""
 
+
+# Record without STCs
+"""
 for Board in range(14):
-    os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/pTTSwithoutSTCs")
+    os.chdir("../../Ressources")
     textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board)
     name = 'CE_E_'+  str(Board)+ '_v1'
     file = open(name+".vh", "w")
@@ -605,20 +609,4 @@ for Board in range(14):
     file = open(name+".vh", "w")
     file.write(textCEH)
     file.close()
-
 """
-
-
-for k in range(34):
-    if k <13:
-        Layer = 2 *k+1
-    else :
-        Layer = k + 14
-    os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/PTTs")
-    text = PTTmodulestoText(PTTarray(Layer),G[Layer-1],Layer)
-    name = "PTTs_Layer"+  str(Layer)
-    if Layer >26:
-        name += "withoutSTCs"
-    file = open(name+".txt", "w")
-    file.write(text)
-    file.close()"""

@@ -13,7 +13,8 @@ from prelim import etaphicentre
 from prelim import ModulestoSommets
 from prelim import BintoBinSommets
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../../Ressources")
+
 Binetaphi = np.load('Binetaphi.npy')
 G = np.load('Geometry.npy')
 Z = np.load('Z.npy')
@@ -122,7 +123,7 @@ def areatocoef(Areas): # Transforme les rapports d'aires en multiple de 1/16
 
 ################################################################################################################################
 
-#Layer à étudier
+#Layer to plot
 Layer = 28
 
 zlay = Z[Layer-1]
@@ -181,7 +182,7 @@ for i in range(len(PTT)):
 np.save('pTTModules_Layer' + str(Layer) +'.npy',PTTarray)"""
 """
 #Record plots
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/Layerswithenergies")
+os.chdir("../Ressources")
 for k in range(34):
     if k<13:
         Layer = 2*k + 1

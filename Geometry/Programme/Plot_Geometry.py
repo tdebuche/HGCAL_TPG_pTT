@@ -25,7 +25,7 @@ STCHD = np.load('STCHD.npy')
 
 
 
-#Layer à étudier
+#Layer to draw
 Layer = 40
 
 
@@ -52,7 +52,7 @@ for i in range(len(Sommets)):
     eta,phi = etaphicentre(Modules[i],zlay)
     x,y = etaphitoXY(eta,phi,zlay)
     plt.annotate(str(i),(x - 60,y -10),size =  '8')
-print(str(i) + 'tttttttttttttttttttt')
+print(str(i))
 #Bins
 for i in range(len(BinXY)):
    plt.plot(BinSommets[i][0] + [BinSommets[i][0][0]],BinSommets[i][1]+ [BinSommets[i][1][0]], color = 'red',linewidth = '0.5')

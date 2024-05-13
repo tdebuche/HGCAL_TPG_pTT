@@ -2,26 +2,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from prelim import etaphitoXY
-from prelim import etaphiRADtoXY
-from prelim import XYtoetaphi
-from prelim import polygontopoints
-from prelim import pointtopolygon
-from prelim import binetaphitoXY
-from prelim import binetaphiRADtoXY
-from prelim import etaphicentre
-from prelim import ModulestoSommets
-from prelim import BintoBinSommets
-from prelim import STCtoSTCSommets
+from functions import etaphitoXY
+from functions import etaphiRADtoXY
+from functions import XYtoetaphi
+from functions import polygontopoints
+from functions import pointtopolygon
+from functions import binetaphitoXY
+from functions import binetaphiRADtoXY
+from functions import etaphicentre
+from functions import ModulestoVertices
+from functions import BintoBinVertices
+from functions import STCtoSTCVertices
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 
-os.chdir("../../Ressources")
+os.chdir("../../ProgrammesRessources")
 
-UV = np.load('uv.npy')
-Binetaphi = np.load('Binetaphi.npy')
-G = np.load('Geometry.npy')
+UV = np.load('UVModules.npy')
+Binetaphi = np.load('Binetaphi2024.npy')
+#Binetaphi = np.load('Binetaphi2028.npy')
+G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
@@ -160,7 +161,7 @@ def PTTmodulestoText(Geometry,Board):
 ##################################################################################################################################
 """
 Board = 1
-os.chdir("../../Ressources")
+os.chdir("../PTTs/Ressources")
 textCEE,textCEH = PTTmodulestoText(G,Board)
 name = "PTTs_Board"+  str(Board)
 file = open(name+"CEE"+".txt", "w")
@@ -174,7 +175,7 @@ file.close()"""
 #with STCs
 """
 for Board in range(14):
-    os.chdir("../../Ressources")
+    os.chdir("../PTTs/Ressources/PTTswithSTCs")
     textCEE,textCEH = PTTmodulestoText(G,Board)
     name = "PTTs_Board"+  str(Board)
     file = open(name+"CEE"+".txt", "w")
@@ -188,7 +189,7 @@ for Board in range(14):
 #without STCs
 """
 for Board in range(14):
-    os.chdir("../../Ressources")
+    os.chdir("../PTTs/Ressources/PTTswithoutSTCs")
     textCEE,textCEH = PTTmodulestoText(G,Board)
     name = "PTTs_Board"+  str(Board)
     file = open(name+"CEE"+".txt", "w")
@@ -197,21 +198,4 @@ for Board in range(14):
     name += "withoutSTCs"
     file = open(name+"CEH"+".txt", "w")
     file.write(textCEH)
-    file.close()"""
-
-"""
-
-
-for k in range(34):
-    if k <13:
-        Layer = 2 *k+1
-    else :
-        Layer = k + 14
-    os.chdir("../../Ressources")
-    text = PTTmodulestoText(PTTarray(Layer),G[Layer-1],Layer)
-    name = "PTTs_Layer"+  str(Layer)
-    if Layer >26:
-        name += "withoutSTCs"
-    file = open(name+".txt", "w")
-    file.write(text)
     file.close()"""

@@ -853,8 +853,12 @@ def STC5smallHD(Module,z,marker_i):  #Renvoie les STC d'un module ayant 5 sommet
 #Record STCs
 
 """
+os.chdir("../Ressources")
 STCLD3447 = STCLayersLD(G,34,47)
 STCHD2733 = STCLayersHD(G,27,33)
+np.save('STCHD.npy',STCHD2733)
+np.save('STCLD.npy',STCLD3447)
+os.chdir("../../Ressources")
 np.save('STCHD.npy',STCHD2733)
 np.save('STCLD.npy',STCLD3447)"""
 

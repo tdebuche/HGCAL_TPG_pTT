@@ -14,7 +14,7 @@ from prelim import ModulestoSommets
 from prelim import BintoBinSommets
 from prelim import STCtoSTCSommets
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../../Ressources")
 
 Binetaphi = np.load('Binetaphi.npy')
 G = np.load('Geometry.npy')
@@ -127,7 +127,7 @@ def areatocoef(Areas): # Transforme les rapports d'aires en multiple de 1/16
 
 ################################################################################################################################
 """
-#Layer à étudier
+#Layer to plot
 Layer = 27
 
 zlay = Z[Layer-1]

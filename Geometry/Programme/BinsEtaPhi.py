@@ -14,7 +14,7 @@ nb_bineta = 20
 
 #Build an array with the vertices of each bin. Bins are sorted by phi,eta
 def Bins(emin,nbeta,nbphi): 
-    L = np.zeros((480,2,4))
+    L = np.zeros((nbeta*nbphi,2,4))
     phirun = 0
     etarun = 0
     poly = 0
@@ -28,13 +28,12 @@ def Bins(emin,nbeta,nbphi):
 
 #record the file
 BIN = Bins(etamin,nb_bineta,nb_binphi)
+
 os.chdir("../Ressources")
-np.save('Binetaphi',BIN)
+np.save('Binetaphi'+str(nbeta)+str(nbphi),BIN)
 
 os.chdir("../../Ressources")
-np.save('Binetaphi',BIN)
+np.save('Binetaphi'+str(nbeta)+str(nbphi),BIN)
 
-os.chdir("../../Ressources")
-np.save('Binetaphi',BIN)
 
 plt.show()

@@ -2,32 +2,32 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from prelim import etaphitoXY
-from prelim import etaphiRADtoXY
-from prelim import XYtoetaphi
-from prelim import polygontopoints
-from prelim import pointtopolygon
-from prelim import binetaphitoXY
-from prelim import binetaphiRADtoXY
-from prelim import etaphicentre
-from prelim import ModulestoSommets
-from prelim import BintoBinSommets
+from functions import etaphitoXY
+from functions import etaphiRADtoXY
+from functions import XYtoetaphi
+from functions import polygontopoints
+from functions import pointtopolygon
+from functions import binetaphitoXY
+from functions import binetaphiRADtoXY
+from functions import etaphicentre
+from functions import ModulestoVertices
+from functions import BintoBinVertices
 
-os.chdir("../../Ressources")
+os.chdir("../../ProgrammesRessources")
 
-Binetaphi = np.load('Binetaphi.npy')
-G = np.load('Geometry.npy')
+Binetaphi = np.load('Binetaphi2024.npy')
+#Binetaphi = np.load('Binetaphi2028.npy')
+G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 
+N = 16 #energies divided by N (for the sharing)
 etamin = 1.305
-N = 16
-
 
 #########################Build PTTs : array(nb_modules,nb_PTTs,3) (module,PTTs)-->[phiBin,etaBin,ratio] ########################
 
 
 
-def pTTModules(Geometry,Layer): #Répartit les énergies des modules dans les Towers pour un layer donné
+def pTTModules(Geometry,Layer): #Share the energy of each module
     z = Z[Layer-1]
     BinXY= binetaphitoXY(Binetaphi,z)
     PolyLimite = Arealimit(Layer)
@@ -42,7 +42,7 @@ def pTTModules(Geometry,Layer): #Répartit les énergies des modules dans les To
 
 
 
-def Arealimit(Layer):  #Permet de regarder seulement l'air concernée par les bins
+def Arealimit(Layer):  #Look at the area covered by bins only (avoid the edges problems in 20**24 configuration)
     Limite = np.zeros((2,50))
     z = Z[Layer-1]
     for i in range(25):
@@ -56,7 +56,7 @@ def Arealimit(Layer):  #Permet de regarder seulement l'air concernée par les bi
     return PolyLimite
 
 
-def pTTModule(Module,z,BinXY,PolyLimite): # Renvoie les rapports [aire(intersection modulebin)/aire(module)]
+def pTTModule(Module,z,BinXY,PolyLimite): # Return teh sharing of the energy of each module
     L = []
     Mod_Poly = pointtopolygon(Module)
     area_module = Mod_Poly.intersection(PolyLimite).area
@@ -73,7 +73,7 @@ def pTTModule(Module,z,BinXY,PolyLimite): # Renvoie les rapports [aire(intersect
 
 
 
-def AireBinModule(Module,Bin): # Renvoie [aire(intersection modulebin)/aire(module)] par bin
+def AireBinModule(Module,Bin): # Return [area(intersection module and bin)/area(module)] for a given module and a given bin
     M = pointtopolygon(Module)
     B = pointtopolygon(Bin)
     if M.intersects(B):
@@ -83,7 +83,7 @@ def AireBinModule(Module,Bin): # Renvoie [aire(intersection modulebin)/aire(modu
 
 
 
-def areatocoef(Areas): # Transforme les rapports d'aires en multiple de 1/16
+def areatocoef(Areas): # Convert overlap area into fraction of 16
     L =[]
     reste = []
     coef = 0
@@ -128,9 +128,9 @@ Layer = 28
 
 zlay = Z[Layer-1]
 BinXY= binetaphitoXY(Binetaphi,zlay)
-Mod = G[Layer-1]
-Sommets = ModulestoSommets(Mod)
-BinSommets = BintoBinSommets(BinXY)
+Modules = G[Layer-1]
+ModulesVertices = ModulestoSVertices(Modules)
+BinsVertices = BintoBinVertices(BinXY)
 PTT= pTTModules(G,Layer)
 
 """

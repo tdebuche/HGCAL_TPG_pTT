@@ -129,26 +129,21 @@ Layer = 28
 zlay = Z[Layer-1]
 BinXY= binetaphitoXY(Binetaphi,zlay)
 Modules = G[Layer-1]
-ModulesVertices = ModulestoSVertices(Modules)
-BinsVertices = BintoBinVertices(BinXY)
+ModuleVertices = ModulestoVertices(Modules)
+BinVertices = BintoBinVertices(BinXY)
 PTT= pTTModules(G,Layer)
 
 """
 plt.figure(figsize = (12,8))
 
 #Modules
-for i in range(len(Sommets)):
-    plt.plot(Sommets[i][0] + [Sommets[i][0][0]],Sommets[i][1]+ [Sommets[i][1][0]], color = 'black')
+for i in range(len(ModuleVertices)):
+    plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black')
 #Bins
-for i in range(len(BinXY)):
-    plt.plot(BinSommets[i][0] + [BinSommets[i][0][0]],BinSommets[i][1]+ [BinSommets[i][1][0]], color = 'red',linewidth = '0.5')
+for i in range(len(BinVertices)):
+    plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 
-#Edge -> Bins
 
-#Binenplus = BintoBinSommets(binetaphitoXY(Binetaphi[420:480]-np.array([[[0,0,0,0],[2*np.pi/3,2*np.pi/3,2*np.pi/3,2*np.pi/3] ]for i in range(60)]),zlay))
-
-#for i in range(len(Binenplus)):
-#    plt.plot(Binenplus[i][0] + [Binenplus[i][0][0]],Binenplus[i][1]+ [Binenplus[i][1][0]], color = 'green')
 
 #Values of sharing
 for i in range(len(PTT)):
@@ -160,8 +155,6 @@ for i in range(len(PTT)):
         xm,ym = etaphitoXY(etam,phim,zlay)
         plt.annotate(str(PTT[i][j][2]),(xm,ym))
 
-
-
 plt.title(label =  'pTT of layer '+str(Layer))
 plt.xlabel('x (mm)')
 plt.ylabel('y (mm)')
@@ -169,6 +162,7 @@ plt.show()"""
 
 #Record an array with the pTTS
 """
+os.chdir("../PTTs/Ressources")
 max = 0
 for i in range(len(PTT)):
     if len(PTT[i])>max:
@@ -180,9 +174,11 @@ for i in range(len(PTT)):
         PTTarray[i,j] = np.array(PTT[i][j])
 
 np.save('pTTModules_Layer' + str(Layer) +'.npy',PTTarray)"""
+
+
 """
 #Record plots
-os.chdir("../Ressources")
+os.chdir("../PTTs/Ressources")
 for k in range(34):
     if k<13:
         Layer = 2*k + 1
@@ -191,24 +187,17 @@ for k in range(34):
     zlay = Z[Layer-1]
     BinXY= binetaphitoXY(Binetaphi,zlay)
     Mod = G[Layer-1]
-    Sommets = ModulestoSommets(Mod)
-    BinSommets = BintoBinSommets(BinXY)
+    ModuleVertices= ModulestoVertices(Mod)
+    BinVertices = BintoBinVertices(BinXY)
     PTT= pTTModules(G,Layer)
     plt.figure(figsize = (36,24))
 
     #Modules
-    for i in range(len(Sommets)):
-        plt.plot(Sommets[i][0] + [Sommets[i][0][0]],Sommets[i][1]+ [Sommets[i][1][0]], color = 'black')
+    for i in range(len(ModuleVertices)):
+        plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black')
     #Bins
-    for i in range(len(BinXY)):
-        plt.plot(BinSommets[i][0] + [BinSommets[i][0][0]],BinSommets[i][1]+ [BinSommets[i][1][0]], color = 'red',linewidth = '0.5')
-
-#Edge -> Bins
-
-#Binenplus = BintoBinSommets(binetaphitoXY(Binetaphi[420:480]-np.array([[[0,0,0,0],[2*np.pi/3,2*np.pi/3,2*np.pi/3,2*np.pi/3] ]for i in range(60)]),zlay))
-
-#for i in range(len(Binenplus)):
-#    plt.plot(Binenplus[i][0] + [Binenplus[i][0][0]],Binenplus[i][1]+ [Binenplus[i][1][0]], color = 'green')
+    for i in range(len(BinVertices)):
+        plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 
 #Values of sharing
     for i in range(len(PTT)):

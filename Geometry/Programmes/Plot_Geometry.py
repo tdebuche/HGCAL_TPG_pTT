@@ -56,6 +56,19 @@ print(str(i))
 for i in range(len(BinXY)):
    plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 
+#STCs
+if Layer >33:
+    STC = STCLD[Layer-34]
+    STCVertices = STCtoSTCVertices(STCLD[Layer-34])
+if Layer <34 and Layer > 26:
+    STC = STCHD[Layer-27]
+    STCVertices = STCtoSTCVertices(STCHD[Layer-27])
+if Layer > 26:
+        for i in range(len(STCVertices)):
+            for j in range(len(STCVertices[i])):
+                stc = STCVertices[i][j]
+                plt.plot(stc[0]+[stc[0][0]],stc[1]+[stc[1][0]],linewidth = 0.2,color  = 'blue')
+
 #UV
 for i in range(len(ModuleVertices)):
     eta,phi = etaphicentre(Modules[i],zlay)

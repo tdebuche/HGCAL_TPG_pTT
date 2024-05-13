@@ -175,7 +175,7 @@ file.close()"""
 #with STCs
 """
 for Board in range(14):
-    os.chdir("../PTTs/Ressources/PTTswithSTCs")
+    os.chdir("../PTTs/Ressources/PTTswithSTCs_readable")
     textCEE,textCEH = PTTmodulestoText(G,Board)
     name = "PTTs_Board"+  str(Board)
     file = open(name+"CEE"+".txt", "w")
@@ -189,7 +189,7 @@ for Board in range(14):
 #without STCs
 """
 for Board in range(14):
-    os.chdir("../PTTs/Ressources/PTTswithoutSTCs")
+    os.chdir("../PTTs/Ressources/PTTswithoutSTCs_readable")
     textCEE,textCEH = PTTmodulestoText(G,Board)
     name = "PTTs_Board"+  str(Board)
     file = open(name+"CEE"+".txt", "w")

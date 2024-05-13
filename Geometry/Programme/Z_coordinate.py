@@ -35,3 +35,6 @@ plt.plot(Z,[0 for i in Z],'o', color = 'black')
 plt.show()
 os.chdir("../Ressources")
 np.save('Z.npy',Z)
+
+os.chdir("../../Ressources")
+np.save('Z.npy',Z)

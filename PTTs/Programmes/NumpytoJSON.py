@@ -19,7 +19,7 @@ from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../../Ressources")
 
 UV = np.load('uv.npy')
 Binetaphi = np.load('Binetaphi.npy')

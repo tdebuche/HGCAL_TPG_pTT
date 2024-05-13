@@ -112,6 +112,10 @@ os.chdir("../Ressources")
 np.save('Geometry',G)
 np.save('uv.npy',UV)
 
+os.chdir("../../Ressources")
+np.save('Geometry',G)
+np.save('uv.npy',UV)
+
 
 
 

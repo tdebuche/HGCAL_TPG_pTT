@@ -17,20 +17,19 @@ from functions import STCtoSTCSommets
 
 
 os.chdir("../Ressources")
-Binetaphi = np.load('Binetaphi.npy')
 G = np.load('Geometry.npy')
-Z = np.load('Z.npy')
-etamin = 1.5
 
 
-
+#There are two scenarios for the orientation of  STCs 
 Scenario = 0
 Possibilities = ['first','second']
 orientation = Possibilities[Scenario]
 antiorientation = Possibilities[(Scenario + 1)%2]
-########                 Create two arrays : one for HD layers (27-33) and one for LD layers (34-47)                 ###########
 
-####  1st : array(7,nb_Modules,nb_STC,[[Xvertices],[Yvertices]],  2nd : array(7,nb_Modules,nb_STC,[[Xvertices],[Yvertices]] ####
+
+#Create two arrays : one for HD layers (27-33) and one for LD layers (34-47)          
+
+#1st : array(7,nb_Modules,nb_STCperModule,[[Xvertices],[Yvertices]],  2nd : array(7,nb_Modules,nb_STC,[[Xvertices],[Yvertices]]
 
 def STCLayersLD(Geometry,Layermin, Layermax): #Renvoie les STC LD d'une layer
     L=[]
@@ -858,49 +857,9 @@ STCLD3447 = STCLayersLD(G,34,47)
 STCHD2733 = STCLayersHD(G,27,33)
 np.save('STCHD.npy',STCHD2733)
 np.save('STCLD.npy',STCLD3447)
-os.chdir("../../Ressources")
+os.chdir("../../ProgrammesRessources")
 np.save('STCHD.npy',STCHD2733)
 np.save('STCLD.npy',STCLD3447)"""
 
 
-#Plot STCs
-Layer = 27
 
-zlay = Z[Layer-1]
-BinXY= binetaphitoXY(Binetaphi,zlay)
-Mod = G[Layer-1]
-Sommets = ModulestoSommets(Mod)
-BinSommets = BintoBinSommets(BinXY)
-
-if Layer > 33:
-    stc = STCtoSTCSommets(STCLayersLD(G,34,47)[Layer-34])
-if Layer < 34:
-    stc = STCtoSTCSommets(STCLayersHD(G,27,33)[Layer-27])
-
-
-
-plt.figure(figsize = (12,8))
-
-#Modules and their ids
-for i in range(len(Sommets)):
-    plt.plot(Sommets[i][0] + [Sommets[i][0][0]],Sommets[i][1]+ [Sommets[i][1][0]], color = 'black')
-    eta, phi = etaphicentre(Mod[i],zlay)
-    x,y = etaphitoXY(eta,phi,zlay)
-    #plt.annotate(str(i),(x,y))
-
-#STC
-N = 0
-for j in range(len(stc)):
-    test = stc[j]
-    for i in range(len(test)):
-        plt.plot(test[i][0]+[test[i][0][0]],test[i][1]+[test[i][1][0]],color  = 'blue',linewidth = 0.5)
-        eta, phi = etaphicentre(np.array(test[i]),zlay)
-        x,y = etaphitoXY(eta,phi,zlay)
-        plt.annotate(str(N),(x,y),size = 5)
-        N+=1
-
-
-plt.title(label =  'STCs of layer '+str(Layer))
-plt.xlabel('x (mm)')
-plt.ylabel('y (mm)')
-plt.show()

@@ -16,7 +16,7 @@ from prelim import STCtoSTCSommets
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../../Ressources")
 
 UV = np.load('uv.npy')
 Binetaphi = np.load('Binetaphi.npy')
@@ -99,7 +99,7 @@ def PTTarray(Layer,STCyesorno):
 ###############################################################################################################################
 
 """
-#Layer à  étudier
+#Layer to plot
 Layer = 32
 
 zlay = Z[Layer-1]

@@ -2,17 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-nom_fichier = 'Geometrymodule'
+#open the file with the coordinates of modules (from Pedro's work)
 
+nom_fichier = 'Geometrymodule'
 os.chdir("../Ressources")
 f = open(nom_fichier + '.xml', 'r')
-
 fichier = f.readlines()
 f.close()
 
 
 
-#Build an array(47,146,2,6) with (lay,mod-->[[Xvertices],[Yvertices]]) and an array(47,146,2) with (lay,mod-->[[u],[v]])
+#Create a first array(47,146,2,6) where : 47  layers, 146 modules by layer (if there are less than 146 modules, the missing ones are array with 0).
+#Each module is an array (2,6), where 2 is for X and Y coordinates, and 6 for each vertex (if there are less than 6 vertices, the missing ones are defined by X=0,Y=0)
+#Create a second array(47,146,2) where : 47  layers, 146 modules by layer, 2  u and v coordiantes (if there are less than 146 modules, the missing ones are array with 0). 
 
 def geometrymodules(file):
     L =[]
@@ -35,11 +37,8 @@ def geometrymodules(file):
     return(L,L2)
 
 
-
-
-
 def module_number(str) : #u,v,layer of a Module
-    code = str[15:25]    # ID du module 0x60013200
+    code = str[15:25]    # ID du module ex : 0x60013200
     v = hexanumber(code[7])
     u =  hexanumber(code[6])
     layer = hexanumber(code[4:6])
@@ -77,7 +76,7 @@ def module_vertices(x):  #Vertices of a module
 
 
 
-def hexanumber(x) :
+def hexanumber(x) : #convert hexanumber to integer
     n = 0
     l =['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
     puissance_max = len(x) - 1
@@ -109,12 +108,12 @@ for i in range(47):
 
 #record the files
 os.chdir("../Ressources")
-np.save('Geometry',G)
-np.save('uv.npy',UV)
+np.save('ModulesGeometry',G)
+np.save('UVModules.npy',UV)
 
-os.chdir("../../Ressources")
-np.save('Geometry',G)
-np.save('uv.npy',UV)
+os.chdir("../../ProgrammesRessources")
+np.save('ModulesGeometry',G)
+np.save('UVModules.npy',UV)
 
 
 

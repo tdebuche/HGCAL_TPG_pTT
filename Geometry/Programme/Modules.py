@@ -12,7 +12,7 @@ f.close()
 
 
 
-##Build an array(47,146,2,6) with (lay,mod-->[[Xvertices],[Yvertices]]) and an array(47,146,2) with (lay,mod-->[[u],[v]])#######
+#Build an array(47,146,2,6) with (lay,mod-->[[Xvertices],[Yvertices]]) and an array(47,146,2) with (lay,mod-->[[u],[v]])
 
 def geometrymodules(file):
     L =[]

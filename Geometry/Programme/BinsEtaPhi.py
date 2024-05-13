@@ -34,4 +34,7 @@ np.save('Binetaphi',BIN)
 os.chdir("../../Ressources")
 np.save('Binetaphi',BIN)
 
+os.chdir("../../Ressources")
+np.save('Binetaphi',BIN)
+
 plt.show()

@@ -2,26 +2,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from prelim import etaphitoXY
-from prelim import etaphiRADtoXY
-from prelim import XYtoetaphi
-from prelim import polygontopoints
-from prelim import pointtopolygon
-from prelim import binetaphitoXY
-from prelim import binetaphiRADtoXY
-from prelim import etaphicentre
-from prelim import ModulestoSommets
-from prelim import BintoBinSommets
-from prelim import STCtoSTCSommets
+from functions import etaphitoXY
+from functions import etaphiRADtoXY
+from functions import XYtoetaphi
+from functions import polygontopoints
+from functions import pointtopolygon
+from functions import binetaphitoXY
+from functions import binetaphiRADtoXY
+from functions import etaphicentre
+from functions import ModulestoVertices
+from functions import BintoBinVertices
+from functions import STCtoSTCVertices
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 
-os.chdir("../../Ressources")
+os.chdir("../../ProgrammesRessources")
 
-UV = np.load('uv.npy')
-Binetaphi = np.load('Binetaphi.npy')
-G = np.load('Geometry.npy')
+UV = np.load('UVModules.npy')
+Binetaphi = np.load('Binetaphi2024.npy')
+#Binetaphi = np.load('Binetaphi2028.npy')
+G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
@@ -29,13 +30,10 @@ etamin = 1.305
 N = 16
 
 
-
+#for the numbering of modules in a board
 nb_modules=[96,96,96,96,102,102,102,102,102,102,104,104,108,110,114,114,118,122,136,146,95,95,95,95,72,72,52,52,52,52,37,37,37,37]
-
 min_numberingmod = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 198, 0, 52, 72, 95, 72, 95]
-
 min_numberingscint = [132, 109, 136, 109, 104, 122, 110, 132, 118, 250, 114, 114, 95, 95]
-
 IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
 
 
@@ -570,7 +568,7 @@ def PTTmodulestoTextwithSTC(Geometry,Board):
 # to test
 """
 Board = 0
-os.chdir("../../Ressources")
+os.chdir("../PTTs/Ressources")
 textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board)
 name = "PTTs_Board"+  str(Board)
 file = open(name+"CEE"+".txt", "w")
@@ -584,7 +582,7 @@ file.close()"""
 # Record with STCs
 """
 for Board in range(14):
-    os.chdir("../../Ressources")
+    os.chdir("../PTTs/Ressources/PTTswithSTCs")
     textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board)
     name = 'CE_E_'+  str(Board)+ '_v1'
     file = open(name+".vh", "w")
@@ -599,7 +597,7 @@ for Board in range(14):
 # Record without STCs
 """
 for Board in range(14):
-    os.chdir("../../Ressources")
+    os.chdir("../PTTs/Ressources/PTTswithoutSTCs")
     textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board)
     name = 'CE_E_'+  str(Board)+ '_v1'
     file = open(name+".vh", "w")

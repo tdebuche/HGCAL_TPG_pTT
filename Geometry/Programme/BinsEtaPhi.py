@@ -41,7 +41,7 @@ nb_binphi = 28
 nb_bineta = 20
 
 BIN = Bins(etamin,phimin,nb_bineta,nb_binphi)
-os.chdir("../Ressources")
+os.chdir("../Geometry/Ressources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
 os.chdir("../../ProgrammesRessources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)

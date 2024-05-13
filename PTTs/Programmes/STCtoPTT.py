@@ -2,21 +2,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from prelim import etaphitoXY
-from prelim import etaphiRADtoXY
-from prelim import XYtoetaphi
-from prelim import polygontopoints
-from prelim import pointtopolygon
-from prelim import binetaphitoXY
-from prelim import binetaphiRADtoXY
-from prelim import etaphicentre
-from prelim import ModulestoSommets
-from prelim import BintoBinSommets
-from prelim import STCtoSTCSommets
+from functions import etaphitoXY
+from functions import etaphiRADtoXY
+from functions import XYtoetaphi
+from functions import polygontopoints
+from functions import pointtopolygon
+from functions import binetaphitoXY
+from functions import binetaphiRADtoXY
+from functions import etaphicentre
+from functions import ModulestoVertices
+from functions import BintoBinVertices
+from functions import STCtoSTCVertices
 
-os.chdir("../../Ressources")
+os.chdir("../../ProgrammesRessources")
 
-Binetaphi = np.load('Binetaphi.npy')
+Binetaphi = np.load('Binetaphi2024.npy')
+Binetaphi = np.load('Binetaphi2028.npy')
 G = np.load('Geometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
@@ -133,15 +134,15 @@ Layer = 27
 zlay = Z[Layer-1]
 BinXY= binetaphitoXY(Binetaphi,zlay)
 Mod = G[Layer-1]
-Sommets = ModulestoSommets(Mod)
-BinSommets = BintoBinSommets(BinXY)
+ModuleVertices = ModulestoVertices(Mod)
+BinVertices = BintoBinVertices(BinXY)
 
 if Layer >33:
     STC = STCLD[Layer-34]
-    STCSommets = STCtoSTCSommets(STCLD[Layer-34])
+    STCVertices = STCtoSTCSommets(STCLD[Layer-34])
 if Layer <34 :
     STC = STCHD[Layer-27]
-    STCSommets = STCtoSTCSommets(STCHD[Layer-27])
+    STCVertices = STCtoSTCSommets(STCHD[Layer-27])
 
 PTT= pTTSTCs(STCLD,STCHD,Layer)
 
@@ -150,27 +151,24 @@ PTT= pTTSTCs(STCLD,STCHD,Layer)
 plt.figure(figsize = (12,8))
 
 #Modules
-for i in range(len(Sommets)):
-    plt.plot(Sommets[i][0] + [Sommets[i][0][0]],Sommets[i][1]+ [Sommets[i][1][0]], color = 'black',linewidth = 0.5)
+for i in range(len(ModuleVertices)):
+    plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black',linewidth = 0.5)
 #Bin
-for i in range(len(BinXY)):
-    plt.plot(BinSommets[i][0] + [BinSommets[i][0][0]],BinSommets[i][1]+ [BinSommets[i][1][0]], color = 'red',linewidth = 0.5)
+for i in range(len(BinVertices)):
+    plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = 0.5)
 
-for i in range(len(STC)):
-    for j in range(len(STC[i])):
-        if i < len(STCSommets):
-            if j< len(STCSommets[i]):
-                stc = STCSommets[i][j]
-                plt.plot(stc[0]+[stc[0][0]],stc[1]+[stc[1][0]],linewidth = 0.2,color  = 'blue') #STC
-        if not np.array_equal(STC[i,j],np.zeros((2,5))):
-            for k in range(len(PTT[i][j])):
-                p = pointtopolygon(STC[i,j])
-                q = pointtopolygon(BinXY[20 * PTT[i][j][k][0]+ PTT[i][j][k][1]])
-                points = np.array([polygontopoints(p.intersection(q))[0],polygontopoints(p.intersection(q))[1]])
-                etam,phim = etaphicentre(points,zlay)
-                xm,ym = etaphitoXY(etam,phim,zlay)
-                #plt.annotate(str(PTT[i][j][k][2]),(xm,ym))
-                plt.annotate(str(j),(xm,ym))
+for i in range(len(STCVertices)):
+    for j in range(len(STCVertices[i])):
+            stc = STCSommets[i][j]
+            plt.plot(stc[0]+[stc[0][0]],stc[1]+[stc[1][0]],linewidth = 0.2,color  = 'blue') #STC
+    if not np.array_equal(STC[i,j],np.zeros((2,5))):
+        for k in range(len(PTT[i][j])):
+            p = pointtopolygon(STC[i,j])
+            q = pointtopolygon(BinXY[20 * PTT[i][j][k][0]+ PTT[i][j][k][1]])
+            points = np.array([polygontopoints(p.intersection(q))[0],polygontopoints(p.intersection(q))[1]])
+            etam,phim = etaphicentre(points,zlay)
+            xm,ym = etaphitoXY(etam,phim,zlay)                
+            plt.annotate(str(PTT[i][j][k][2]),(xm,ym))
 
 
 

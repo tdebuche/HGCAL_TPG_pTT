@@ -32,7 +32,7 @@ BIN = Bins(etamin,nb_bineta,nb_binphi)
 os.chdir("../Ressources")
 np.save('Binetaphi'+str(nbeta)+str(nbphi),BIN)
 
-os.chdir("../../Ressources")
+os.chdir("../../ProgrammesRessources")
 np.save('Binetaphi'+str(nbeta)+str(nbphi),BIN)
 
 

@@ -6,12 +6,13 @@ import os
 etamin = 1.305
 
 #Create an array with the vertices of each bin. Bins are sorted by phi,eta
+
 def Bins(etamin,phimin,nbeta,nbphi): 
     L = np.zeros((nbeta*nbphi,2,4))
     bin = 0
     for i in range(nbphi):
         for j in range(nbeta):
-            L[poly] = np.array([[j * np.pi/36 + etamin,(j+1) * np.pi/36 + etamin,(j+1) * np.pi/36 + etamin,j * np.pi/36 + etamin],[i * np.pi/36  + phimin,i * np.pi/36 + phimin,(i+1) * np.pi/36 + phimin,(i+1) * np.pi/36 + phimin]])
+            L[bin] = np.array([[j * np.pi/36 + etamin,(j+1) * np.pi/36 + etamin,(j+1) * np.pi/36 + etamin,j * np.pi/36 + etamin],[i * np.pi/36  + phimin,i * np.pi/36 + phimin,(i+1) * np.pi/36 + phimin,(i+1) * np.pi/36 + phimin]])
             bin+=1
     return(L)
 
@@ -44,6 +45,3 @@ os.chdir("../Ressources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
 os.chdir("../../ProgrammesRessources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
-
-
-plt.show()

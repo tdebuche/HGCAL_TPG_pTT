@@ -17,7 +17,7 @@ from functions import STCtoSTCVertices
 os.chdir("../../ProgrammesRessources")
 
 Binetaphi = np.load('Binetaphi2024.npy')
-Binetaphi = np.load('Binetaphi2028.npy')
+#Binetaphi = np.load('Binetaphi2028.npy')
 G = np.load('Geometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')

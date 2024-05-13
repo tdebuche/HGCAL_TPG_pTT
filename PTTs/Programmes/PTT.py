@@ -2,30 +2,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from prelim import etaphitoXY
-from prelim import etaphiRADtoXY
-from prelim import XYtoetaphi
-from prelim import polygontopoints
-from prelim import pointtopolygon
-from prelim import binetaphitoXY
-from prelim import binetaphiRADtoXY
-from prelim import etaphicentre
-from prelim import ModulestoSommets
-from prelim import BintoBinSommets
-from prelim import STCtoSTCSommets
+from functions import etaphitoXY
+from functions import etaphiRADtoXY
+from functions import XYtoetaphi
+from functions import polygontopoints
+from functions import pointtopolygon
+from functions import binetaphitoXY
+from functions import binetaphiRADtoXY
+from functions import etaphicentre
+from functions import ModulestoVertices
+from functions import BintoBinVertices
+from functions import STCtoSTCVertices
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 
-os.chdir("../../Ressources")
+os.chdir("../../ProgrammesRessources")
 
-UV = np.load('uv.npy')
-Binetaphi = np.load('Binetaphi.npy')
-G = np.load('Geometry.npy')
+UV = np.load('UVModules.npy')
+Binetaphi = np.load('Binetaphi2024.npy')
+#Binetaphi = np.load('Binetaphi2024.npy')
+G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
 etamin = 1.305
-N = 16
+
 
 ######### PTTarray -> array(24,20,maxmodulesperPTT,5(or6)) -> 5 for CE-E (without STC indices) -> 6 for CE-H ########
 ############# 24 -> phi, 20 -> eta, maxmod... ok, 5 : i (numéro du module), u,v, ratio (for CEE) ##########
@@ -95,54 +96,3 @@ def PTTarray(Layer,STCyesorno):
                 A[i,j,k] = np.array(L[i][j][k])
     return A
 
-
-###############################################################################################################################
-
-"""
-#Layer to plot
-Layer = 32
-
-zlay = Z[Layer-1]
-BinXY= binetaphitoXY(Binetaphi,zlay)
-Mod = G[Layer-1]
-Sommets = ModulestoSommets(Mod)
-BinSommets = BintoBinSommets(BinXY)
-test = constructionPTT(Layer)
-
-if Layer >33:
-    STC = STCLD[Layer-34]
-    STCSommets = STCtoSTCSommets(STCLD[Layer-34])
-if Layer <34 :
-    STC = STCHD[Layer-27]
-    STCSommets = STCtoSTCSommets(STCHD[Layer-27])
-
-
-plt.figure(figsize = (12,8))
-
-#Modules
-for i in range(len(Sommets)):
-    plt.plot(Sommets[i][0] + [Sommets[i][0][0]],Sommets[i][1]+ [Sommets[i][1][0]], color = 'black',linewidth = 0.5)
-#Bin
-for i in range(len(BinXY)):
-    plt.plot(BinSommets[i][0] + [BinSommets[i][0][0]],BinSommets[i][1]+ [BinSommets[i][1][0]], color = 'red',linewidth = 0.5)
-
-for i in range(len(test)):
-    for j in range(len(test[i])):
-        for k in range(len(test[i][j])):
-            indice = test[i][j][k][0]
-            x = (Sommets[indice][0][0]+Sommets[indice][0][3])/2
-            y =(Sommets[indice][1][0]+Sommets[indice][1][3])/2
-            #plt.annotate('('+str(test[i][j][k][1])+','+str(test[i][j][k][2])+')',(x,y))
-
-#STC
-for i in range(len(STCSommets)):
-    for j in range(len(STCSommets[i])):
-        stc = STCSommets[i][j]
-        plt.plot(stc[0]+[stc[0][0]],stc[1]+[stc[1][0]],linewidth = 0.2,color  = 'blue') #STC
-
-
-plt.title(label =  'pTT of layer '+str(Layer))
-plt.xlabel('x (mm)')
-plt.ylabel('y (mm)')
-plt.show()
-"""

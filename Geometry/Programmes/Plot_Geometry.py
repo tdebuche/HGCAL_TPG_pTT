@@ -110,10 +110,10 @@ for i in range(20):
 #record  all layers
 """
 #choose the good directory
-#os.chdir("../Ressources/LayerswithbinswithSTCs")
-#os.chdir("../Ressources/LayerswithUV")  
-#os.chdir("../Ressources/Layerswithnumbering") 
-#os.chdir("../Ressources/Layerswithbins") 
+#os.chdir("./LayerswithbinswithSTCs")
+#os.chdir("./LayerswithUV")  
+#os.chdir("./Layerswithnumbering") 
+#os.chdir("./Layerswithbins") 
 
 for k in range(0,34):
     if k <13:

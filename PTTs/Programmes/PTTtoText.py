@@ -17,7 +17,7 @@ from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources")
+os.chdir("../../Ressources")
 
 UV = np.load('uv.npy')
 Binetaphi = np.load('Binetaphi.npy')
@@ -160,7 +160,7 @@ def PTTmodulestoText(Geometry,Board):
 ##################################################################################################################################
 """
 Board = 1
-os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/Brouillon")
+os.chdir("../../Ressources")
 textCEE,textCEH = PTTmodulestoText(G,Board)
 name = "PTTs_Board"+  str(Board)
 file = open(name+"CEE"+".txt", "w")
@@ -174,7 +174,7 @@ file.close()"""
 #with STCs
 """
 for Board in range(14):
-    os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/pTTSwithSilliconSTCs")
+    os.chdir("../../Ressources")
     textCEE,textCEH = PTTmodulestoText(G,Board)
     name = "PTTs_Board"+  str(Board)
     file = open(name+"CEE"+".txt", "w")
@@ -188,7 +188,7 @@ for Board in range(14):
 #without STCs
 """
 for Board in range(14):
-    os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/pTTSwithoutSTCs")
+    os.chdir("../../Ressources")
     textCEE,textCEH = PTTmodulestoText(G,Board)
     name = "PTTs_Board"+  str(Board)
     file = open(name+"CEE"+".txt", "w")
@@ -207,7 +207,7 @@ for k in range(34):
         Layer = 2 *k+1
     else :
         Layer = k + 14
-    os.chdir("C:/Users/Thomas de L'Epinois/Desktop/StageCMS/Mapping/pTT/Ressources/PTTs")
+    os.chdir("../../Ressources")
     text = PTTmodulestoText(PTTarray(Layer),G[Layer-1],Layer)
     name = "PTTs_Layer"+  str(Layer)
     if Layer >26:

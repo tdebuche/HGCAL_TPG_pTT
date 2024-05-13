@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 
 
-####################### Few function used for the conversion XY/EtaPhi and the building of list and array for plots #########
+####################### Few function used for the conversion XY/EtaPhi and the building of list and array for plots (XXXtoXXXVertices) #########
 
 def pointtopolygon(L):
     points = []
@@ -83,7 +83,7 @@ def etaphicentre(Module,z):
     return(XYtoetaphi(x/nbsommet,y/nbsommet,z))
 
 
-def ModulestoSommets(M):
+def ModulestoVertices(M):
     L =[]
     l1 = []
     l2 = []
@@ -100,7 +100,7 @@ def ModulestoSommets(M):
         l2 = []
     return(L)
 
-def BintoBinSommets(M):
+def BintoBinVertices(M):
     L =[]
     l1 = []
     l2 = []
@@ -117,7 +117,7 @@ def BintoBinSommets(M):
         l2 = []
     return(L)
 
-def STCtoSTCSommets(M):
+def STCtoSTCVertices(M):
     L =[]
     lmod =[]
     l1 = []

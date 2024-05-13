@@ -31,4 +31,7 @@ BIN = Bins(etamin,nb_bineta,nb_binphi)
 os.chdir("../Ressources")
 np.save('Binetaphi',BIN)
 
+os.chdir("../../Ressources")
+np.save('Binetaphi',BIN)
+
 plt.show()

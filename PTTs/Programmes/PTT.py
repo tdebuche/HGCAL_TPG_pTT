@@ -7,15 +7,13 @@ from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 
 os.chdir("../../ProgrammesRessources")
-
 UV = np.load('UVModules.npy')
-Binetaphi = np.load('Binetaphi2024.npy')
-#Binetaphi = np.load('Binetaphi2024.npy')
 G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
-etamin = 1.305
+Values2024 = np.load('ValuesBins2024')
+Values2028 = np.load('ValuesBins2028')
 
 
 ######### PTTarray -> array(24,20,maxmodulesperPTT,5(or6)) -> 5 for CE-E (without STC indices) -> 6 for CE-H ########

@@ -7,7 +7,7 @@ This recovery is splitted in few parts :
 - MappingStage1Stage2 : maps the PTTs into links between S1 and S2 boards
 
 
-Each part is divided in two folders : the first one gathers programmes, and the second one, named "ressources", gathers files produced by the programmes.
+Each part is divided into two folders : the first one gathers programmes, and the second one, named "ressources", gathers files produced by the programmes.
 As some results are used by every programmes (like the geometry of modules), I create  a folder named "ProgrammesRessources" which stores some useful files.
 
 

@@ -2,31 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import os
-
-from functions import etaphitoXY
-from functions import etaphiRADtoXY
-from functions import XYtoetaphi
-from functions import polygontopoints
-from functions import pointtopolygon
-from functions import binetaphitoXY
-from functions import binetaphiRADtoXY
-from functions import etaphicentre
-from functions import ModulestoVertices
-from functions import BintoBinVertices
-from functions import STCtoSTCVertices
-
+import functions
 
 os.chdir("../Ressources")
 G = np.load('ModulesGeometry.npy')
 Z = np.load("Z.npy")
-
 
 #There are two scenarios for the orientation of  STCs 
 Scenario = 0
 Possibilities = ['first','second']
 orientation = Possibilities[Scenario]
 antiorientation = Possibilities[(Scenario + 1)%2]
-
 
 #Create two arrays : one for HD layers (27-33) and one for LD layers (34-47)          
 
@@ -118,7 +104,7 @@ def STCHD(Module,z): #Renvoie les STC d'un module
             if Module[0,i] != 0 or Module[1,i] != 0:
                 a +=1
         if a != 0:
-            eta,phi = etaphicentre(Module,z)
+            eta,phi = functions.etaphicentre(Module,z)
             if (eta < 2.3 and z>  Z[27-1]) or (eta < 2.2 and z ==  Z[27-1]) :
                 return STCLD(Module,z)
         if a == 6:
@@ -161,8 +147,8 @@ def STC6LD(Module,z): #Renvoie les STC d'un module entier ayant 6 sommets
     if Module[1,(marker_i +1)%6] >Module[1,marker_i] and  Module[0,(marker_i +1)%6] == Module[0,marker_i]:
         marker_i = (marker_i +1)%6
     I = np.array([(marker_i +i)%6 for i in range(6)])
-    eta,phi = etaphicentre(Module,z)
-    x,y = etaphitoXY(eta,phi,z)
+    eta,phi = functions.etaphicentre(Module,z)
+    x,y = functions.etaphitoXY(eta,phi,z)
     if orientation == 'first':
         L.append([[Module[0,I[4]],Module[0,I[5]],Module[0,I[0]],x],[Module[1,I[4]],Module[1,I[5]],Module[1,I[0]],y]])
         L.append([[Module[0,I[0]],Module[0,I[1]],Module[0,I[2]],x],[Module[1,I[0]],Module[1,I[1]],Module[1,I[2]],y]])
@@ -186,13 +172,13 @@ def STC6HD(Module,z): #Renvoie les STC d'un module entier ayant 6 sommets
     if Module[1,(marker_i +1)%6] >Module[1,marker_i] and  Module[0,(marker_i +1)%6] == Module[0,marker_i]:
         marker_i = (marker_i +1)%6
     I = np.array([(marker_i +i-2)%6 for i in range(6)])
-    eta,phi = etaphicentre(Module,z)
-    x,y = etaphitoXY(eta,phi,z)
+    eta,phi = functions.etaphicentre(Module,z)
+    x,y = functions.etaphitoXY(eta,phi,z)
     if orientation == 'first':
         for par in range(3):
             centrepetit = np.array([[Module[0,I[0]],Module[0,I[1]],Module[0,I[2]],x],[Module[1,I[0]],Module[1,I[1]],Module[1,I[2]],y]])
-            etap,phip=etaphicentre(centrepetit,z)
-            xp,yp = etaphitoXY(etap,phip,z)
+            etap,phip=functions.etaphicentre(centrepetit,z)
+            xp,yp = functions.etaphitoXY(etap,phip,z)
             x1,y1 = ((Module[0,I[0]]+Module[0,I[1]])/2,(Module[1,I[0]]+Module[1,I[1]])/2)
             x2,y2 = ((Module[0,I[1]]+Module[0,I[2]])/2,(Module[1,I[1]]+Module[1,I[2]])/2)
             x3,y3 = ((Module[0,I[2]]+x)/2,(Module[1,I[2]]+y)/2)
@@ -210,8 +196,8 @@ def STC6HD(Module,z): #Renvoie les STC d'un module entier ayant 6 sommets
     if orientation == 'second':
         for par in range(3):
             centrepetit = np.array([[Module[0,I[0]],Module[0,I[1]],x,Module[0,I[5]]],[Module[1,I[0]],Module[1,I[1]],y,Module[1,I[5]]]])
-            etap,phip=etaphicentre(centrepetit,z)
-            xp,yp = etaphitoXY(etap,phip,z)
+            etap,phip= functions.etaphicentre(centrepetit,z)
+            xp,yp = functions.etaphitoXY(etap,phip,z)
             x1,y1 = ((Module[0,I[0]]+Module[0,I[1]])/2,(Module[1,I[0]]+Module[1,I[1]])/2)
             x2,y2 = ((Module[0,I[1]]+x)/2,(Module[1,I[1]]+y)/2)
             x3,y3 = ((Module[0,I[5]]+x)/2,(Module[1,I[5]]+y)/2)
@@ -546,8 +532,8 @@ def STC5bigLD(Module,z,marker_i):  #Renvoie les STC d'un module ayant 5 sommets 
             ymax = y
     I  = np.array([(marker_i + j)  for j in range(5)])%5
     centre = np.array([[Module[0,(marker_i+j)%5] for j in [0,1,2,4]],[Module[1,(marker_i+j)%5] for j in [0,1,2,4]]])
-    eta,phi = etaphicentre(centre,z)
-    x,y = etaphitoXY(eta,phi,z)
+    eta,phi = functions.etaphicentre(centre,z)
+    x,y = functions.etaphitoXY(eta,phi,z)
     type = 0
     subtype = 0
     if np.abs(Module[0,marker_i]-xmax)<0.5 and np.abs(Module[1,marker_i] - ymax)<0.5:
@@ -631,8 +617,8 @@ def STC5bigHD(Module,z,marker_i):  #Renvoie les STC d'un module ayant 5 sommets 
             ymax = y
     I  = np.array([(marker_i + j)  for j in range(5)])%5
     centre = np.array([[Module[0,(marker_i+j)%5] for j in [0,1,2,4]],[Module[1,(marker_i+j)%5] for j in [0,1,2,4]]])
-    eta,phi = etaphicentre(centre,z)
-    x,y = etaphitoXY(eta,phi,z)
+    eta,phi = functions.etaphicentre(centre,z)
+    x,y = functions.etaphitoXY(eta,phi,z)
 
     type = 0
     if Module[0,marker_i] == xmax and Module[1,marker_i] == ymax:

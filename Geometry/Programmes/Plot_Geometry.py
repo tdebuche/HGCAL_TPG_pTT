@@ -48,7 +48,7 @@ print(str(i))
 #Bins
 if args.Bins == 'yes':
     BinXY= functions.binetaphitoXY(Binetaphi2024,zlay)
-    if args.edges == 'yes':
+    if args.Edges == 'yes':
         BinXY= functions.binetaphitoXY(Binetaphi2028,zlay) 
     BinVertices = functions.BintoBinVertices(BinXY)
     for i in range(len(BinXY)):

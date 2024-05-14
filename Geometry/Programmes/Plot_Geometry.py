@@ -31,7 +31,6 @@ Layer = args.Layer
 zlay = Z[Layer-1]
 Modules = G[Layer-1]
 ModuleVertices = functions.ModulestoVertices(Modules)
-BinVertices = functions.BintoBinVertices(BinXY)
 uv = UV[Layer-1]
 
 
@@ -51,6 +50,7 @@ if args.Bins == 'yes':
     BinXY= functions.binetaphitoXY(Binetaphi2024,zlay)
     if args.edges == 'yes':
         BinXY= functions.binetaphitoXY(Binetaphi2028,zlay) 
+    BinVertices = functions.BintoBinVertices(BinXY)
     for i in range(len(BinXY)):
        plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 

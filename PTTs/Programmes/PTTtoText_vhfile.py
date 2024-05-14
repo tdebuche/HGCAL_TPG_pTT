@@ -229,11 +229,15 @@ def nombreScintillators(Geometry,Board):
 #########################################################          WITH STCs        ###############################################
 
 
-def PTTmodulestoTextwithSTC(Geometry,Board):
+def PTTmodulestoTextwithSTC(Geometry,Board,edges):
     Layers = Boards[Board]
     Layers_Scint = Boards_scintillators[Board][1]
-
-    pTTCEE,pTTCEH = PTTarraytoPTTboardwithSTC(Geometry,Board)
+    if edges:
+        Values = Values2028
+    else :
+        Values = Values2024
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    pTTCEE,pTTCEH = PTTarraytoPTTboardwithSTC(Geometry,Boardnb_binphi,nb_bineta)
     nb_moduleCEE,nb_moduleCEH = nombreSiModules(Geometry,Board)
     nb_scint = nombreScintillators(Geometry,Board)
 
@@ -257,37 +261,37 @@ def PTTmodulestoTextwithSTC(Geometry,Board):
             tCEH += resH + '\n'
     tCEE = '//* total number of input in adders '+str(int(adderE))+' */' + '\n' + '\n' +tCEE
     tCEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' +tCEE
-    tCEE = '/* num outputs = 480(out0-out479) */' + '\n' +tCEE
+    tCEE = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+' */' + '\n' +tCEE
     tCEE = '/* num inputs = ' +str(int(nb_moduleCEE))+ '(in0-in' + str(int(nb_moduleCEE-1)) + ') */' + '\n' + tCEE
     tCEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + tCEE
     tCEE += '};'
 
     tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
     tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
-    tCEH = '/* num outputs = 480(out0-out479) */' + '\n' +tCEH
+    tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+' */' + '\n' +tCEH
     tCEH = '/* num inputs = ' +str(int(nb_moduleCEH+nb_scint))+ '(in0-in' + str(int(nb_moduleCEH+nb_scint-1)) + ') */' + '\n' + tCEH
     tCEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + tCEH
     tCEH += '};'
 
     return (tCEE,tCEH)
 
-def PTTarraytoPTTboardwithSTC(Geometry,Board):
+def PTTarraytoPTTboardwithSTC(Geometry,Board,nb_binphi,nb_bineta):
     Layers = Boards[Board]
     Layers_Scint = Boards_scintillators[Board][1]
-    pTTCEE = [[[]for j in range(20)]for i in range(24)]
-    pTTCEH = [[[]for j in range(20)]for i in range(24)]
+    pTTCEE = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
+    pTTCEH = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
 
     for i in range(1,len(Layers)):
         Layer = Layers[i]
         if Layer < 27:
             pTTlay = PTTarray(Layer,True)
-            for i in range(24):
-                for j in range(20):
+            for i in range(nb_binphi):
+                for j in range(nb_bineta):
                     pTTCEE[i][j].append([Layer,pTTlay[i,j]])
         if Layer > 26:
             pTTlay = PTTarray(Layer,True)
-            for i in range(24):
-                for j in range(20):
+            for i in range(nb_binphi):
+                for j in range(nb_bineta):
                     stc = []
                     for k in range(len(pTTlay[i,j])):
                         if not np.array_equal(pTTlay[i,j,k],np.zeros(5)):
@@ -302,8 +306,8 @@ def PTTarraytoPTTboardwithSTC(Geometry,Board):
 
     Layer = Layers_Scint
     pTTscint = PTTarray(Layer,True)
-    for i in range(24):
-        for j in range(20):
+    for i in range(nb_binphi):
+        for j in range(nb_bineta):
             sc = []
             for k in range(len(pTTscint[i,j])):
                 if not np.array_equal(pTTscint[i,j,k],np.zeros(4)):

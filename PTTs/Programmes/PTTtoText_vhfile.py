@@ -44,7 +44,7 @@ def PTTmodulestoTextnoSTC(Geometry,Board,edges):
         Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    pTTCEE,pTTCEH = PTTarraytoPTTboardnoSTC(Geometry,Board,nb_binphi,nb_bineta)
+    pTTCEE,pTTCEH = PTTarraytoPTTboardnoSTC(Geometry,Board,edges,nb_binphi,nb_bineta)
     nb_moduleCEE,nb_moduleCEH = nombreSiModules(Geometry,Board)
     nb_scint = nombreScintillators(Geometry,Board)
 
@@ -83,7 +83,7 @@ def PTTmodulestoTextnoSTC(Geometry,Board,edges):
     return (tCEE,tCEH)
 
 
-def PTTarraytoPTTboardnoSTC(Geometry,Board,nb_binphi,nb_bineta):
+def PTTarraytoPTTboardnoSTC(Geometry,Board,edges,nb_binphi,nb_bineta):
     Layers = Boards[Board]
     Layers_Scint = Boards_scintillators[Board][1]
     pTTCEE = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
@@ -92,12 +92,12 @@ def PTTarraytoPTTboardnoSTC(Geometry,Board,nb_binphi,nb_bineta):
     for i in range(1,len(Layers)):
         Layer = Layers[i]
         if Layer < 27:
-            pTTlay = PTTarray(Layer,False)
+            pTTlay = PTTarray(Layer,False,edges)
             for i in range(nb_binphi):
                 for j in range(nb_bineta):
                     pTTCEE[i][j].append([Layer,pTTlay[i,j]])
         if Layer > 26:
-            pTTlay = PTTarray(Layer,False)
+            pTTlay = PTTarray(Layer,False,edges)
             for i in range(nb_binphi):
                 for j in range(nb_bineta):
                     mods = []
@@ -113,7 +113,7 @@ def PTTarraytoPTTboardnoSTC(Geometry,Board,nb_binphi,nb_bineta):
                         pTTCEH[i][j].append([Layer,mods])
 
     Layer = Layers_Scint
-    pTTscint = PTTarray(Layer,False)
+    pTTscint = PTTarray(Layer,False,edges)
     for i in range(nb_binphi):
         for j in range(nb_bineta):
             sc = []
@@ -239,7 +239,7 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
         Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    pTTCEE,pTTCEH = PTTarraytoPTTboardwithSTC(Geometry,Boardnb_binphi,nb_bineta)
+    pTTCEE,pTTCEH = PTTarraytoPTTboardwithSTC(Geometry,Board,edges,nb_binphi,nb_bineta)
     nb_moduleCEE,nb_moduleCEH = nombreSiModules(Geometry,Board)
     nb_scint = nombreScintillators(Geometry,Board)
 
@@ -277,7 +277,7 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
 
     return (tCEE,tCEH)
 
-def PTTarraytoPTTboardwithSTC(Geometry,Board,nb_binphi,nb_bineta):
+def PTTarraytoPTTboardwithSTC(Geometry,Board,edges,nb_binphi,nb_bineta):
     Layers = Boards[Board]
     Layers_Scint = Boards_scintillators[Board][1]
     pTTCEE = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
@@ -286,12 +286,12 @@ def PTTarraytoPTTboardwithSTC(Geometry,Board,nb_binphi,nb_bineta):
     for i in range(1,len(Layers)):
         Layer = Layers[i]
         if Layer < 27:
-            pTTlay = PTTarray(Layer,True)
+            pTTlay = PTTarray(Layer,True,edges)
             for i in range(nb_binphi):
                 for j in range(nb_bineta):
                     pTTCEE[i][j].append([Layer,pTTlay[i,j]])
         if Layer > 26:
-            pTTlay = PTTarray(Layer,True)
+            pTTlay = PTTarray(Layer,True,edges)
             for i in range(nb_binphi):
                 for j in range(nb_bineta):
                     stc = []
@@ -307,7 +307,7 @@ def PTTarraytoPTTboardwithSTC(Geometry,Board,nb_binphi,nb_bineta):
                         pTTCEH[i][j].append([Layer,stc])
 
     Layer = Layers_Scint
-    pTTscint = PTTarray(Layer,True)
+    pTTscint = PTTarray(Layer,True,edges)
     for i in range(nb_binphi):
         for j in range(nb_bineta):
             sc = []

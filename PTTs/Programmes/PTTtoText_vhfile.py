@@ -17,8 +17,8 @@ G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
-Values2024 = np.load('ValuesBins2024')
-Values2028 = np.load('ValuesBins2028')
+Values2024 = np.load('ValuesBins2024.npy')
+Values2028 = np.load('ValuesBins2028.npy')
 
 
 

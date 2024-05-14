@@ -239,7 +239,7 @@ def STC4LD(Module,z): #Renvoie les STC d'un module ayant 4 sommets
     ixmax = 0
     iymin=0
     iymax = 0
-    for i in range(4)):
+    for i in range(4):
         if i < 3:
             dist = (Module[0,i]-Module[0,i+1])**2 + (Module[1,i]-Module[1,i+1])**2
             if  dist > res:

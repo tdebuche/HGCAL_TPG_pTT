@@ -56,6 +56,7 @@ def Arealimit(Layer):  #Look at the area covered by bins only (avoid the edges p
 
 def pTTModule(Module,z,BinXY,PolyLimite,edges,Values): # Return the sharing of the energy of each module
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     L = []
     Mod_Poly = functions.pointtopolygon(Module)
     if not edges:

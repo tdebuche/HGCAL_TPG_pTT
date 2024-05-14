@@ -6,7 +6,7 @@ import functions
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 
-os.chdir("../../ProgrammesRessources")
+os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/ProgrammesRessources")
 UV = np.load('UVModules.npy')
 G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')

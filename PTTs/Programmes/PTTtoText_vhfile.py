@@ -396,14 +396,17 @@ os.chdir("../PTTs/Ressources")
 Board = args.Board
 if args.Edges == 'yes' and STCs == 'yes':
     textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,True)
+    name ="PTTs_Board"+  str(Board) + 'Edges'+'STCs'
 if args.Edges == 'no'and STCs == 'yes':
+    name ="PTTs_Board"+  str(Board) + 'NoEdges'+'STCs'
     textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
 if args.Edges == 'yes' and STCs == 'no':
+    name ="PTTs_Board"+  str(Board) + 'Edges'+'NoSTCs'
     textCEE,textCEH = PTTmodulestoTextwithoutSTC(G,Board,True)
 if args.Edges == 'no'and STCs == 'no':
+    name ="PTTs_Board"+  str(Board) + 'NoEdges'+'NoSTCs'
     textCEE,textCEH = PTTmodulestoTextwithoutSTC(G,Board,False)
     
-name = "PTTs_Board"+  str(Board)
 file = open(name+"CEE"+".txt", "w")
 file.write(textCEE)
 file.close()

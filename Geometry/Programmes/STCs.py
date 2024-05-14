@@ -11,9 +11,9 @@ from functions import pointtopolygon
 from functions import binetaphitoXY
 from functions import binetaphiRADtoXY
 from functions import etaphicentre
-from functions import ModulestoSommets
-from functions import BintoBinSommets
-from functions import STCtoSTCSommets
+from functions import ModulestoVertices
+from functions import BintoBinVertices
+from functions import STCtoSTCVertices
 
 
 os.chdir("../Ressources")
@@ -851,7 +851,7 @@ def STC5smallHD(Module,z,marker_i):  #Renvoie les STC d'un module ayant 5 sommet
 ################################################################################################################################
 #Record STCs
 
-"""
+
 os.chdir("../Ressources")
 STCLD3447 = STCLayersLD(G,34,47)
 STCHD2733 = STCLayersHD(G,27,33)
@@ -859,7 +859,7 @@ np.save('STCHD.npy',STCHD2733)
 np.save('STCLD.npy',STCLD3447)
 os.chdir("../../ProgrammesRessources")
 np.save('STCHD.npy',STCHD2733)
-np.save('STCLD.npy',STCLD3447)"""
+np.save('STCLD.npy',STCLD3447)
 
 
 

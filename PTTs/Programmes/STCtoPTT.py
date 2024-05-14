@@ -64,6 +64,7 @@ def Arealimit(Layer):  #Permet de regarder seulement l'air concernée par les bi
 
 def pTTSTC(STC,z,BinXY,PolyLimite,edges,Values): # Renvoie les rapports [aire(intersection modulebin)/aire(module)]
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     
     L = []
     STC_Poly = functions.pointtopolygon(STC)

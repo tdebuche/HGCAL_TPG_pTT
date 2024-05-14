@@ -1,6 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from prelim import etaphitoXY
+from prelim import etaphiRADtoXY
+from prelim import XYtoetaphi
+from prelim import polygontopoints
+from prelim import pointtopolygon
+from prelim import binetaphitoXY
+from prelim import binetaphiRADtoXY
+from prelim import etaphicentre
 from functions import ModulestoVertices
 from functions import STCtoSTCVertices
 

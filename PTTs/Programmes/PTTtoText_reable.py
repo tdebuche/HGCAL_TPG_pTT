@@ -1,21 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from shapely.geometry import Polygon
-from functions import etaphitoXY
-from functions import etaphiRADtoXY
-from functions import XYtoetaphi
-from functions import polygontopoints
-from functions import pointtopolygon
-from functions import binetaphitoXY
-from functions import binetaphiRADtoXY
-from functions import etaphicentre
-from functions import ModulestoVertices
-from functions import BintoBinVertices
-from functions import STCtoSTCVertices
+import functions
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
+import argparse
 
 os.chdir("../../ProgrammesRessources")
 
@@ -159,10 +149,12 @@ def PTTmodulestoText(Geometry,Board):
 
 
 ##################################################################################################################################
+#Parameters :
+
 """
-Board = 1
+Board = 0
 os.chdir("../PTTs/Ressources")
-textCEE,textCEH = PTTmodulestoText(G,Board)
+textCEE,textCEH = PTTmodulestoText(G,Board,edges)
 name = "PTTs_Board"+  str(Board)
 file = open(name+"CEE"+".txt", "w")
 file.write(textCEE)

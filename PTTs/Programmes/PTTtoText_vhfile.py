@@ -2,17 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from functions import etaphitoXY
-from functions import etaphiRADtoXY
-from functions import XYtoetaphi
-from functions import polygontopoints
-from functions import pointtopolygon
-from functions import binetaphitoXY
-from functions import binetaphiRADtoXY
-from functions import etaphicentre
-from functions import ModulestoVertices
-from functions import BintoBinVertices
-from functions import STCtoSTCVertices
+import functions
+import argparse
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
@@ -20,14 +11,15 @@ from PTT import PTTarray
 os.chdir("../../ProgrammesRessources")
 
 UV = np.load('UVModules.npy')
-Binetaphi = np.load('Binetaphi2024.npy')
-#Binetaphi = np.load('Binetaphi2028.npy')
+Binetaphi2024 = np.load('Binetaphi2024.npy')
+Binetaphi2028 = np.load('Binetaphi2028.npy')
 G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
-etamin = 1.305
-N = 16
+Values2024 = np.load('ValuesBins2024')
+Values2028 = np.load('ValuesBins2028')
+
 
 
 #for the numbering of modules in a board
@@ -43,11 +35,15 @@ Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43]
 ##########################################        Write the text for Split    #######################################
 
 
-def PTTmodulestoTextnoSTC(Geometry,Board):
+def PTTmodulestoTextnoSTC(Geometry,Board,edges):
     Layers = Boards[Board]
     Layers_Scint = Boards_scintillators[Board][1]
-
-    pTTCEE,pTTCEH = PTTarraytoPTTboardnoSTC(Geometry,Board)
+    if edges:
+        Values = Values2028
+    else :
+        Values = Values2024
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    pTTCEE,pTTCEH = PTTarraytoPTTboardnoSTC(Geometry,Board,nb_binphi,nb_bineta)
     nb_moduleCEE,nb_moduleCEH = nombreSiModules(Geometry,Board)
     nb_scint = nombreScintillators(Geometry,Board)
 
@@ -59,8 +55,8 @@ def PTTmodulestoTextnoSTC(Geometry,Board):
     adderH = 0
     maxE = 0
     maxH = 0
-    for i in range(24):
-        for j in range(20):
+    for i in range(nb_binphi):
+        for j in range(nb_bineta):
             resE,intmatrixE,adderE,nbmodintowerE = OnepTTCEEnoSTC(pTTCEE,i,j,intmatrixE,adderE)
             if nbmodintowerE > maxE:
                 maxE = nbmodintowerE
@@ -71,14 +67,14 @@ def PTTmodulestoTextnoSTC(Geometry,Board):
             tCEH += resH + '\n'
     tCEE = '//* total number of input in adders '+str(int(adderE))+' */' + '\n' + '\n' +tCEE
     tCEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' +tCEE
-    tCEE = '/* num outputs = 480(out0-out479) */' + '\n' +tCEE
+    tCEE = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEE
     tCEE = '/* num inputs = ' +str(int(nb_moduleCEE))+ '(in0-in' + str(int(nb_moduleCEE-1)) + ') */' + '\n' + tCEE
     tCEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + tCEE
     tCEE += '};'
 
     tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
     tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
-    tCEH = '/* num outputs = 480(out0-out479) */' + '\n' +tCEH
+    tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEH
     tCEH = '/* num inputs = ' +str(int(nb_moduleCEH+nb_scint))+ '(in0-in' + str(int(nb_moduleCEH+nb_scint-1)) + ') */' + '\n' + tCEH
     tCEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + tCEH
     tCEH += '};'
@@ -86,23 +82,23 @@ def PTTmodulestoTextnoSTC(Geometry,Board):
     return (tCEE,tCEH)
 
 
-def PTTarraytoPTTboardnoSTC(Geometry,Board):
+def PTTarraytoPTTboardnoSTC(Geometry,Board,nb_binphi,nb_bineta):
     Layers = Boards[Board]
     Layers_Scint = Boards_scintillators[Board][1]
-    pTTCEE = [[[]for j in range(20)]for i in range(24)]
-    pTTCEH = [[[]for j in range(20)]for i in range(24)]
+    pTTCEE = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
+    pTTCEH = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
 
     for i in range(1,len(Layers)):
         Layer = Layers[i]
         if Layer < 27:
             pTTlay = PTTarray(Layer,False)
-            for i in range(24):
-                for j in range(20):
+            for i in range(nb_binphi):
+                for j in range(nb_bineta):
                     pTTCEE[i][j].append([Layer,pTTlay[i,j]])
         if Layer > 26:
             pTTlay = PTTarray(Layer,False)
-            for i in range(24):
-                for j in range(20):
+            for i in range(nb_binphi):
+                for j in range(nb_bineta):
                     mods = []
                     for k in range(len(pTTlay[i,j])):
                         if not np.array_equal(pTTlay[i,j,k],np.zeros(4)):
@@ -117,8 +113,8 @@ def PTTarraytoPTTboardnoSTC(Geometry,Board):
 
     Layer = Layers_Scint
     pTTscint = PTTarray(Layer,False)
-    for i in range(24):
-        for j in range(20):
+    for i in range(nb_binphi):
+        for j in range(nb_bineta):
             sc = []
             for k in range(len(pTTscint[i,j])):
                 if not np.array_equal(pTTscint[i,j,k],np.zeros(4)):
@@ -380,196 +376,29 @@ def OnepTTCEHwithSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
 
 
 
-"""
-def PTTmodulestoTextwithSTC(Geometry,Board):
-    Layers = Boards[Board]
-    Layers_Scint = Boards_scintillators[Board][1]
-    pTTCEE = [[[]for j in range(20)]for i in range(24)]
-    pTTCEH = [[[]for j in range(20)]for i in range(24)]
-    nb_moduleCEE = 0
-    nb_moduleCEH = 0
-    nb_scint = 0
-    nb_stc = 0
-    for i in range(1,len(Layers)):
-        Layer = Layers[i]
-        Modules = Geometry[Layer-1]
-        for k in range(len(Modules)):
-            M = Modules[k]
-            a = 0
-            for j in range(len(M[0])):
-                if M[0,j] !=0 or M[1,j] != 0:
-                    a +=1
-            if a >0:
-                if Layer <27:
-                    nb_moduleCEE +=1
-                if Layer > 26:
-                    if Layer >33:
-                        if k < Layer_Scintillator[Layer-34]:
-                            nb_moduleCEH +=1
-                    if Layer < 34:
-                        nb_moduleCEH += 1
-        pTTlay = PTTarray(Layer)
-        if Layer < 27:
-            for i in range(24):
-                for j in range(20):
-                    pTTCEE[i][j].append([Layer,pTTlay[i,j]])
-        if Layer > 26:
-            for i in range(24):
-                for j in range(20):
-                    pTTCEH[i][j].append([Layer,pTTlay[i,j]])
-
-
-    for i in range(1,len(Layers)):
-        Layer = Layers[i]
-        if Layer > 26:
-            if Layer < 34:
-                STC = STCHD[Layer-27]
-            else:
-                STC = STCLD[Layer-34]
-            for j in range(len(STC)):
-                if j < IndminScint[Layer-34]
-                for k in range(len(STC[j])):
-                    stc = STC[j,k]
-                    a = 0
-                    for j in range(len(stc[0])):
-                        if stc[0,j] !=0 or stc[1,j] != 0:
-                            a +=1
-                    if a>0:
-                        nb_stc +=1
-
-
-    Layer = Layers_Scint
-    Modules = Geometry[Layer-1]
-    for i in range(len(Modules)):
-        M = Modules[i]
-        a = 0
-        for j in range(len(M[0])):
-            if M[0,j] !=0 or M[1,j] != 0:
-                a +=1
-        if a >0:
-            if i >= IndminScint[Layer-34]:
-                nb_scint += 1
-    pTTscint = PTTarray(Layer)
-    for i in range(24):
-        for j in range(20):
-            sc = []
-            for k in range(len(pTTscint[i,j])):
-                if not np.array_equal(pTTscint[i,j,k],np.zeros(5)):
-                    indice = pTTscint[i,j,k,0]
-                    if indice >= IndminScint[Layer-34] :
-                        sc.append(pTTscint[i,j,k])
-            pTTCEH[i][j].append([Layer,sc])
-
-
-    Layer = Layers_Scint
-    if Layer > 26:
-        if Layer < 34:
-            STC = STCHD[Layer-27]
-        else:
-            STC = STCLD[Layer-34]
-        for j in range(len(STC)):
-            for k in range(len(STC[j])):
-                stc = STC[j,k]
-                a = 0
-                for j in range(len(stc[0])):
-                    if stc[0,j] !=0 or stc[1,j] != 0:
-                        a +=1
-                if a>0:
-                    nb_stc +=1 ################################################################################################
-
-    tCEE = ''
-    tCEH = ''
-    intmatrixE = 0
-    intmatrixH = 0
-    adderE = 0
-    adderH = 0
-    maxE = 0
-    maxH = 0
-    for i in range(24):
-        for j in range(20):
-            nbmodintower = 0
-            for lay in range(len(pTTCEE[i][j])):
-                for k  in range(len(pTTCEE[i][j][lay][1])):
-                    if not np.array_equal(pTTCEE[i][j][lay][1][k],np.zeros(4)):
-                        nbmodintower += 1
-                    if nbmodintower > maxE:
-                        maxE = nbmodintower
-            if i*20+j<10:
-                nbzeros= '000'
-            if i*20+j>9 and i*20+j<100:
-                nbzeros='00'
-            if i*20+j>100:
-                nbzeros= '0'
-            tCEE+='/* out'+nbzeros+str(int(i*20+j))+'_em-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', '
-            intmatrixE +=1
-            adderE += nbmodintower
-            for lay in range(len(pTTCEE[i][j])):
-                for k  in range(len(pTTCEE[i][j][lay][1])):
-                    Layer = pTTCEE[i][j][lay][0]
-                    if not np.array_equal(pTTCEE[i][j][lay][1][k],np.zeros(4)):
-                        mod = pTTCEE[i][j][lay][1][k]
-                        tCEE +=  str(int(mod[0]))+', '+str(int(mod[3]))+', '
-                        intmatrixE += 2
-            tCEE+= '\n'
-    for i in range(24):
-        for j in range(20):
-            nbmodintower = 0
-            for lay in range(len(pTTCEH[i][j])):
-                Layer = pTTCEH[i][j][lay][0]
-                for k  in range(len(pTTCEH[i][j][lay][1])):
-                    if not np.array_equal(pTTCEH[i][j][lay][1][k],np.zeros(5)): #with STCs
-                        mod = pTTCEH[i][j][lay][1][k]
-                        if Layer  == Layers_Scint and mod[0] >= IndminScint[Layer-34]:
-                            nbmodintower += 1
-                        if Layer  != Layers_Scint and mod[0] < IndminScint[Layer-34]:
-                            nbmodintower += 1
-                    if nbmodintower > maxH:
-                        maxH = nbmodintower
-            intmatrixH +=1
-            adderH += nbmodintower
-            if i*20+j<10:
-                nbzeros= '000'
-            if i*20+j>9 and i*20+j<100:
-                nbzeros='00'
-            if i*20+j>100:
-                nbzeros= '0'
-            tCEH+='/* out'+nbzeros+str(int(i*20+j))+'_had-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', '
-            for lay in range(len(pTTCEH[i][j])):
-                Layer = pTTCEH[i][j][lay][0]
-                for k  in range(len(pTTCEH[i][j][lay][1])):
-                    if not np.array_equal(pTTCEH[i][j][lay][1][k],np.zeros(5)): #with STCs
-                        mod = pTTCEH[i][j][lay][1][k]
-                        if Layer  == Layers_Scint and mod[0] >= IndminScint[Layer-34]:
-                            tCEH += str(int(nbl+mod[0]-IndminScint[Layer-34]))+', '+ str(int(mod[3]))+', '+str(int(mod[4]))+', '#with STCs
-                            intmatrixH += 3 #with STCs
-                        if Layer  != Layers_Scint and mod[0] < IndminScint[Layer-34]:
-                            nbl = nb_mod_beforelayer[Layer - 14]
-                            tCEH += str(int(nbl+mod[0]))+', '+ str(int(mod[3]))+', '+str(int(mod[4]))+', ' #with STCs
-                            intmatrixH += 3 #with STCs
-            tCEH += '\n'
-    tCEE = '//* total number of input in adders '+str(int(adderE))+' */' + '\n' + '\n' +tCEE
-    tCEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' +tCEE
-    tCEE = '/* num outputs = 480(out0-out479) */' + '\n' +tCEE
-    tCEE = '/* num inputs = ' +str(int(nb_moduleCEE))+ '(in0-in' + str(int(nb_moduleCEE-1)) + ') */' + '\n' + tCEE
-    tCEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + tCEE
-
-    tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
-    tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
-    tCEH = '/* num outputs = 480(out0-out479) */' + '\n' +tCEH
-    tCEH = '/* num inputs = ' +str(int(nb_stc+nb_scint))+ '(in0-in' + str(int(nb_stc+nb_scint-1)) + ') */' + '\n' + tCEH #with STCs
-    tCEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + tCEH
-    tCEE += '};'
-    tCEH += '};'
-    return (tCEE,tCEH)"""
-
 
 ##################################################################################################################################
+#Parameters:
+
+parser = argparse.ArgumentParser()
+parser.add_argument("Board", help="Layer to display",type=int)
+parser.add_argument("--STCs",default = 'yes', help="With (yes) or without STCs (no)")
+parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(no)")
+args = parser.parse_args()
 
 # to test
-"""
-Board = 0
 os.chdir("../PTTs/Ressources")
-textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board)
+
+Board = args.Board
+if args.Edges == 'yes' and STCs == 'yes':
+    textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,True)
+if args.Edges == 'no'and STCs == 'yes':
+    textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
+if args.Edges == 'yes' and STCs == 'no':
+    textCEE,textCEH = PTTmodulestoTextwithoutSTC(G,Board,True)
+if args.Edges == 'no'and STCs == 'no':
+    textCEE,textCEH = PTTmodulestoTextwithoutSTC(G,Board,False)
+    
 name = "PTTs_Board"+  str(Board)
 file = open(name+"CEE"+".txt", "w")
 file.write(textCEE)
@@ -577,7 +406,7 @@ file.close()
 name += "withSTCs"
 file = open(name+"CEH"+".txt", "w")
 file.write(textCEH)
-file.close()"""
+file.close()
 
 # Record with STCs
 """

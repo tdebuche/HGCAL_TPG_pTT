@@ -19,7 +19,7 @@ STCHD = np.load('STCHD.npy')
 #Choices
 parser = argparse.ArgumentParser()
 parser.add_argument("Layer", help="Layer to display",type=int)
-parser.add_argument("Bins",default = 'without', help="With or without bins")
+parser.add_argument("-Bins",default = 'withoutBins', help="With or without bins")
 args = parser.parse_args()
 Layer = args.Layer
 Binsyesorno =  args.Bins
@@ -49,7 +49,7 @@ print(str(i))
 
 
 #Bins
-if Binsyesorno == 'with':
+if Binsyesorno == 'withBins':
     for i in range(len(BinXY)):
        plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 

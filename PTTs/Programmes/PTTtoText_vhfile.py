@@ -402,10 +402,10 @@ if args.Edges == 'no'and args.STCs == 'yes':
     textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
 if args.Edges == 'yes' and args.STCs == 'no':
     name ="PTTs_Board"+  str(Board) + 'Edges'+'NoSTCs'
-    textCEE,textCEH = PTTmodulestoTextNoSTC(G,Board,True)
+    textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,True)
 if args.Edges == 'no'and args.STCs == 'no':
     name ="PTTs_Board"+  str(Board) + 'NoEdges'+'NoSTCs'
-    textCEE,textCEH = PTTmodulestoTextNoSTC(G,Board,False)
+    textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,False)
     
 file = open(name+"CEE"+".txt", "w")
 file.write(textCEE)

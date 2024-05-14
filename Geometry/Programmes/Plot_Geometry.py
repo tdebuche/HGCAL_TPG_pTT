@@ -19,7 +19,7 @@ STCHD = np.load('STCHD.npy')
 #Choices
 parser = argparse.ArgumentParser()
 parser.add_argument("Layer", help="Layer to display",type=int)
-parser.add_argument("Bins", help="With or without bins",type=bool,default = True)
+parser.add_argument("Bins",default = True, help="With or without bins",type=bool)
 args = parser.parse_args()
 Layer = args.Layer
 Binsyesorno =  args.Bins

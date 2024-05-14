@@ -34,7 +34,7 @@ def PTTLayer(Layer,STCyesorno,edges):
 def constructionPTT(Layer,STCyesorno,edges,Values):
     listpttpermodules = PTTLayer(Layer,STCyesorno,edges)
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
-    
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     if Layer < 48 and not STCyesorno : 
         L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
         for i in range(len(listpttpermodules)):
@@ -73,6 +73,7 @@ def PTTarray(Layer,STCyesorno,edges):
     else :
         Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     
     max = 0
     for i in range(len(L)):

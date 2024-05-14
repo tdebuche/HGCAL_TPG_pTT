@@ -31,11 +31,12 @@ def PTTLayer(Layer,STCyesorno,edges):
             return pTTSTCs(STCLD,STCHD,Layer,edges)  
 
 
-def constructionPTT(Layer,STCyesorno,edges):
+def constructionPTT(Layer,STCyesorno,edges,Values):
     listpttpermodules = PTTLayer(Layer,STCyesorno,edges)
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     
     if Layer < 48 and not STCyesorno : 
-        L =[[[] for j in range(20)] for i in range(24)]
+        L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
         for i in range(len(listpttpermodules)):
             for j in range(len(listpttpermodules[i])):
                 iptt,jptt,ratio = listpttpermodules[i][j]
@@ -44,7 +45,7 @@ def constructionPTT(Layer,STCyesorno,edges):
                 L[iptt][jptt].append([i,u,v,ratio])
                 
     if Layer < 27 and STCyesorno :   
-        L =[[[] for j in range(20)] for i in range(24)]
+        L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
         for i in range(len(listpttpermodules)):
             for j in range(len(listpttpermodules[i])):
                 iptt,jptt,ratio = listpttpermodules[i][j]
@@ -53,7 +54,7 @@ def constructionPTT(Layer,STCyesorno,edges):
                 L[iptt][jptt].append([i,u,v,ratio])
 
     if Layer > 26 and STCyesorno :
-        L =[[[] for j in range(20)] for i in range(24)]
+        L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
         for i in range(len(listpttpermodules)):
          for j in range(len(listpttpermodules[i])):
                 for k in range(len(listpttpermodules[i][j])):
@@ -71,18 +72,20 @@ def PTTarray(Layer,STCyesorno,edges):
         Values = Values2028
     else :
         Values = Values2024
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    
     max = 0
     for i in range(len(L)):
         for j in range(len(L[i])):
             if len(L[i][j]) >max:
                 max = len(L[i][j])
     if Layer < 27:
-        A = np.zeros((24,20,max,4))
+        A = np.zeros((nb_binphi,nb_bineta,max,4))
     else :
         if not STCyesorno:
-            A = np.zeros((24,20,max,4)) #without STCs
+            A = np.zeros((nb_binphi,nb_bineta,max,4)) 
         if STCyesorno:
-            A = np.zeros((24,20,max,5)) #with STCs
+            A = np.zeros((nb_binphi,nb_bineta,max,5)) 
     for i in range(len(L)):
         for j in range(len(L[i])):
             for k in range(len(L[i][j])):

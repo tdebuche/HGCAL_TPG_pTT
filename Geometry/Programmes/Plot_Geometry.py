@@ -1,19 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-
-from functions import etaphitoXY
-from functions import etaphiRADtoXY
-from functions import XYtoetaphi
-from functions import polygontopoints
-from functions import pointtopolygon
-from functions import binetaphitoXY
-from functions import binetaphiRADtoXY
-from functions import etaphicentre
-from functions import ModulestoVertices
-from functions import BintoBinVertices
-from functions import STCtoSTCVertices
-
+import functions
 
 os.chdir("../Ressources")
 Z = np.load("Z.npy")
@@ -30,10 +18,10 @@ STCHD = np.load('STCHD.npy')
 Layer = 40
 zlay = Z[Layer-1]
 Modules = G[Layer-1]
-BinXY= binetaphitoXY(Binetaphi2024,zlay) #if 20*24
-#BinXY= binetaphitoXY(Binetaphi2028,zlay) #if 20*28
-ModuleVertices = ModulestoVertices(Modules)
-BinVertices = BintoBinVertices(BinXY)
+BinXY= functions.binetaphitoXY(Binetaphi2024,zlay) #if 20*24
+#BinXY= functions.binetaphitoXY(Binetaphi2028,zlay) #if 20*28
+ModuleVertices = functions.ModulestoVertices(Modules)
+BinVertices = functions.BintoBinVertices(BinXY)
 uv = UV[Layer-1]
 
 #for the numbering of input S1
@@ -46,8 +34,8 @@ plt.figure(figsize = (12,8))
 #Modules
 for i in range(len(ModuleVertices)):
     plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black')
-    eta,phi = etaphicentre(Modules[i],zlay)
-    x,y = etaphitoXY(eta,phi,zlay)
+    eta,phi = functions.etaphicentre(Modules[i],zlay)
+    x,y = functions.etaphitoXY(eta,phi,zlay)
     #plt.annotate(str(i),(x - 60,y -10),size =  '8')
 print(str(i))
 
@@ -59,10 +47,10 @@ for i in range(len(BinXY)):
 #STCs
 if Layer >33:
     STC = STCLD[Layer-34]
-    STCVertices = STCtoSTCVertices(STCLD[Layer-34])
+    STCVertices = functions.STCtoSTCVertices(STCLD[Layer-34])
 if Layer <34 and Layer > 26:
     STC = STCHD[Layer-27]
-    STCVertices = STCtoSTCVertices(STCHD[Layer-27])
+    STCVertices = functions.STCtoSTCVertices(STCHD[Layer-27])
 if Layer > 26:
         for i in range(len(STCVertices)):
             for j in range(len(STCVertices[i])):
@@ -71,15 +59,15 @@ if Layer > 26:
 
 #UV
 for i in range(len(ModuleVertices)):
-    eta,phi = etaphicentre(Modules[i],zlay)
-    x,y = etaphitoXY(eta,phi,zlay)
+    eta,phi = functions.etaphicentre(Modules[i],zlay)
+    x,y = functions.etaphitoXY(eta,phi,zlay)
     #plt.annotate('(' + str(uv[i][0]) +','+str(uv[i][1])+')',(x - 60,y -10),size =  '8')
 
 
 #Numbering
 for i in range(len(ModuleVertices)):
-    eta,phi = etaphicentre(Modules[i],zlay)
-    x,y = etaphitoXY(eta,phi,zlay)
+    eta,phi = functions.etaphicentre(Modules[i],zlay)
+    x,y = functions.etaphitoXY(eta,phi,zlay)
     if Layer > 33:
         if i < IndminScint[Layer-34]:
             N = min_numberingmod[Layer-14]
@@ -135,16 +123,16 @@ for k in range(0,34):
         Layer = k + 14
     zlay = Z[Layer-1]
     Modules = G[Layer-1]
-    BinXY= binetaphitoXY(Binetaphi,zlay)
-    ModuleVertices = ModulestoVertices(Modules)
-    BinVertices = BintoBinVertices(BinXY)
+    BinXY= functions.binetaphitoXY(Binetaphi,zlay)
+    ModuleVertices = functions.ModulestoVertices(Modules)
+    BinVertices = functions.BintoBinVertices(BinXY)
     uv = UV[Layer-1]
     if Layer >33:
         STC = STCLD[Layer-34]
-        STCVertices = STCtoSTCVertices(STCLD[Layer-34])
+        STCVertices = functions.STCtoSTCVertices(STCLD[Layer-34])
     if Layer <34 and Layer > 26:
         STC = STCHD[Layer-27]
-        STCVertices = STCtoSTCVertices(STCHD[Layer-27])
+        STCVertices = functions.STCtoSTCVertices(STCHD[Layer-27])
     plt.figure(figsize = (12,8))
     plt.title(label =  'Layer '+str(Layer))
     plt.xlabel('x (mm)')
@@ -152,7 +140,7 @@ for k in range(0,34):
     for i in range(len(ModuleVertices)):
         plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black')
         eta,phi = etaphicentre(Modules[i],zlay)
-        x,y = etaphitoXY(eta,phi,zlay)
+        x,y = functions.etaphitoXY(eta,phi,zlay)
 
 
         #if numbering

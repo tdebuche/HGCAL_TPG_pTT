@@ -17,7 +17,7 @@ from functions import STCtoSTCVertices
 
 
 os.chdir("../Ressources")
-G = np.load('Geometry.npy')
+G = np.load('ModulesGeometry.npy')
 
 
 #There are two scenarios for the orientation of  STCs 

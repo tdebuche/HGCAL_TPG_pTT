@@ -23,14 +23,13 @@ parser.add_argument("--Bins",default = 'no', help="With or without bins")
 parser.add_argument("--UV",default = 'no', help="With or without UV")
 parser.add_argument("--Numbering",default = 'no', help="With or without numbering")
 parser.add_argument("--STCs",default = 'yes', help="With or without STCs")
+parser.add_argument("--Edges",default = 'no', help="With or without edges")
 args = parser.parse_args()
 Layer = args.Layer
 
 
 zlay = Z[Layer-1]
 Modules = G[Layer-1]
-BinXY= functions.binetaphitoXY(Binetaphi2024,zlay) #if 20*24
-#BinXY= functions.binetaphitoXY(Binetaphi2028,zlay) #if 20*28
 ModuleVertices = functions.ModulestoVertices(Modules)
 BinVertices = functions.BintoBinVertices(BinXY)
 uv = UV[Layer-1]
@@ -49,6 +48,9 @@ print(str(i))
 
 #Bins
 if args.Bins == 'yes':
+    BinXY= functions.binetaphitoXY(Binetaphi2024,zlay)
+    if args.edges == 'yes':
+        BinXY= functions.binetaphitoXY(Binetaphi2028,zlay) 
     for i in range(len(BinXY)):
        plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 

@@ -409,11 +409,11 @@ if args.Edges == 'no'and args.STCs == 'no':
     name ="PTTs_Board"+  str(Board) + 'NoEdges'+'NoSTCs'
     textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,False)
     
-file = open(name+"CEE"+".vh", "w")
+file = open(name+"CEE"+".txt", "w")
 file.write(textCEE)
 file.close()
 name += "withSTCs"
-file = open(name+"CEH"+".vh", "w")
+file = open(name+"CEH"+".txt", "w")
 file.write(textCEH)
 file.close()
 

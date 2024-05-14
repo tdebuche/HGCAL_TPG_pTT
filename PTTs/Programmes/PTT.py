@@ -12,8 +12,8 @@ G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
-Values2024 = np.load('ValuesBins2024')
-Values2028 = np.load('ValuesBins2028')
+Values2024 = np.load('ValuesBins2024.npy')
+Values2028 = np.load('ValuesBins2028.npy')
 
 
 ######### PTTarray -> array(24,20,maxmodulesperPTT,5(or6)) -> 5 for CE-E (without STC indices) -> 6 for CE-H ########

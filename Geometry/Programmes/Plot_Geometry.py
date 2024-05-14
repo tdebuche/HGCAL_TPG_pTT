@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import functions
+import argparse
+
 
 os.chdir("../Ressources")
 Z = np.load("Z.npy")
@@ -14,8 +16,15 @@ STCHD = np.load('STCHD.npy')
 
 #In this programme, you can choose to plot (or not) modules, bins, STCs, and put the numbering of modules : u,v numbering, numbering of the layer, numbering of the board
 
-#Layer to draw
-Layer = 40
+#Choices
+parser = argparse.ArgumentParser()
+parser.add_argument("Layer", help="Layer to display",type=int)
+parser.add_argument("Bins", help="With or without bins",type=bool,default = True)
+args = parser.parse_args()
+Layer = args.Layer
+Binsyesorno =  args.Bins
+print(Layer)
+print(Bins)
 zlay = Z[Layer-1]
 Modules = G[Layer-1]
 BinXY= functions.binetaphitoXY(Binetaphi2024,zlay) #if 20*24

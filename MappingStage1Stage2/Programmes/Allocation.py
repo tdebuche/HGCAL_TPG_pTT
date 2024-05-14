@@ -214,6 +214,7 @@ def hexatobinary(nbbits,hexanumber):
 def binarytohexa(nbhexa,binary):
     return(decimaltohexa(nbhexa,binarytodecimal(binary)))
 
+os.chdir("../Ressources")
 file = open("test.txt", "w")
 file.write(allocationv2())
 file.close()

@@ -8,7 +8,7 @@ os.chdir("../../ProgrammesRessources")
 
 Binetaphi2024 = np.load('Binetaphi2024.npy')
 Binetaphi2028 = np.load('Binetaphi2028.npy')
-G = np.load('Geometry.npy')
+G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')

@@ -394,16 +394,16 @@ args = parser.parse_args()
 os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources")
 
 Board = args.Board
-if args.Edges == 'yes' and STCs == 'yes':
+if args.Edges == 'yes' and args.STCs == 'yes':
     textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,True)
     name ="PTTs_Board"+  str(Board) + 'Edges'+'STCs'
-if args.Edges == 'no'and STCs == 'yes':
+if args.Edges == 'no'and args.STCs == 'yes':
     name ="PTTs_Board"+  str(Board) + 'NoEdges'+'STCs'
     textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
-if args.Edges == 'yes' and STCs == 'no':
+if args.Edges == 'yes' and args.STCs == 'no':
     name ="PTTs_Board"+  str(Board) + 'Edges'+'NoSTCs'
     textCEE,textCEH = PTTmodulestoTextwithoutSTC(G,Board,True)
-if args.Edges == 'no'and STCs == 'no':
+if args.Edges == 'no'and args.STCs == 'no':
     name ="PTTs_Board"+  str(Board) + 'NoEdges'+'NoSTCs'
     textCEE,textCEH = PTTmodulestoTextwithoutSTC(G,Board,False)
     

@@ -15,7 +15,7 @@ Values2028 = np.load('ValuesBins2028.npy')
                      
 
 N = 16 #energies divided by N (for the sharing)
-
+etamin = 1.305
 #########################Build PTTs : array(nb_modules,nb_PTTs,3) (module,PTTs)-->[phiBin,etaBin,ratio] ########################
 
 

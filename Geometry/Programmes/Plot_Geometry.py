@@ -19,7 +19,7 @@ STCHD = np.load('STCHD.npy')
 #Choices
 parser = argparse.ArgumentParser()
 parser.add_argument("Layer", help="Layer to display",type=int)
-parser.add_argument("-Bins",default = 'withoutBins', help="With or without bins")
+parser.add_argument("--Bins",default = 'no', help="With or without bins")
 args = parser.parse_args()
 Layer = args.Layer
 Binsyesorno =  args.Bins
@@ -32,10 +32,6 @@ ModuleVertices = functions.ModulestoVertices(Modules)
 BinVertices = functions.BintoBinVertices(BinXY)
 uv = UV[Layer-1]
 
-#for the numbering of input S1
-min_numberingmod = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 198, 0, 52, 72, 95, 72, 95]
-min_numberingscint = [132, 109, 136, 109, 104, 122, 110, 132, 118, 250, 114, 114, 95, 95]
-IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
 
 plt.figure(figsize = (12,8))
 
@@ -49,7 +45,7 @@ print(str(i))
 
 
 #Bins
-if Binsyesorno == 'withBins':
+if Binsyesorno == 'yes':
     for i in range(len(BinXY)):
        plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 
@@ -74,6 +70,9 @@ for i in range(len(ModuleVertices)):
 
 
 #Numbering
+min_numberingmod = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 198, 0, 52, 72, 95, 72, 95]
+min_numberingscint = [132, 109, 136, 109, 104, 122, 110, 132, 118, 250, 114, 114, 95, 95]
+IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
 for i in range(len(ModuleVertices)):
     eta,phi = functions.etaphicentre(Modules[i],zlay)
     x,y = functions.etaphitoXY(eta,phi,zlay)

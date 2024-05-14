@@ -15,7 +15,7 @@ Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 
 N = 16
-
+etamin = 1.305
 #######################Build PTTs : array(nb_modules,nb_STCs,nb_PTTs,3) (module,PTTs)-->[phiBin,etaBin,ratio]###################
 
 

@@ -6,27 +6,34 @@ import functions
 
 os.chdir("../../ProgrammesRessources")
 
-Binetaphi = np.load('Binetaphi2024.npy')
-#Binetaphi = np.load('Binetaphi2028.npy')
+Binetaphi2024 = np.load('Binetaphi2024.npy')
+Binetaphi2028 = np.load('Binetaphi2028.npy')
 G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
+Values2024 = np.load('ValuesBins2024')
+Values2028 = np.load('ValuesBins2028')
+                     
 
 N = 16 #energies divided by N (for the sharing)
-etamin = 1.305
 
 #########################Build PTTs : array(nb_modules,nb_PTTs,3) (module,PTTs)-->[phiBin,etaBin,ratio] ########################
 
 
 
-def pTTModules(Geometry,Layer): #Share the energy of each module
+def pTTModules(Geometry,Layer,edges): #Share the energy of each module
     z = Z[Layer-1]
-    BinXY= functions.binetaphitoXY(Binetaphi,z)
+    if edges:
+        BinXY= functions.binetaphitoXY(Binetaphi2028,z)
+        Values = Values2028
+    else :
+        BinXY= functions.binetaphitoXY(Binetaphi2024,z)
+        Values = Values2024
     PolyLimite = Arealimit(Layer)
     Modules = Geometry[Layer-1]
     L = []
     for i in range(len(Modules)):
         if not np.array_equal(Modules[i],np.zeros((2,6))):
-            Towers = areatocoef(pTTModule(Modules[i],z,BinXY,PolyLimite))
+            Towers = areatocoef(pTTModule(Modules[i],z,BinXY,PolyLimite,edges,Values))
             L.append(Towers)
     return(L)
 
@@ -47,19 +54,24 @@ def Arealimit(Layer):  #Look at the area covered by bins only (avoid the edges p
     return PolyLimite
 
 
-def pTTModule(Module,z,BinXY,PolyLimite): # Return teh sharing of the energy of each module
+def pTTModule(Module,z,BinXY,PolyLimite,edges,Values): # Return the sharing of the energy of each module
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     L = []
     Mod_Poly = functions.pointtopolygon(Module)
-    area_module = Mod_Poly.intersection(PolyLimite).area
+    if not edges:
+        area_module = Mod_Poly.intersection(PolyLimite).area
+    if edges:
+        area_module = Mod_Poly.area
     eta,phi = functions.etaphicentre(Module,z)
-    icentre= int(phi *36 /np.pi)
+    icentre= int((phi-phimin) *36 /np.pi)
     jcentre= int((eta -etamin) *36 /np.pi)
     for i in range(-4,5):
         for j in range(-4,5):
-            if (icentre+i)*20 + (jcentre+j) < len(BinXY) and (icentre+i)*20 + (jcentre+j)>= 0:
-                Area = AireBinModule(Module,BinXY[(icentre+i)*20 + (jcentre+j)])
-                if Area !=0:
-                    L.append([icentre+i,jcentre+j,Area/area_module])
+            if icentre+i >= 0 and icentre+i < nb_binphi:
+                if jcentre+j >= 0 and jcentre+j < nb_bineta:
+                    Area = AireBinModule(Module,BinXY[(icentre+i)*20 + (jcentre+j)])
+                    if Area !=0:
+                        L.append([icentre+i,jcentre+j,Area/area_module])
     return(L)
 
 

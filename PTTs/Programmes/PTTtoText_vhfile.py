@@ -8,7 +8,7 @@ from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 
-os.chdir("../../ProgrammesRessources")
+os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/ProgrammesRessources")
 
 UV = np.load('UVModules.npy')
 Binetaphi2024 = np.load('Binetaphi2024.npy')
@@ -391,7 +391,7 @@ parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(
 args = parser.parse_args()
 
 # to test
-os.chdir("../PTTs/Ressources")
+os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources")
 
 Board = args.Board
 if args.Edges == 'yes' and STCs == 'yes':

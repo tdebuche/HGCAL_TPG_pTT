@@ -6,22 +6,29 @@ import functions
 
 os.chdir("../../ProgrammesRessources")
 
-Binetaphi = np.load('Binetaphi2024.npy')
-#Binetaphi = np.load('Binetaphi2028.npy')
+Binetaphi2024 = np.load('Binetaphi2024.npy')
+Binetaphi2028 = np.load('Binetaphi2028.npy')
 G = np.load('Geometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
-etamin = 1.305
+Values2024 = np.load('ValuesBins2024')
+Values2028 = np.load('ValuesBins2028')
+
 N = 16
 
 #######################Build PTTs : array(nb_modules,nb_STCs,nb_PTTs,3) (module,PTTs)-->[phiBin,etaBin,ratio]###################
 
 
 
-def pTTSTCs(STCLD,STCHD,Layer): #Répartit les énergies des modules dans les Towers pour un layer donné
+def pTTSTCs(STCLD,STCHD,Layer,edges): #Répartit les énergies des modules dans les Towers pour un layer donné
     z = Z[Layer-1]
-    BinXY= functions.binetaphitoXY(Binetaphi,z)
+    if edges:
+        BinXY= functions.binetaphitoXY(Binetaphi2028,z)
+        Values = Values2028
+    else :
+        BinXY= functions.binetaphitoXY(Binetaphi2024,z)
+        Values = Values2024
     PolyLimite = Arealimit(Layer)
     if Layer > 33:
         STC = STCLD[Layer-34]
@@ -32,7 +39,7 @@ def pTTSTCs(STCLD,STCHD,Layer): #Répartit les énergies des modules dans les To
     for i in range(len(STC)):
         for j in range(len(STC[i])):
             if not np.array_equal(STC[i,j],np.zeros((2,5))):
-                Towers = areatocoef(pTTSTC(STC[i,j],z,BinXY,PolyLimite))
+                Towers = areatocoef(pTTSTC(STC[i,j],z,BinXY,PolyLimite,edges,Values))
                 l.append(Towers)
         if l != []:
             L.append(l)
@@ -56,19 +63,22 @@ def Arealimit(Layer):  #Permet de regarder seulement l'air concernée par les bi
     return PolyLimite
 
 
-def pTTSTC(STC,z,BinXY,PolyLimite): # Renvoie les rapports [aire(intersection modulebin)/aire(module)]
+def pTTSTC(STC,z,BinXY,PolyLimite,edges,Values): # Renvoie les rapports [aire(intersection modulebin)/aire(module)]
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    
     L = []
     STC_Poly = functions.pointtopolygon(STC)
     AreaSTC = STC_Poly.area
     eta,phi = functions.etaphicentre(STC,z)
-    icentre= int(phi *36 /np.pi)
+    icentre= int((phi-phimin) *36 /np.pi)
     jcentre= int((eta -etamin) *36 /np.pi)
     for i in range(-4,5):
         for j in range(-4,5):
-            if (icentre+i)*20 + (jcentre+j) < len(BinXY) and (icentre+i)*20 + (jcentre+j)>= 0:
-                Area = AireBinModule(STC,BinXY[(icentre+i)*20 + (jcentre+j)])
-                if Area !=0:
-                    L.append([icentre+i,jcentre+j,Area/AreaSTC])
+            if icentre+i >= 0 and icentre+i < nb_binphi:
+                if jcentre+j >= 0 and jcentre+j < nb_bineta:
+                    Area = AireBinModule(STC,BinXY[(icentre+i)*20 + (jcentre+j)])
+                    if Area !=0:
+                        L.append([icentre+i,jcentre+j,Area/AreaSTC])
     return(L)
 
 

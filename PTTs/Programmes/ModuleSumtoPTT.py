@@ -2,16 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from functions import etaphitoXY
-from functions import etaphiRADtoXY
-from functions import XYtoetaphi
-from functions import polygontopoints
-from functions import pointtopolygon
-from functions import binetaphitoXY
-from functions import binetaphiRADtoXY
-from functions import etaphicentre
-from functions import ModulestoVertices
-from functions import BintoBinVertices
+import functions
 
 os.chdir("../../ProgrammesRessources")
 
@@ -29,7 +20,7 @@ etamin = 1.305
 
 def pTTModules(Geometry,Layer): #Share the energy of each module
     z = Z[Layer-1]
-    BinXY= binetaphitoXY(Binetaphi,z)
+    BinXY= functions.binetaphitoXY(Binetaphi,z)
     PolyLimite = Arealimit(Layer)
     Modules = Geometry[Layer-1]
     L = []
@@ -46,21 +37,21 @@ def Arealimit(Layer):  #Look at the area covered by bins only (avoid the edges p
     Limite = np.zeros((2,50))
     z = Z[Layer-1]
     for i in range(25):
-        x,y = etaphitoXY(etamin,i*np.pi/36,z)
+        x,y = functions.etaphitoXY(etamin,i*np.pi/36,z)
         Limite[0,i] = x
         Limite[1,i] = y
-        x,y = etaphitoXY(etamin +20 * np.pi/36,(24-i)*np.pi/36,z)
+        x,y = functions.etaphitoXY(etamin +20 * np.pi/36,(24-i)*np.pi/36,z)
         Limite[0,i+25] = x
         Limite[1,i+25] = y
-    PolyLimite = pointtopolygon(Limite)
+    PolyLimite = functions.pointtopolygon(Limite)
     return PolyLimite
 
 
 def pTTModule(Module,z,BinXY,PolyLimite): # Return teh sharing of the energy of each module
     L = []
-    Mod_Poly = pointtopolygon(Module)
+    Mod_Poly = functions.pointtopolygon(Module)
     area_module = Mod_Poly.intersection(PolyLimite).area
-    eta,phi = etaphicentre(Module,z)
+    eta,phi = functions.etaphicentre(Module,z)
     icentre= int(phi *36 /np.pi)
     jcentre= int((eta -etamin) *36 /np.pi)
     for i in range(-4,5):
@@ -74,8 +65,8 @@ def pTTModule(Module,z,BinXY,PolyLimite): # Return teh sharing of the energy of 
 
 
 def AireBinModule(Module,Bin): # Return [area(intersection module and bin)/area(module)] for a given module and a given bin
-    M = pointtopolygon(Module)
-    B = pointtopolygon(Bin)
+    M = functions.pointtopolygon(Module)
+    B = functions.pointtopolygon(Bin)
     if M.intersects(B):
         return(M.intersection(B).area)
     else :
@@ -127,11 +118,11 @@ def areatocoef(Areas): # Convert overlap area into fraction of 16
 Layer = 28
 
 zlay = Z[Layer-1]
-BinXY= binetaphitoXY(Binetaphi,zlay)
+BinXY= functions.binetaphitoXY(Binetaphi,zlay)
 Modules = G[Layer-1]
-ModuleVertices = ModulestoVertices(Modules)
-BinVertices = BintoBinVertices(BinXY)
-PTT= pTTModules(G,Layer)
+ModuleVertices = functions.ModulestoVertices(Modules)
+BinVertices = functions.BintoBinVertices(BinXY)
+PTT= functions.pTTModules(G,Layer)
 
 """
 plt.figure(figsize = (12,8))
@@ -148,11 +139,11 @@ for i in range(len(BinVertices)):
 #Values of sharing
 for i in range(len(PTT)):
     for j in range(len(PTT[i])):
-        p = pointtopolygon(Mod[i])
-        q = pointtopolygon(BinXY[20 * PTT[i][j][0]+ PTT[i][j][1]])
+        p = functions.pointtopolygon(Mod[i])
+        q = functions.pointtopolygon(BinXY[20 * PTT[i][j][0]+ PTT[i][j][1]])
         points = np.array([polygontopoints(p.intersection(q))[0],polygontopoints(p.intersection(q))[1]])
-        etam,phim = etaphicentre(points,zlay)
-        xm,ym = etaphitoXY(etam,phim,zlay)
+        etam,phim = functions.etaphicentre(points,zlay)
+        xm,ym = functions.etaphitoXY(etam,phim,zlay)
         plt.annotate(str(PTT[i][j][2]),(xm,ym))
 
 plt.title(label =  'pTT of layer '+str(Layer))
@@ -185,10 +176,10 @@ for k in range(34):
     else:
         Layer = 14 + k
     zlay = Z[Layer-1]
-    BinXY= binetaphitoXY(Binetaphi,zlay)
+    BinXY= functions.binetaphitoXY(Binetaphi,zlay)
     Mod = G[Layer-1]
-    ModuleVertices= ModulestoVertices(Mod)
-    BinVertices = BintoBinVertices(BinXY)
+    ModuleVertices= functions.ModulestoVertices(Mod)
+    BinVertices = functions.BintoBinVertices(BinXY)
     PTT= pTTModules(G,Layer)
     plt.figure(figsize = (36,24))
 
@@ -202,8 +193,8 @@ for k in range(34):
 #Values of sharing
     for i in range(len(PTT)):
         for j in range(len(PTT[i])):
-            p = pointtopolygon(Mod[i])
-            q = pointtopolygon(BinXY[20 * PTT[i][j][0]+ PTT[i][j][1]])
+            p = functions.pointtopolygon(Mod[i])
+            q = functions.pointtopolygon(BinXY[20 * PTT[i][j][0]+ PTT[i][j][1]])
             points = np.array([polygontopoints(p.intersection(q))[0],polygontopoints(p.intersection(q))[1]])
             etam,phim = etaphicentre(points,zlay)
             xm,ym = etaphitoXY(etam,phim,zlay)

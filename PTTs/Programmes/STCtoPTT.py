@@ -4,7 +4,7 @@ import os
 from shapely.geometry import Polygon
 import functions
 
-
+os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/ProgrammesRessources")
 Binetaphi2024 = np.load('Binetaphi2024.npy')
 Binetaphi2028 = np.load('Binetaphi2028.npy')
 G = np.load('ModulesGeometry.npy')

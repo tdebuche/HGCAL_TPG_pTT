@@ -3,7 +3,7 @@
 This recovery is splitted in few parts : 
 - Geometry : allows to build the geometry of the layers (Modules, STCs, bins)
 - PTTs : allows to fill the partial trigger towers with the energies of modules or STCs
-- Input_S1 : create the numbering of mdoules in each board. The same numbering is used in the PTTs files
+- Input_S1 : create the numbering of modules in each board. The same numbering is used in the PTTs files
 - MappingStage1Stage2 : maps the PTTs into links between S1 and S2 boards
 
 

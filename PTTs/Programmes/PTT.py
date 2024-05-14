@@ -2,17 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
-from functions import etaphitoXY
-from functions import etaphiRADtoXY
-from functions import XYtoetaphi
-from functions import polygontopoints
-from functions import pointtopolygon
-from functions import binetaphitoXY
-from functions import binetaphiRADtoXY
-from functions import etaphicentre
-from functions import ModulestoVertices
-from functions import BintoBinVertices
-from functions import STCtoSTCVertices
+import functions
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 

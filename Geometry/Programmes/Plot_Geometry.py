@@ -23,8 +23,7 @@ parser.add_argument("Bins",default = True, help="With or without bins",type=bool
 args = parser.parse_args()
 Layer = args.Layer
 Binsyesorno =  args.Bins
-print(Layer)
-print(Bins)
+
 zlay = Z[Layer-1]
 Modules = G[Layer-1]
 BinXY= functions.binetaphitoXY(Binetaphi2024,zlay) #if 20*24
@@ -50,8 +49,9 @@ print(str(i))
 
 
 #Bins
-for i in range(len(BinXY)):
-   plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
+if Binsyesorno:
+    for i in range(len(BinXY)):
+       plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 
 #STCs
 if Layer >33:

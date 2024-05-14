@@ -67,11 +67,11 @@ def constructionPTT(Layer,STCyesorno,edges,Values):
 
 
 def PTTarray(Layer,STCyesorno,edges):
-    L = constructionPTT(Layer,STCyesorno,edges)
     if edges:
         Values = Values2028
     else :
         Values = Values2024
+    L = constructionPTT(Layer,STCyesorno,edges,Values)
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     

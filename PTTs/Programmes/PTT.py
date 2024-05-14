@@ -21,20 +21,20 @@ Values2028 = np.load('ValuesBins2028')
 ############# 24 -> phi, 20 -> eta, maxmod... ok, 6 : i (numéro du module), u,v, ratio, indice STC (for CEH) #######
 
 
-def PTTLayer(Layer,STCyesorno):
+def PTTLayer(Layer,STCyesorno,edges):
     if Layer < 27:
-        return pTTModules(G,Layer)
+        return pTTModules(G,Layer,edges)
     else :
         if not STCyesorno:
-            return pTTModules(G,Layer)       #without STCs
+            return pTTModules(G,Layer,edges)      
         if STCyesorno :
-            return pTTSTCs(STCLD,STCHD,Layer)  #with STCs
+            return pTTSTCs(STCLD,STCHD,Layer,edges)  
 
 
-
-def constructionPTT(Layer,STCyesorno):
-    listpttpermodules = PTTLayer(Layer,STCyesorno)
-    if Layer < 48 and not STCyesorno : #put 48 if without STCs
+def constructionPTT(Layer,STCyesorno,edges):
+    listpttpermodules = PTTLayer(Layer,STCyesorno,edges)
+    
+    if Layer < 48 and not STCyesorno : 
         L =[[[] for j in range(20)] for i in range(24)]
         for i in range(len(listpttpermodules)):
             for j in range(len(listpttpermodules[i])):
@@ -42,7 +42,8 @@ def constructionPTT(Layer,STCyesorno):
                 u = UV[Layer-1,i,0]
                 v = UV[Layer-1,i,1]
                 L[iptt][jptt].append([i,u,v,ratio])
-    if Layer < 27 and STCyesorno :   # and 27 if with STCs
+                
+    if Layer < 27 and STCyesorno :   
         L =[[[] for j in range(20)] for i in range(24)]
         for i in range(len(listpttpermodules)):
             for j in range(len(listpttpermodules[i])):
@@ -64,8 +65,12 @@ def constructionPTT(Layer,STCyesorno):
     return(L)
 
 
-def PTTarray(Layer,STCyesorno):
-    L = constructionPTT(Layer,STCyesorno)
+def PTTarray(Layer,STCyesorno,edges):
+    L = constructionPTT(Layer,STCyesorno,edges)
+    if edges:
+        Values = Values2028
+    else :
+        Values = Values2024
     max = 0
     for i in range(len(L)):
         for j in range(len(L[i])):

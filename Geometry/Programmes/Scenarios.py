@@ -1,7 +1,7 @@
 import numpy as np
 import os
 
-os.chdir('../../RessourcesProgrammes')
+os.chdir('../../ProgrammesRessources')
 
 
 #First scenario : 20 * 24 bins, 0 to 120 degrees

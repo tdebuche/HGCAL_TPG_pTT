@@ -43,6 +43,7 @@ def PTTmodulestoTextnoSTC(Geometry,Board,edges):
     else :
         Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     pTTCEE,pTTCEH = PTTarraytoPTTboardnoSTC(Geometry,Board,nb_binphi,nb_bineta)
     nb_moduleCEE,nb_moduleCEH = nombreSiModules(Geometry,Board)
     nb_scint = nombreScintillators(Geometry,Board)
@@ -237,6 +238,7 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
     else :
         Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     pTTCEE,pTTCEH = PTTarraytoPTTboardwithSTC(Geometry,Boardnb_binphi,nb_bineta)
     nb_moduleCEE,nb_moduleCEH = nombreSiModules(Geometry,Board)
     nb_scint = nombreScintillators(Geometry,Board)

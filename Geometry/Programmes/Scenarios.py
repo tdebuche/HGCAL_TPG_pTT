@@ -1,7 +1,7 @@
 import numpy as np
 import os
-
-os.chdir('../../ProgrammesRessources')
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir('dir_path/../../ProgrammesRessources')
 
 
 #First scenario : 20 * 24 bins, 0 to 120 degrees

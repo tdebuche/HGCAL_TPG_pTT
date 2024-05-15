@@ -78,7 +78,7 @@ def PTTmodulestoTextnoSTC(Geometry,Board,edges):
     tCEH = 'Number CEH modules =' + str(int(nb_moduleCEH)) + 'Number CEH scintilators =' + str(int(nb_scint)) + '\n' +tCEH
     tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
     tCEH = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEH
-    tCEH = '\n' + tCEE
+    tCEH = '\n' + tCEH
 
     return (tCEE,tCEH)
 
@@ -273,7 +273,7 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
     tCEH = 'Number CEH modules =' + str(int(nb_moduleCEH)) + 'Number CEH scintilators =' + str(int(nb_scint)) + '\n' +tCEH
     tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
     tCEH = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEH
-    tCEH = '\n' + tCEE
+    tCEH = '\n' + tCEH
 
     return (tCEE,tCEH)
 

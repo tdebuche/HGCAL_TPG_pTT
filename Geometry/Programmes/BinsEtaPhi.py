@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-
+dir_path = os.path.dirname(os.path.realpath(__file__))
 #Entries
 etamin = 1.305
 
@@ -28,9 +28,9 @@ nb_binphi = 24
 nb_bineta = 20
 
 BIN = Bins(etamin,phimin,nb_bineta,nb_binphi)
-os.chdir("../Ressources")
+os.chdir(dir_path+"../Ressources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
-os.chdir("../../ProgrammesRessources")
+os.chdir(dir_path+"../../ProgrammesRessources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
 
 #with edges
@@ -41,7 +41,7 @@ nb_binphi = 28
 nb_bineta = 20
 
 BIN = Bins(etamin,phimin,nb_bineta,nb_binphi)
-os.chdir("../Geometry/Ressources")
+os.chdir(dir_path + "../Geometry/Ressources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
-os.chdir("../../ProgrammesRessources")
+os.chdir(dir_path+"../../ProgrammesRessources")
 np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)

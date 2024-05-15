@@ -6,7 +6,7 @@ import functions
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dir_path+'/../../ProgrammesRessources")
+os.chdir(dir_path+'/../../ProgrammesRessources')
 UV = np.load('UVModules.npy')
 G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')

@@ -8,7 +8,7 @@ This recovery is splitted in few parts :
 
 
 Each part is divided into two folders : the first one gathers programmes, and the second one, named "ressources", gathers files produced by the programmes.
-Since some results are used by every programmes (like the geometry of modules), I create  a folder named "ProgrammesRessources" which stores some useful files.
+Since some results are used by every programmes (like the geometry of modules), I create  a folder named "ProgrammesRessources" which stores several useful files.
 
 
 

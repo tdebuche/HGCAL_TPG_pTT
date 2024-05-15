@@ -177,8 +177,8 @@ def saveSTCs(title):
         json.dump(feature_collection_STCs, f_polygon, indent=4)
 
 saveModules('Geometry_Modules_Json')
-saveBins('Geometry_Bins2024_Json')
-saveBins('Geometry_Bins2028_Json')
+saveBins2024('Geometry_Bins2024_Json')
+saveBins2028('Geometry_Bins2028_Json')
 saveSTCs('Geometry_STCs_Json')
 
 

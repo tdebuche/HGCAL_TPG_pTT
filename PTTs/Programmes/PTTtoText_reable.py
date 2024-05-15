@@ -67,19 +67,18 @@ def PTTmodulestoTextnoSTC(Geometry,Board,edges):
                 maxH = nbmodintowerH
             tCEE += resE + '\n'
             tCEH += resH + '\n'
-    tCEE = 'Number CEE modules = str(int()) ' + '\n' + '\n' +tCEE
-    tCEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' +tCEE
-    tCEE = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEE
-    tCEE = '/* num inputs = ' +str(int(nb_moduleCEE))+ '(in0-in' + str(int(nb_moduleCEE-1)) + ') */' + '\n' + tCEE
-    tCEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + tCEE
-    tCEE += '};'
+    tCEE = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEE
+    tCEE = 'Number CEE modules =' + str(int(nb_moduleCEE)) + '\n' + '\n' +tCEE
+    tCEE = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEE
+    tCEE = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEE
+    tCEE = '\n' + tCEE
 
-    tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
-    tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
-    tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEH
-    tCEH = '/* num inputs = ' +str(int(nb_moduleCEH+nb_scint))+ '(in0-in' + str(int(nb_moduleCEH+nb_scint-1)) + ') */' + '\n' + tCEH
-    tCEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + tCEH
-    tCEH += '};'
+
+    tCEH = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEH
+    tCEH = 'Number CEH modules =' + str(int(nb_moduleCEH)) + 'Number CEH scintilators =' + str(int(nb_scint)) + '\n' +tCEH
+    tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
+    tCEH = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEH
+    tCEH = '\n' + tCEE
 
     return (tCEE,tCEH)
 
@@ -138,7 +137,7 @@ def OnepTTCEEnoSTC(pTTCEE,i,j,intmatrixE,adderE):
             if not np.array_equal(pTTCEE[i][j][lay][1][k],np.zeros(4)):
                 nbmodintower += 1
                 mod = pTTCEE[i][j][lay][1][k]
-                res +=  str(int(mod[0]))+', '+str(int(mod[3]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                 intmatrixE += 2
     if i*20+j<10:
         nbzeros= '000'
@@ -163,16 +162,16 @@ def OnepTTCEHnoSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
                 if Layer == Layers_Scint and mod[0] >= IndminScint[Layer-34]:
                     nbl = min_numberingscint[Layer - 34]
                     nbmodintower += 1
-                    res +=str(int(nbl+mod[0]-IndminScint[Layer-34]))+', '+str(int(mod[3]))+', '
+                    res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                     intmatrixH += 2
                 if Layer <34:
                     nbl = min_numberingmod[Layer - 14]
-                    res += str(int(nbl+mod[0]))+', '+str(int(mod[3]))+', '
+                    res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                     intmatrixH += 2
                     nbmodintower += 1
                 if  Layer >33 and Layer != Layers_Scint and mod[0] < IndminScint[Layer-34]:
                     nbl = min_numberingmod[Layer - 14]
-                    res += str(int(nbl+mod[0]))+', '+str(int(mod[3]))+', '
+                    res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                     intmatrixH += 2
                     nbmodintower += 1
     if i*20+j<10:
@@ -262,19 +261,19 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
                 maxH = nbmodintowerH
             tCEE += resE + '\n'
             tCEH += resH + '\n'
-    tCEE = '//* total number of input in adders '+str(int(adderE))+' */' + '\n' + '\n' +tCEE
-    tCEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' +tCEE
-    tCEE = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+' */' + '\n' +tCEE
-    tCEE = '/* num inputs = ' +str(int(nb_moduleCEE))+ '(in0-in' + str(int(nb_moduleCEE-1)) + ') */' + '\n' + tCEE
-    tCEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + tCEE
-    tCEE += '};'
+            
+    tCEE = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEE
+    tCEE = 'Number CEE modules =' + str(int(nb_moduleCEE)) + '\n' + '\n' +tCEE
+    tCEE = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEE
+    tCEE = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEE
+    tCEE = '\n' + tCEE
 
-    tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
-    tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
-    tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+' */' + '\n' +tCEH
-    tCEH = '/* num inputs = ' +str(int(nb_moduleCEH+nb_scint))+ '(in0-in' + str(int(nb_moduleCEH+nb_scint-1)) + ') */' + '\n' + tCEH
-    tCEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + tCEH
-    tCEH += '};'
+
+    tCEH = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEH
+    tCEH = 'Number CEH modules =' + str(int(nb_moduleCEH)) + 'Number CEH scintilators =' + str(int(nb_scint)) + '\n' +tCEH
+    tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
+    tCEH = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEH
+    tCEH = '\n' + tCEE
 
     return (tCEE,tCEH)
 
@@ -332,7 +331,7 @@ def OnepTTCEEwithSTC(pTTCEE,i,j,intmatrixE,adderE):
             if not np.array_equal(pTTCEE[i][j][lay][1][k],np.zeros(4)):
                 nbmodintower += 1
                 mod = pTTCEE[i][j][lay][1][k]
-                res +=  str(int(mod[0]))+', '+str(int(mod[3]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                 intmatrixE += 2
     if i*20+j<10:
         nbzeros= '000'
@@ -357,16 +356,16 @@ def OnepTTCEHwithSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
             if Layer == Layers_Scint and mod[0] >= IndminScint[Layer-34]:
                 nbl = min_numberingscint[Layer - 34]
                 nbmodintower += 1
-                res +=str(int(nbl+mod[0]-IndminScint[Layer-34]))+ ', ' + str(int(mod[3]))+', '+str(int(mod[4]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
                 intmatrixH += 3
             if Layer <34:
                 nbl = min_numberingmod[Layer - 14]
-                res += str(int(nbl+mod[0]))+', '+ str(int(mod[3]))+', '+str(int(mod[4]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
                 intmatrixH += 3
                 nbmodintower += 1
             if  Layer >33 and Layer != Layers_Scint and mod[0] < IndminScint[Layer-34]:
                 nbl = min_numberingmod[Layer - 14]
-                res += str(int(nbl+mod[0]))+', '+ str(int(mod[3]))+', '+str(int(mod[4]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
                 intmatrixH += 3
                 nbmodintower += 1
     if i*20+j<10:

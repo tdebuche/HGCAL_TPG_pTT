@@ -68,16 +68,16 @@ def PTTmodulestoTextnoSTC(Geometry,Board,edges):
             tCEE += resE + '\n'
             tCEH += resH + '\n'
     tCEE = '\n' + tCEE 
-    tCEE = 'Number CEE modules =' + str(int(nb_moduleCEE)) + '\n' + '\n' +tCEE
+    tCEE = 'Number CEE modules = ' + str(int(nb_moduleCEE)) + '\n' + '\n' +tCEE
     tCEE = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEE
     tCEE = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEE
-    tCEE = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEE
+    tCEE = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEE
 
     tCEH = '\n' + tCEH
-    tCEH = 'Number CEH modules =' + str(int(nb_moduleCEH)) +', ' +'Number CEH scintilators =' + str(int(nb_scint)) + '\n' +tCEH
+    tCEH = 'Number CEH modules = ' + str(int(nb_moduleCEH)) +', ' +'Number CEH scintilators = ' + str(int(nb_scint)) + '\n' +tCEH
     tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
     tCEH = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEH
-    tCEH = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEH
+    tCEH = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEH
 
     return (tCEE,tCEH)
 
@@ -262,16 +262,16 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
             tCEH += resH + '\n'
 
     tCEE = '\n' + tCEE
-    tCEE = 'Number CEE modules =' + str(int(nb_moduleCEE)) + '\n' + '\n' +tCEE
+    tCEE = 'Number CEE modules = ' + str(int(nb_moduleCEE)) + '\n' + '\n' +tCEE
     tCEE = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEE
     tCEE = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEE
-    tCEE = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEE
+    tCEE = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEE
 
     tCEH = '\n' + tCEH
-    tCEH = 'Number CEH modules =' + str(int(nb_moduleCEH)) +', ' +'Number CEH scintilators =' + str(int(nb_scint)) + '\n' +tCEH
+    tCEH = 'Number CEH modules = ' + str(int(nb_moduleCEH)) +', ' +'Number CEH scintilators = ' + str(int(nb_scint)) + '\n' +tCEH
     tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
     tCEH = 'format module = (Layer,u,v,index_STC),fraction of 1/16' + '\n' + tCEH
-    tCEH = 'Board '+Boards[Board][0]+ 'Board number = ' +str(int(Board))+ '\n' +tCEH
+    tCEH = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEH
 
 
     return (tCEE,tCEH)

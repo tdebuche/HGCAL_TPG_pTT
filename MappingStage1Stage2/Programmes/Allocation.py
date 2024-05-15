@@ -148,7 +148,7 @@ def channel(board,link,word):
 
 def tower(board,i,j,CEECEH):
     subsystem  = 0
-    obj_type = 8
+    obj_type = 6
     t = ''
     binary = ''
     binary += decimaltobinary(1,Endcap)
@@ -158,10 +158,10 @@ def tower(board,i,j,CEECEH):
     binary += decimaltobinary(4,obj_type)
     S1_ID =  board_6ID(board)
     binary +=  S1_ID
-    binary += decimaltobinary(5,i)   #eta
-    binary += decimaltobinary(5,j)   #phi
     binary += '00000'
     binary += str(int(CEECEH))
+    binary += decimaltobinary(5,i)   #eta
+    binary += decimaltobinary(5,j)   #phi
     return('0x'+ binarytohexa(8,binary))
 
 def board_6ID(board):

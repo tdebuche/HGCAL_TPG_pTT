@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-#open the file with the coordinates of modules (from Pedro's work)
+#open the file with the coordinates of modules 
 
 nom_fichier = 'Geometrymodule'
 os.chdir("../Ressources")

@@ -5,8 +5,8 @@ from shapely.geometry import Polygon
 import functions
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
-
-os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/ProgrammesRessources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path+'/../../ProgrammesRessources")
 UV = np.load('UVModules.npy')
 G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')

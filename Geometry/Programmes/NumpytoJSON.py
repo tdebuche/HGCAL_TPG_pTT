@@ -104,7 +104,7 @@ def saveBins2028(title):
         else :
             Layer = lay + 14
         z = Z[Layer-1]
-        BinXY= fnuctions.binetaphitoXY(Binetaphi2028,z)
+        BinXY= functions.binetaphitoXY(Binetaphi2028,z)
         for i in range(len(BinXY)):
             bin = BinXY[i]
             vertices = []

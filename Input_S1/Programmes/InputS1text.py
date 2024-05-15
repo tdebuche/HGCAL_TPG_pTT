@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import os
 import functions
 
-
-os.chdir("../../ProgrammesRessources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path + '/../../ProgrammesRessources')
 Z = np.load("Z.npy")
 G = np.load('ModulesGeometry.npy')
 UV = np.load('UVModules.npy')
@@ -63,7 +63,7 @@ def input():
     return tCEE,tCEH
 
 
-os.chdir("../Input_S1/Ressources")
+os.chdir(dir_path + '/../Ressources/txt_files")
 textCEE,textCEH = input()
 file = open('Input_CEE_pTT.txt', "w")
 file.write(textCEE)

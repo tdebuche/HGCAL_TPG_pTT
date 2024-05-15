@@ -33,7 +33,7 @@ IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]
 Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43], ['0x64030000', 37], ['0x64040000', 38], ['0x64050000', 35], ['0x64060000', 40], ['0x64070000', 39], ['0x64080000',42], ['0x64090000', 36], ['0x640A0000', 44], ['0x640B0000',45], ['0x640C0000', 46], ['0x640D0000', 34]]
 
-##########################################        Write the text for Split    #######################################
+##########################################        Without STCs   #######################################
 
 
 def PTTmodulestoTextnoSTC(Geometry,Board,edges):
@@ -355,16 +355,16 @@ def OnepTTCEHwithSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
             if Layer == Layers_Scint and mod[0] >= IndminScint[Layer-34]:
                 nbl = min_numberingscint[Layer - 34]
                 nbmodintower += 1
-                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+','+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
                 intmatrixH += 3
             if Layer <34:
                 nbl = min_numberingmod[Layer - 14]
-                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+','+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
                 intmatrixH += 3
                 nbmodintower += 1
             if  Layer >33 and Layer != Layers_Scint and mod[0] < IndminScint[Layer-34]:
                 nbl = min_numberingmod[Layer - 14]
-                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
+                res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+','+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
                 intmatrixH += 3
                 nbmodintower += 1
     if i*20+j<10:

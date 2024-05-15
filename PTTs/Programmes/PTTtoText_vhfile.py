@@ -394,7 +394,7 @@ parser.add_argument("--Record",default = 'no', help="Record all boards")
 args = parser.parse_args()
 
 # to test
-os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources")
+os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/test")
 
 Board = args.Board
 if args.Edges == 'yes' and args.STCs == 'yes':
@@ -413,7 +413,6 @@ if args.Edges == 'no'and args.STCs == 'no':
 file = open(name+"CEE"+".vh", "w")
 file.write(textCEE)
 file.close()
-name += "withSTCs"
 file = open(name+"CEH"+".vh", "w")
 file.write(textCEH)
 file.close()

@@ -4,7 +4,7 @@ import os
 import functions
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dir_path + '/../../ProgrammesRessources')
+os.chdir(dir_path + "/../../ProgrammesRessources")
 Z = np.load("Z.npy")
 G = np.load('ModulesGeometry.npy')
 UV = np.load('UVModules.npy')
@@ -63,7 +63,7 @@ def input():
     return tCEE,tCEH
 
 
-os.chdir(dir_path + '/../Ressources/txt_files")
+os.chdir(dir_path + "/../Ressources/txt_files")
 textCEE,textCEH = input()
 file = open('Input_CEE_pTT.txt', "w")
 file.write(textCEE)

@@ -417,32 +417,58 @@ file = open(name+"CEH"+".vh", "w")
 file.write(textCEH)
 file.close()
 
-# Record with STCs
-"""
-for Board in range(14):
-    os.chdir("../PTTs/Ressources/PTTswithSTCs")
-    textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board)
-    name = 'CE_E_'+  str(Board)+ '_v1'
-    file = open(name+".vh", "w")
-    file.write(textCEE)
-    file.close()
-    name = 'CE_H_'+  str(Board)+ '_v1'
-    file = open(name+".vh", "w")
-    file.write(textCEH)
-    file.close()"""
+# Record
+
+if args.Edges == 'yes' and args.STCs == 'yes':
+    os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/28_Phi_Bins/with_SiSTCs")
+    for Board in range(14):
+        textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,True)
+        name = 'CE_E_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEE)
+        file.close()
+        name = 'CE_H_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEH)
+        file.close()
+if args.Edges == 'yes' and args.STCs == 'no':
+    os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/28_Phi_Bins/without_STCs")
+    for Board in range(14):
+        textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,True)
+        name = 'CE_E_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEE)
+        file.close()
+        name = 'CE_H_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEH)
+        file.close()
+if args.Edges == 'no' and args.STCs == 'yes':
+    os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/24_Phi_Bins/with_SiSTCs")
+    for Board in range(14):
+        textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
+        name = 'CE_E_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEE)
+        file.close()
+        name = 'CE_H_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEH)
+        file.close()
+    
+if args.Edges == 'no' and args.STCs == 'no':
+    os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/24_Phi_Bins/without_STCs")
+    for Board in range(14):
+        textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,False)
+        name = 'CE_E_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEE)
+        file.close()
+        name = 'CE_H_'+  str(Board)+ '_v1'
+        file = open(name+".vh", "w")
+        file.write(textCEH)
+        file.close()
 
 
-# Record without STCs
-"""
-for Board in range(14):
-    os.chdir("../PTTs/Ressources/PTTswithoutSTCs")
-    textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board)
-    name = 'CE_E_'+  str(Board)+ '_v1'
-    file = open(name+".vh", "w")
-    file.write(textCEE)
-    file.close()
-    name = 'CE_H_'+  str(Board)+ '_v1'
-    file = open(name+".vh", "w")
-    file.write(textCEH)
-    file.close()
-"""
+
+

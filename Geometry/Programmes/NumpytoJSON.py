@@ -5,9 +5,6 @@ import json
 import shapely.geometry
 from shapely.geometry import Polygon
 import functions
-from STCtoPTT import pTTSTCs
-from ModuleSumtoPTT import pTTModules
-from PTT import PTTarray
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path+"../../Ressources")

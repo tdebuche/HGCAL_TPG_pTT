@@ -70,7 +70,7 @@ for lay in range(1,len(Boards[Board])):
 Layer = Boards_scintillators[Board][1]
 zlay = Z[Layer-1]
 Modules = G[Layer-1]
-ModuleVertices = fnuctions.ModulestoVertices(Modules)
+ModuleVertices = functions.ModulestoVertices(Modules)
 uv = UV[Layer-1]
 plt.annotate('LayerCEH '+str(Layer),(80+res,1650))
 for i in range(len(ModuleVertices)):
@@ -88,5 +88,5 @@ plt.yticks([])
 plt.title('Input of Boards '+str(Board))
 plt.show()
 
-os.chdir(dir_path+"/../Ressources")
+os.chdir(dir_path+"/../Ressources/Plots")
 plt.savefig('Input of Boards '+str(Board)+'.png')

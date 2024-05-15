@@ -7,8 +7,8 @@ import argparse
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
-
-os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/ProgrammesRessources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path+"/../../ProgrammesRessources")
 
 UV = np.load('UVModules.npy')
 Binetaphi2024 = np.load('Binetaphi2024.npy')
@@ -394,7 +394,7 @@ parser.add_argument("--Record",default = 'no', help="Record all boards")
 args = parser.parse_args()
 
 # to test
-os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/test")
+os.chdir(dir_path+"/../Ressources/test")
 
 Board = args.Board
 if args.Edges == 'yes' and args.STCs == 'yes':
@@ -420,7 +420,7 @@ file.close()
 # Record
 if args.Record == 'yes':
     if args.Edges == 'yes' and args.STCs == 'yes':
-        os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/28_Phi_Bins/with_SiSTCs")
+        os.chdir(dir_path+"/../Ressources/VH_files/28_Phi_Bins/with_SiSTCs")
         for Board in range(14):
             textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,True)
             name = 'CE_E_'+  str(Board)+ '_v1'
@@ -432,7 +432,7 @@ if args.Record == 'yes':
             file.write(textCEH)
             file.close()
     if args.Edges == 'yes' and args.STCs == 'no':
-        os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/28_Phi_Bins/without_STCs")
+        os.chdir(dir_path+"/../Ressources/VH_files/28_Phi_Bins/without_STCs")
         for Board in range(14):
             textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,True)
             name = 'CE_E_'+  str(Board)+ '_v1'
@@ -444,7 +444,7 @@ if args.Record == 'yes':
             file.write(textCEH)
             file.close()
     if args.Edges == 'no' and args.STCs == 'yes':
-        os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/24_Phi_Bins/with_SiSTCs")
+        os.chdir(dir_path+"/../Ressources/VH_files/24_Phi_Bins/with_SiSTCs")
         for Board in range(14):
             textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
             name = 'CE_E_'+  str(Board)+ '_v1'
@@ -457,7 +457,7 @@ if args.Record == 'yes':
             file.close()
     
     if args.Edges == 'no' and args.STCs == 'no':
-        os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/PTTs/Ressources/VH_files/24_Phi_Bins/without_STCs")
+        os.chdir(dir_path+"/../Ressources/VH_files/24_Phi_Bins/without_STCs")
         for Board in range(14):
             textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,False)
             name = 'CE_E_'+  str(Board)+ '_v1'

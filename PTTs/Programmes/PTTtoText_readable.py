@@ -9,7 +9,7 @@ from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dirpath + '/../../ProgrammesRessources')
+os.chdir(dir_path + '/../../ProgrammesRessources')
 
 UV = np.load('UVModules.npy')
 Binetaphi2024 = np.load('Binetaphi2024.npy')

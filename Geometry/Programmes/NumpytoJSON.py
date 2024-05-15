@@ -9,14 +9,13 @@ import functions
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path+"/../Ressources")
 
-UV = np.load('uv.npy')
-Binetaphi = np.load('Binetaphi.npy')
-G = np.load('Geometry.npy')
+UV = np.load('UVModules.npy')
+Binetaphi2024 = np.load('Binetaphi2024.npy')
+Binetaphi2028 = np.load('Binetaphi2028.npy')
+G = np.load('ModulesGeometry.npy')
 Z = np.load('Z.npy')
 STCLD = np.load('STCLD.npy')
 STCHD = np.load('STCHD.npy')
-etamin = 1.305
-N = 16
 
 
 def saveModules(title):
@@ -60,7 +59,7 @@ def saveModules(title):
 
 
 
-def saveBins(title):
+def saveBins2024(title):
     listbins = []
     for lay in range(34):
         if lay < 13:
@@ -68,7 +67,44 @@ def saveBins(title):
         else :
             Layer = lay + 14
         z = Z[Layer-1]
-        BinXY= binetaphitoXY(Binetaphi,z)
+        BinXY= binetaphitoXY(Binetaphi2024,z)
+        for i in range(len(BinXY)):
+            bin = BinXY[i]
+            vertices = []
+            for j in range(len(bin[0])):
+                if bin[0][j] != 0 or bin[1][j] != 0:
+                    vertices.append((round(bin[0][j],1),round(bin[1][j],1)))
+            if vertices != []:
+                binpolygon = Polygon(vertices)
+                feature_bin = {
+                'type': 'Feature',
+                'geometry': shapely.geometry.mapping(binpolygon),  # Convert polygon to GeoJSON geometry
+                'properties': {
+                    'Layer': Layer,
+                    'Z_value': z,
+                    'Eta': int(i%20),
+                    'Phi': int(i//20),
+                    }
+                }
+                listbins.append(feature_bin)
+
+    feature_collection_bins = {
+            'type': 'FeatureCollection',
+            'features': listbins
+        }
+        # Write GeoJSON data with bin_polygon geometry to file
+    with open(title, 'w') as f_polygon:
+        json.dump(feature_collection_bins, f_polygon, indent=4)
+
+def saveBins2028(title):
+    listbins = []
+    for lay in range(34):
+        if lay < 13:
+            Layer = lay *2 +1
+        else :
+            Layer = lay + 14
+        z = Z[Layer-1]
+        BinXY= binetaphitoXY(Binetaphi2028,z)
         for i in range(len(BinXY)):
             bin = BinXY[i]
             vertices = []
@@ -141,7 +177,8 @@ def saveSTCs(title):
         json.dump(feature_collection_STCs, f_polygon, indent=4)
 
 saveModules('Geometry_Modules_Json')
-saveBins('Geometry_Bins_Json')
+saveBins('Geometry_Bins2024_Json')
+saveBins('Geometry_Bins2028_Json')
 saveSTCs('Geometry_STCs_Json')
 
 

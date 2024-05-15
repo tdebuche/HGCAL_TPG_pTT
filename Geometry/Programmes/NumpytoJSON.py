@@ -7,7 +7,7 @@ from shapely.geometry import Polygon
 import functions
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dir_path+"../../Ressources")
+os.chdir(dir_path+"/../../Ressources")
 
 UV = np.load('uv.npy')
 Binetaphi = np.load('Binetaphi.npy')

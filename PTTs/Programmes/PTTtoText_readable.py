@@ -413,7 +413,6 @@ if args.Edges == 'no'and args.STCs == 'no':
 file = open(name+"CEE"+".txt", "w")
 file.write(textCEE)
 file.close()
-name += "withSTCs"
 file = open(name+"CEH"+".txt", "w")
 file.write(textCEH)
 file.close()

@@ -16,6 +16,7 @@ STCs : records the STCs of all layers in two arrays : one for low density layers
 
 Plot_Geometry : makes the plot of a layer. There are few parameters : Layer number, with our without bins, with our without UV coordinates, with our without Numbering, with our without STCs, with our without Edges (20 28 or 20 24 bins). 
 
+NumpytoJSON : converts the numpy files into JSON files. In all the programmes, numpy files are used.
 
 If you work in an empty folder '../Ressources' you have to run the programmes in this order:
 1) Z_coordinate, Scenarios, Modules

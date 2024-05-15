@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
 import functions
-
-os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/ProgrammesRessources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path + "/../../ProgrammesRessources")
 
 Binetaphi2024 = np.load('Binetaphi2024.npy')
 Binetaphi2028 = np.load('Binetaphi2028.npy')

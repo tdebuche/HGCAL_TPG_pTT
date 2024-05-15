@@ -89,4 +89,4 @@ plt.title('Input of Boards '+str(Board))
 plt.show()
 
 os.chdir(dir_path+"/../Ressources/Plots")
-plt.savefig('Input of Boards '+str(Board)+'.png')
+plt.savefig('Input of Board '+str(Board)+'.png')

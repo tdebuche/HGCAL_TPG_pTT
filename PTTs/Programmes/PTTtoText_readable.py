@@ -8,8 +8,8 @@ import argparse
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
-
-os.chdir("/eos/user/t/tdebuche/YOURWORKINGAREA/HGCAL_TPG_pTT/ProgrammesRessources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dirpath + '/../../ProgrammesRessources')
 
 UV = np.load('UVModules.npy')
 Binetaphi2024 = np.load('Binetaphi2024.npy')

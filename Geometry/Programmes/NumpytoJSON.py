@@ -4,22 +4,13 @@ import os
 import json
 import shapely.geometry
 from shapely.geometry import Polygon
-from prelim import etaphitoXY
-from prelim import etaphiRADtoXY
-from prelim import XYtoetaphi
-from prelim import polygontopoints
-from prelim import pointtopolygon
-from prelim import binetaphitoXY
-from prelim import binetaphiRADtoXY
-from prelim import etaphicentre
-from prelim import ModulestoSommets
-from prelim import BintoBinSommets
-from prelim import STCtoSTCSommets
+import functions
 from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 
-os.chdir("../../Ressources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path+"../../Ressources")
 
 UV = np.load('uv.npy')
 Binetaphi = np.load('Binetaphi.npy')
@@ -152,9 +143,9 @@ def saveSTCs(title):
     with open(title, 'w') as f_polygon:
         json.dump(feature_collection_STCs, f_polygon, indent=4)
 
-saveModules('Geometry_Modules')
-saveBins('Geometry_Bins')
-saveSTCs('Geometry_STCs')
+saveModules('Geometry_Modules_Json')
+saveBins('Geometry_Bins_Json')
+saveSTCs('Geometry_STCs_Json')
 
 
 

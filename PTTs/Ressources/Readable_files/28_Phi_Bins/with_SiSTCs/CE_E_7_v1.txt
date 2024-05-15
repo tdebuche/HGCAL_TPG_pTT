@@ -1,9 +1,9 @@
-
+Board 0x64070000, Board number = 7
 format module = (Layer,u,v),fraction of 1/16
 Number of Ptts = 560
-Number CEE modules =108
+Number CEE modules = 108
 
-Board 0x64070000Board number = 7
+
 /* out0000_em-eta0-phi0*/	0, 
 /* out0001_em-eta1-phi0*/	0, 
 /* out0002_em-eta2-phi0*/	0, 

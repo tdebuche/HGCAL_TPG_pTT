@@ -1,9 +1,9 @@
-
+Board 0x64000000, Board number = 0
 format module = (Layer,u,v),fraction of 1/16
 Number of Ptts = 560
-Number CEE modules =96
+Number CEE modules = 96
 
-Board 0x64000000Board number = 0
+
 /* out0000_em-eta0-phi0*/	0, 
 /* out0001_em-eta1-phi0*/	0, 
 /* out0002_em-eta2-phi0*/	0, 

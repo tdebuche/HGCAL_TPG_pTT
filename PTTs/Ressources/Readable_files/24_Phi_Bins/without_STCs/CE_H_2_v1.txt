@@ -1,8 +1,8 @@
-
+Board 0x64020000, Board number = 2
 format module = (Layer,u,v),fraction of 1/16
 Number of Ptts = 480
-Number CEH modules =250Number CEH scintilators =48
-Board 0x64020000Board number = 2
+Number CEH modules = 250, Number CEH scintilators = 48
+
 /* out0000_had-eta0-phi0*/	1, (43,3,0), 1, 
 /* out0001_had-eta1-phi0*/	1, (43,3,0), 5, 
 /* out0002_had-eta2-phi0*/	3, (33,11,1), 5, (43,2,0), 2, (43,3,0), 2, 

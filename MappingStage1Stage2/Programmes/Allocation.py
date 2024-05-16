@@ -186,7 +186,7 @@ def hexatobinary(nbbits,hexanumber):
 def binarytohexa(nbhexa,binary):
     return(decimaltohexa(nbhexa,binarytodecimal(binary)))
 
-file = open("test.txt", "w")
+
 if args.Edges == 'yes':
     file = open("allocation4linksEdges.txt", "w")
     file.write(allocation4linksEdges())

@@ -1,4 +1,4 @@
-	<S1 id="0x64000000">
+	<S1 id="0x24000000">
 		<Channel id="0x25400000" aux-id="0"
 			<Frame id = "000"  pTT="0x21800011" />
 			<Frame id = "001"  pTT="0x21800010" />
@@ -440,7 +440,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64010000">
+	<S1 id="0x24010000">
 		<Channel id="0x25410000" aux-id="0"
 			<Frame id = "000"  pTT="0x21810011" />
 			<Frame id = "001"  pTT="0x21810010" />
@@ -882,7 +882,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64020000">
+	<S1 id="0x24020000">
 		<Channel id="0x25420000" aux-id="0"
 			<Frame id = "000"  pTT="0x21820011" />
 			<Frame id = "001"  pTT="0x21820010" />
@@ -1324,7 +1324,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64030000">
+	<S1 id="0x24030000">
 		<Channel id="0x25430000" aux-id="0"
 			<Frame id = "000"  pTT="0x21830011" />
 			<Frame id = "001"  pTT="0x21830010" />
@@ -1766,7 +1766,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64040000">
+	<S1 id="0x24040000">
 		<Channel id="0x25440000" aux-id="0"
 			<Frame id = "000"  pTT="0x21840011" />
 			<Frame id = "001"  pTT="0x21840010" />
@@ -2208,7 +2208,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64050000">
+	<S1 id="0x24050000">
 		<Channel id="0x25450000" aux-id="0"
 			<Frame id = "000"  pTT="0x21850011" />
 			<Frame id = "001"  pTT="0x21850010" />
@@ -2650,7 +2650,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64060000">
+	<S1 id="0x24060000">
 		<Channel id="0x25460000" aux-id="0"
 			<Frame id = "000"  pTT="0x21860011" />
 			<Frame id = "001"  pTT="0x21860010" />
@@ -3092,7 +3092,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64070000">
+	<S1 id="0x24070000">
 		<Channel id="0x25470000" aux-id="0"
 			<Frame id = "000"  pTT="0x21870011" />
 			<Frame id = "001"  pTT="0x21870010" />
@@ -3534,7 +3534,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64080000">
+	<S1 id="0x24080000">
 		<Channel id="0x25480000" aux-id="0"
 			<Frame id = "000"  pTT="0x21880011" />
 			<Frame id = "001"  pTT="0x21880010" />
@@ -3976,7 +3976,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64090000">
+	<S1 id="0x24090000">
 		<Channel id="0x25490000" aux-id="0"
 			<Frame id = "000"  pTT="0x21890011" />
 			<Frame id = "001"  pTT="0x21890010" />
@@ -4418,7 +4418,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640A0000">
+	<S1 id="0x240A0000">
 		<Channel id="0x254A0000" aux-id="0"
 			<Frame id = "000"  pTT="0x218A0011" />
 			<Frame id = "001"  pTT="0x218A0010" />
@@ -4860,7 +4860,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640B0000">
+	<S1 id="0x240B0000">
 		<Channel id="0x254B0000" aux-id="0"
 			<Frame id = "000"  pTT="0x218B0011" />
 			<Frame id = "001"  pTT="0x218B0010" />
@@ -5302,7 +5302,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640C0000">
+	<S1 id="0x240C0000">
 		<Channel id="0x254C0000" aux-id="0"
 			<Frame id = "000"  pTT="0x218C0011" />
 			<Frame id = "001"  pTT="0x218C0010" />
@@ -5744,7 +5744,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640D0000">
+	<S1 id="0x240D0000">
 		<Channel id="0x254D0000" aux-id="0"
 			<Frame id = "000"  pTT="0x218D0011" />
 			<Frame id = "001"  pTT="0x218D0010" />

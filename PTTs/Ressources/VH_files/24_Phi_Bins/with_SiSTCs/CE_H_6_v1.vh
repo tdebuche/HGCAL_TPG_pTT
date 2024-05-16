@@ -1,6 +1,6 @@
 parameter integer matrixH [0:5880] = {
 /* num inputs = 158(in0-in157) */
-/* num outputs = 480(out0-out479 */
+/* num outputs = 480(out0-out479) */
 //* max inputs per outputs = 9 */
 //* total number of input in adders 1800 */
 

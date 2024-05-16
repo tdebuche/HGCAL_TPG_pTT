@@ -1,6 +1,6 @@
 parameter integer matrixE [0:1726] = {
 /* num inputs = 102(in0-in101) */
-/* num outputs = 480(out0-out479 */
+/* num outputs = 480(out0-out479) */
 //* max inputs per outputs = 3 */
 //* total number of input in adders 623 */
 
@@ -22,7 +22,7 @@ parameter integer matrixE [0:1726] = {
 /* out0015_em-eta15-phi0*/	1, 1, 3, 
 /* out0016_em-eta16-phi0*/	1, 1, 2, 
 /* out0017_em-eta17-phi0*/	2, 0, 2, 1, 1, 
-/* out0018_em-eta18-phi0*/	1, 0, 3, 
+/* out0018_em-eta18-phi0*/	1, 0, 2, 
 /* out0019_em-eta19-phi0*/	1, 0, 2, 
 /* out0020_em-eta0-phi1*/	0, 
 /* out0021_em-eta1-phi1*/	0, 
@@ -42,7 +42,7 @@ parameter integer matrixE [0:1726] = {
 /* out0035_em-eta15-phi1*/	1, 1, 2, 
 /* out0036_em-eta16-phi1*/	1, 1, 1, 
 /* out0037_em-eta17-phi1*/	1, 0, 2, 
-/* out0038_em-eta18-phi1*/	1, 0, 2, 
+/* out0038_em-eta18-phi1*/	1, 0, 3, 
 /* out0039_em-eta19-phi1*/	1, 0, 2, 
 /* out0040_em-eta0-phi2*/	0, 
 /* out0041_em-eta1-phi2*/	0, 

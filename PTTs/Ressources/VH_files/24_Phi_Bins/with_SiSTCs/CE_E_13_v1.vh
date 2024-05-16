@@ -1,6 +1,6 @@
 parameter integer matrixE [0:1742] = {
 /* num inputs = 102(in0-in101) */
-/* num outputs = 480(out0-out479 */
+/* num outputs = 480(out0-out479) */
 //* max inputs per outputs = 4 */
 //* total number of input in adders 631 */
 

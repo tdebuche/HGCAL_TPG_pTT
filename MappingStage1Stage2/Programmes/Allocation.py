@@ -7,7 +7,7 @@ os.chdir(dir_path+'/../Ressources')
 
 parser = argparse.ArgumentParser()
 parser.add_argument("Sector", help="Layer to display",type=int)
-parser.add_argument("S2Board", help="Layer to display",type = int)
+parser.add_argument("S2Board", help="S2 Board to record",type = int)
 parser.add_argument("Edges", default = 'yes', help="Layer to display")
 args = parser.parse_args()
 

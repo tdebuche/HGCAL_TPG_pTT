@@ -228,7 +228,7 @@ def channel(board,link,word,Sector,S2Board):
 
 
 def tower(board,i,j,CEECEH,Sector):
-    subsystem  = 0
+    subsystem  = 1
     obj_type = 6
     t = ''
     binary = ''

@@ -18,9 +18,10 @@ Subsector = 0
 S2 = args.S2Board
 
 def allocation4linksNoEdges(Sector,S2Board):
+    Boards = [S1ID(Sector,board) for board in range(14)]
     text = 'From sector ' + str(Sector) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
     for i in range(len(Boards)):
-        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector)+'">'+'\n'
         for j in range(4):
             for k in range(2):
                 res = 0
@@ -59,10 +60,11 @@ def allocation4linksNoEdges(Sector,S2Board):
     return text
 
 def allocation4linksEdges(Sector,S2Board):
+    Boards = [S1ID(Sector,board) for board in range(14)]
     text = 'From sector ' + str(Sector) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
     text = ''
     for i in range(len(Boards)):
-        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector)+'">'+'\n'
         for j in range(4):
             for k in range(2):
                 res = 0
@@ -119,9 +121,10 @@ def allocation4linksEdges(Sector,S2Board):
 
 
 def allocation2linksNoEdges(Sector,S2Board):
+    Boards = [S1ID(Sector+1,board) for board in range(14)]
     text = 'From sector ' + str(Sector+1) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
     for i in range(len(Boards)):
-        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector+1)+'">'+'\n'
         for j in range(2):
             for k in range(2):
                 res = 0
@@ -160,10 +163,11 @@ def allocation2linksNoEdges(Sector,S2Board):
     return text
 
 def allocation2linksEdges(Sector,S2Board):
+    Boards = [S1ID(Sector+1,board) for board in range(14)]
     text = 'From sector ' + str(Sector +1) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
     text = ''
     for i in range(len(Boards)):
-        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector+1)+'">'+'\n'
         for j in range(2):
             for k in range(2):
                 res = 0
@@ -244,6 +248,16 @@ def tower(board,i,j,CEECEH):
 def board_6ID(board):
     doublehexa = board[4:6]
     return(hexatobinary(8,doublehexa)[2:8])
+
+def S1ID(Sector,board):
+    subsystem  = 1
+    obj_type = 0
+    binary = decimaltobinary(1,Endcap)+decimaltobinary(2,Sector)+decimaltobinary(1,Subsector)
+    binary += decimaltobinary(2,subsystem)
+    binary += decimaltobinary(4,obj_type)
+    binary += decimaltobinary(6,board)
+    binary += decimaltobinary(16,0)
+    return('0x'+ binarytohexa(8,binary))
 
 def decimaltobinary(nbbits,number):
     t =''

@@ -81,7 +81,7 @@ def allocation4linksEdges():
                                 nbzeros = ''
                             text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
                             res +=1
-                    for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8):
+                    for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8,-1):
                         if j%2 == 0:
                             t = tower(Boards[i],eta,phi,0)
                         if j%2 ==1 :

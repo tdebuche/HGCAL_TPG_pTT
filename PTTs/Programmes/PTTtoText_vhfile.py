@@ -270,7 +270,7 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
 
     tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
     tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
-    tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+' */' + '\n' +tCEH
+    tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEH
     tCEH = '/* num inputs = ' +str(int(nb_moduleCEH+nb_scint))+ '(in0-in' + str(int(nb_moduleCEH+nb_scint-1)) + ') */' + '\n' + tCEH
     tCEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + tCEH
     tCEH += '};'

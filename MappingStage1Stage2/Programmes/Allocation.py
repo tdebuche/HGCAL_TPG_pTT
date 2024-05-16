@@ -30,7 +30,7 @@ def allocation4linksNoEdges():
                 res = 0
                 text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
-                    for phi in range(9 * (j//2) +6, 9* (j//2 +1) +6):
+                    for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
                             t = tower(Boards[i],eta,phi,0)
                         if j%2 == 1 :
@@ -71,7 +71,11 @@ def allocation4linksEdges():
                 res = 0
                 text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
-                    for phi in range(9 * (j//2) +9, 9* (j//2 +1) +9):
+                    if j//2 == 1:
+                            t = tower(Boards[i],eta,27,1)
+                            text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                            res +=1
+                    for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8):
                         if j%2 == 0:
                             t = tower(Boards[i],eta,phi,0)
                         if j%2 ==1 :
@@ -80,10 +84,6 @@ def allocation4linksEdges():
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
-                        res +=1
-                    if j//2 == 1:
-                        t = tower(Boards[i],eta,phi+1,1)
                         text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
                         res +=1
                     if res < 10:

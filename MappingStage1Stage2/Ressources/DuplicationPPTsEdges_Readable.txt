@@ -1,3 +1,4 @@
+From sector 1 to S2 Board 0 of sector 0
 	<S1 id="Board 0 of sector 1">
 		<Channel : Link=4 Word=0, aux-id="8"
 			<Frame id = "000"  pTT : S1_Board=0, eta=0, phi=8, CE-E" />

@@ -19,7 +19,7 @@ Boards = ['0x64000000', '0x64010000', '0x64020000', '0x64030000', '0x64040000','
 Endcap = 0
 Sector = args.Sector
 Subsector = 0
-S2 = args.board
+S2 = args.S2Board
 
 def allocation4linksNoEdges():
     text = ''

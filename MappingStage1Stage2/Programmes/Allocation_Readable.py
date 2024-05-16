@@ -28,13 +28,13 @@ def allocation4linksNoEdges():
         for j in range(4):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j))+' Word='+str(int(k))+', aux-id="'+ str(j*2+k)+'"'+'\n'
+                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j))+', Word='+str(int(k))+', aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
-                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi = '+str(phi)+ ' CE-E'
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
                         if j%2 == 1 :
-                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi = '+str(phi)+ ' CE-H'
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:
@@ -73,9 +73,9 @@ def allocation4linksEdges():
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     if j//2 != 1:
                         if j%2 == 0:
-                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi = '+str(27)+ ' CE-E'
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(27)+ ', CE-E'
                         if j%2 ==1 :
-                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi = '+str(27)+ ' CE-H'
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(27)+ ', CE-H'
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:
@@ -86,9 +86,9 @@ def allocation4linksEdges():
                         res +=1
                     for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8,-1):
                         if j%2 == 0:
-                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi = '+str(phi)+ ' CE-E'
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
                         if j%2 ==1 :
-                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi = '+str(phi)+ ' CE-H'
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:

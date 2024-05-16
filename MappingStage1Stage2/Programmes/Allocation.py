@@ -14,14 +14,13 @@ args = parser.parse_args()
 
 
 
-Boards = ['0x64000000', '0x64010000', '0x64020000', '0x64030000', '0x64040000','0x64050000', '0x64060000', '0x64070000', '0x64080000', '0x64090000', '0x640A0000','0x640B0000', '0x640C0000', '0x640D0000']
-
 Endcap = 0
 Sector = args.Sector
 Subsector = 0
 S2 = args.S2Board
 
 def allocation4linksNoEdges(Sector,S2Board):
+    Boards = [S1ID(Sector,board) for board in range(14)]
     text = ''
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
@@ -63,6 +62,7 @@ def allocation4linksNoEdges(Sector,S2Board):
     return text
 
 def allocation4linksEdges(Sector,S2Board):
+    Boards = [S1ID(Sector,board) for board in range(14)]
     text = ''
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
@@ -118,6 +118,7 @@ def allocation4linksEdges(Sector,S2Board):
     return text
 
 def allocation2linksNoEdges(Sector,S2Board):
+    Boards = [S1ID(Sector+1,board) for board in range(14)]
     text = ''
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
@@ -160,6 +161,7 @@ def allocation2linksNoEdges(Sector,S2Board):
 
 
 def allocation2linksEdges(Sector,S2Board):
+    Boards = [S1ID(Sector+1,board) for board in range(14)]
     text = ''
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
@@ -246,6 +248,18 @@ def tower(board,i,j,CEECEH,Sector):
 def board_6ID(board):
     doublehexa = board[4:6]
     return(hexatobinary(8,doublehexa)[2:8])
+
+
+def S1ID(Sector,board):
+    subsystem  = 1
+    obj_type = 0
+    binary = decimaltobinary(1,Endcap)+decimaltobinary(2,Sector)+decimaltobinary(1,Subsector)
+    binary += decimaltobinary(2,subsystem)
+    binary += decimaltobinary(4,obj_type)
+    binary += decimaltobinary(6,board)
+    binary += decimaltobinary(16,0)
+    return('0x'+ binarytohexa(8,binary))
+
 
 def decimaltobinary(nbbits,number):
     t =''

@@ -21,20 +21,20 @@ Sector = args.Sector
 Subsector = 0
 S2 = args.S2Board
 
-def allocation4linksNoEdges():
+def allocation4linksNoEdges(Sector,S2Board):
     text = ''
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for j in range(4):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
+                text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector,S2Board)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
-                            t = tower(Boards[i],eta,phi,0)
+                            t = tower(Boards[i],eta,phi,0,Sector)
                         if j%2 == 1 :
-                            t = tower(Boards[i],eta,phi,1)
+                            t = tower(Boards[i],eta,phi,1,Sector)
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:
@@ -62,20 +62,20 @@ def allocation4linksNoEdges():
 
     return text
 
-def allocation4linksEdges():
+def allocation4linksEdges(Sector,S2Board):
     text = ''
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for j in range(4):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
+                text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector,S2Board)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     if j//2 != 1:
                         if j%2 == 0:
-                            t = tower(Boards[i],eta,27,0)
+                            t = tower(Boards[i],eta,27,0,Sector)
                         if j%2 ==1 :
-                            t = tower(Boards[i],eta,27,1)
+                            t = tower(Boards[i],eta,27,1,Sector)
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:
@@ -86,9 +86,93 @@ def allocation4linksEdges():
                         res +=1
                     for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8,-1):
                         if j%2 == 0:
-                            t = tower(Boards[i],eta,phi,0)
+                            t = tower(Boards[i],eta,phi,0,Sector)
                         if j%2 ==1 :
-                            t = tower(Boards[i],eta,phi,1)
+                            t = tower(Boards[i],eta,phi,1,Sector)
+                        if res < 10:
+                            nbzeros = '00'
+                        if  res > 9:
+                            nbzeros = '0'
+                        if res > 99:
+                            nbzeros = ''
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                        res +=1
+                    if res < 10:
+                        nbzeros = '00'
+                    if  res > 9:
+                        nbzeros = '0'
+                    if res > 99:
+                        nbzeros = ''
+                    if j//2 == 1 or res < 97:
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                        res +=1
+                for f in range(res,108):
+                    if f < 100:
+                        nbzeros = '0'
+                    else:
+                        nbzeros = ''
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />' + '\n'
+                text += '\t\t'+'</Channel>' + '\n'
+        text += '\t'+'</S1>'+'\n'
+
+    return text
+
+def allocation2linksNoEdges(Sector,S2Board):
+    text = ''
+    for i in range(len(Boards)):
+        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        for j in range(2):
+            for k in range(2):
+                res = 0
+                text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector + 1,S2Board)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
+                for eta in range(10*(k%2),10*(k%2 + 1)):
+                    for phi in range(6 * (1-j//2+1) -1, 6* (1-j//2) -1,-1):
+                        if j%2 == 0:
+                            t = tower(Boards[i],eta,phi,0,Sector+1)
+                        if j%2 == 1 :
+                            t = tower(Boards[i],eta,phi,1,Sector+1)
+                        if res < 10:
+                            nbzeros = '00'
+                        if  res > 9:
+                            nbzeros = '0'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                        res +=1
+                    if res < 10:
+                        nbzeros = '00'
+                    if  res > 9:
+                        nbzeros = '0'
+                    if res > 99:
+                        nbzeros = ''
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    res +=1
+                for f in range(res,108):
+                    if f < 100:
+                        nbzeros = '0'
+                    else:
+                        nbzeros = ''
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />' + '\n'
+                text += '\t\t'+'</Channel>' + '\n'
+        text += '\t'+'</S1>'+'\n'
+
+
+
+    return text
+
+
+def allocation2linksEdges(Sector,S2Board):
+    text = ''
+    for i in range(len(Boards)):
+        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        for j in range(2):
+            for k in range(2):
+                res = 0
+                text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector+1,S2Board)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
+                for eta in range(10*(k%2),10*(k%2 + 1)):
+                    for phi in range(9 * (1-j//2+1) -1, 9* (1-j//2) -1,-1):
+                        if j%2 == 0:
+                            t = tower(Boards[i],eta,phi,0,Sector+1)
+                        if j%2 ==1 :
+                            t = tower(Boards[i],eta,phi,1,Sector+1)
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:
@@ -119,7 +203,10 @@ def allocation4linksEdges():
 
 
 
-def channel(board,link,word):
+
+
+
+def channel(board,link,word,Sector,S2Board):
     subsystem  = 1
     obj_type = 5
     t = ''
@@ -131,14 +218,14 @@ def channel(board,link,word):
     binary += decimaltobinary(4,obj_type)
     S1_ID =  board_6ID(board)
     binary +=  S1_ID
-    binary += decimaltobinary(5,S2)
+    binary += decimaltobinary(5,S2Board)
     binary += decimaltobinary(3,link)
     binary += decimaltobinary(2,word)
     binary += '000000'
     return('0x'+ binarytohexa(8,binary))
 
 
-def tower(board,i,j,CEECEH):
+def tower(board,i,j,CEECEH,Sector):
     subsystem  = 0
     obj_type = 6
     t = ''
@@ -209,10 +296,18 @@ def binarytohexa(nbhexa,binary):
 
 if args.Edges == 'yes':
     file = open("AllocationPPTsEdges.txt", "w")
-    file.write(allocation4linksEdges())
+    file.write(allocation4linksEdges(Sector,S2))
 if args.Edges == 'no':
     file = open("AllocationPttsNoEdges.txt", "w")
-    file.write(allocation4linksNoEdges())
+    file.write(allocation4linksNoEdges(Sector,S2))
+file.close()
+
+if args.Edges == 'yes':
+    file = open("DuplicationPPTsEdges.txt", "w")
+    file.write(allocation2linksEdges(Sector,S2))
+if args.Edges == 'no':
+    file = open("DuplicationPttsNoEdges.txt", "w")
+    file.write(allocation2linksNoEdges(Sector,S2))
 file.close()
 
 

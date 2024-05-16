@@ -300,4 +300,12 @@ if args.Edges == 'no':
     file.write(allocation4linksNoEdges())
 file.close()
 
+if args.Edges == 'yes':
+    file = open("DuplicationPPTsEdges_Readable.txt", "w")
+    file.write(allocation2linksEdges())
+if args.Edges == 'no':
+    file = open("DuplicationPttsNoEdges_Readable.txt", "w")
+    file.write(allocation2linksNoEdges())
+file.close()
+
 

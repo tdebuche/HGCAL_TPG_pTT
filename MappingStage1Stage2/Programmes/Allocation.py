@@ -41,7 +41,11 @@ def allocation4linksNoEdges():
                             nbzeros = '0'
                         text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
                         res +=1
-                for f in range(90,108):
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    res +=1
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    res += 1
+                for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
@@ -78,6 +82,10 @@ def allocation4linksEdges():
                         t = tower(Boards[i],eta,phi+1,1)
                         text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
                         res +=1
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    res +=1
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    res += 1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'

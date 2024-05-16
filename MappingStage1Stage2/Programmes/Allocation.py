@@ -100,7 +100,7 @@ def allocation4linksEdges():
                         nbzeros = '0'
                     if res > 99:
                         nbzeros = ''
-                    if j//2 == 1 and res < 97:
+                    if j//2 == 1 or res < 97:
                         text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
                         res +=1
                 for f in range(res,108):

@@ -127,7 +127,7 @@ def allocation2linksNoEdges(Sector,S2Board):
                 res = 0
                 text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector + 1,S2Board)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
-                    for phi in range(6 * (1-j//2+1) -1, 6* (1-j//2) -1,-1):
+                    for phi in range(5, -1,-1):
                         if j%2 == 0:
                             t = tower(Boards[i],eta,phi,0,Sector+1)
                         if j%2 == 1 :
@@ -170,7 +170,7 @@ def allocation2linksEdges(Sector,S2Board):
                 res = 0
                 text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector+1,S2Board)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
-                    for phi in range(9 * (1-j//2+1) -1, 9* (1-j//2) -1,-1):
+                    for phi in range(8,-1,-1):
                         if j%2 == 0:
                             t = tower(Boards[i],eta,phi,0,Sector+1)
                         if j%2 ==1 :

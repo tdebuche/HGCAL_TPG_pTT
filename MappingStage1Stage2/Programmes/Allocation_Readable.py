@@ -12,17 +12,13 @@ parser.add_argument("Edges", default = 'yes', help="Layer to display")
 args = parser.parse_args()
 
 
-
-
-Boards = ['0x64000000', '0x64010000', '0x64020000', '0x64030000', '0x64040000','0x64050000', '0x64060000', '0x64070000', '0x64080000', '0x64090000', '0x640A0000','0x640B0000', '0x640C0000', '0x640D0000']
-
 Endcap = 0
 Sector = args.Sector
 Subsector = 0
 S2 = args.S2Board
 
-def allocation4linksNoEdges():
-    text = ''
+def allocation4linksNoEdges(Sector,S2Board):
+    text = 'From sector ' + str(Sector) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for j in range(4):
@@ -62,7 +58,8 @@ def allocation4linksNoEdges():
 
     return text
 
-def allocation4linksEdges():
+def allocation4linksEdges(Sector,S2Board):
+    text = 'From sector ' + str(Sector) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
     text = ''
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
@@ -119,6 +116,94 @@ def allocation4linksEdges():
 
 
 
+
+
+def allocation2linksNoEdges(Sector,S2Board):
+    text = 'From sector ' + str(Sector+1) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
+    for i in range(len(Boards)):
+        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        for j in range(2):
+            for k in range(2):
+                res = 0
+                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j+4))+', Word='+str(int(k))+', aux-id="'+ str((j+4)*2+k)+'"'+'\n'
+                for eta in range(10*(k%2),10*(k%2 + 1)):
+                    for phi in range(5, -1,-1):
+                        if j%2 == 0:
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
+                        if j%2 == 1 :
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
+                        if res < 10:
+                            nbzeros = '00'
+                        if  res > 9:
+                            nbzeros = '0'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
+                        res +=1
+                    if res < 10:
+                        nbzeros = '00'
+                    if  res > 9:
+                        nbzeros = '0'
+                    if res > 99:
+                        nbzeros = ''
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    res +=1
+                for f in range(res,108):
+                    if f < 100:
+                        nbzeros = '0'
+                    else:
+                        nbzeros = ''
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />' + '\n'
+                text += '\t\t'+'</Channel>' + '\n'
+        text += '\t'+'</S1>'+'\n'
+
+
+
+    return text
+
+def allocation2linksEdges(Sector,S2Board):
+    text = 'From sector ' + str(Sector +1) ' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
+    text = ''
+    for i in range(len(Boards)):
+        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        for j in range(2):
+            for k in range(2):
+                res = 0
+                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j+4))+' Word='+str(int(k))+', aux-id="'+ str((j+4)*2+k)+'"'+'\n'
+                for eta in range(10*(k%2),10*(k%2 + 1)):
+                    for phi in range(8, -1,-1):
+                        if j%2 == 0:
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
+                        if j%2 ==1 :
+                            t = 'S1_Board='+str(int(i))+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
+                        if res < 10:
+                            nbzeros = '00'
+                        if  res > 9:
+                            nbzeros = '0'
+                        if res > 99:
+                            nbzeros = ''
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
+                        res +=1
+                    if res < 10:
+                        nbzeros = '00'
+                    if  res > 9:
+                        nbzeros = '0'
+                    if res > 99:
+                        nbzeros = ''
+                    if j//2 == 1 or res < 97:
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                        res +=1
+                for f in range(res,108):
+                    if f < 100:
+                        nbzeros = '0'
+                    else:
+                        nbzeros = ''
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />' + '\n'
+                text += '\t\t'+'</Channel>' + '\n'
+        text += '\t'+'</S1>'+'\n'
+
+    return text
+
+
+
 def channel(board,link,word):
     subsystem  = 1
     obj_type = 5
@@ -139,7 +224,7 @@ def channel(board,link,word):
 
 
 def tower(board,i,j,CEECEH):
-    subsystem  = 0
+    subsystem  = 1
     obj_type = 6
     t = ''
     binary = ''

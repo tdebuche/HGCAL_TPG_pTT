@@ -39,7 +39,7 @@ def allocation4linksNoEdges():
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
                         res +=1
                     if res < 10:
                         nbzeros = '00'
@@ -82,7 +82,7 @@ def allocation4linksEdges():
                             nbzeros = '0'
                         if res > 99:
                             nbzeros = ''
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
                         res +=1
                     for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8,-1):
                         if j%2 == 0:
@@ -95,7 +95,7 @@ def allocation4linksEdges():
                             nbzeros = '0'
                         if res > 99:
                             nbzeros = ''
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
                         res +=1
                     if res < 10:
                         nbzeros = '00'

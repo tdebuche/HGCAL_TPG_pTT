@@ -71,7 +71,7 @@ def allocation4linksEdges():
                 res = 0
                 text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
-                    if j//2 == 1:
+                    if j//2 != 1:
                             t = tower(Boards[i],eta,27,1)
                             text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
                             res +=1
@@ -92,8 +92,9 @@ def allocation4linksEdges():
                         nbzeros = '0'
                     if res > 99:
                         nbzeros = ''
-                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
-                    res +=1
+                    if j//2 == 1 and res < 97:
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                        res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'

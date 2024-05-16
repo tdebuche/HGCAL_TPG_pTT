@@ -208,10 +208,10 @@ def binarytohexa(nbhexa,binary):
 
 
 if args.Edges == 'yes':
-    file = open("allocation4linksEdges.txt", "w")
+    file = open("AllocationPPTsEdges.txt", "w")
     file.write(allocation4linksEdges())
 if args.Edges == 'no':
-    file = open("allocation4linksNoEdges.txt", "w")
+    file = open("AllocationPttsNoEdges.txt", "w")
     file.write(allocation4linksNoEdges())
 file.close()
 

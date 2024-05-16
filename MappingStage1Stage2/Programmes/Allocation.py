@@ -73,6 +73,12 @@ def allocation4linksEdges():
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     if j//2 != 1:
                             t = tower(Boards[i],eta,27,1)
+                            if res < 10:
+                                nbzeros = '00'
+                            if  res > 9:
+                                nbzeros = '0'
+                            if res > 99:
+                                nbzeros = ''
                             text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
                             res +=1
                     for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8):
@@ -84,6 +90,8 @@ def allocation4linksEdges():
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
+                        if res > 99:
+                            nbzeros = ''
                         text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
                         res +=1
                     if res < 10:

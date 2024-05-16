@@ -19,7 +19,7 @@ S2 = args.S2Board
 
 def allocation4linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector,board) for board in range(14)]
-    text = 'From sector ' + str(Sector) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
+    text = 'From sector ' + str(Sector) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector) + '\n'
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector)+'">'+'\n'
         for j in range(4):
@@ -61,8 +61,7 @@ def allocation4linksNoEdges(Sector,S2Board):
 
 def allocation4linksEdges(Sector,S2Board):
     Boards = [S1ID(Sector,board) for board in range(14)]
-    text = 'From sector ' + str(Sector) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
-    text = ''
+    text = 'From sector ' + str(Sector) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector) + '\n'
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector)+'">'+'\n'
         for j in range(4):
@@ -122,7 +121,7 @@ def allocation4linksEdges(Sector,S2Board):
 
 def allocation2linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector+1,board) for board in range(14)]
-    text = 'From sector ' + str(Sector+1) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
+    text = 'From sector ' + str(Sector+1) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector) + '\n'
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector+1)+'">'+'\n'
         for j in range(2):
@@ -164,8 +163,7 @@ def allocation2linksNoEdges(Sector,S2Board):
 
 def allocation2linksEdges(Sector,S2Board):
     Boards = [S1ID(Sector+1,board) for board in range(14)]
-    text = 'From sector ' + str(Sector +1) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector)
-    text = ''
+    text = 'From sector ' + str(Sector +1) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector) + '\n'
     for i in range(len(Boards)):
         text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector+1)+'">'+'\n'
         for j in range(2):

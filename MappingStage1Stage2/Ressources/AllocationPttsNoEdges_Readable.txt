@@ -1,4 +1,4 @@
-	<S1 id="0x64000000">
+From sector 0 to S2 Board 0 of sector 0	<S1 id="Board 0 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=0, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=0, eta=0, phi=22, CE-E" />
@@ -880,7 +880,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64010000">
+	<S1 id="Board 1 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=1, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=1, eta=0, phi=22, CE-E" />
@@ -1762,7 +1762,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64020000">
+	<S1 id="Board 2 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=2, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=2, eta=0, phi=22, CE-E" />
@@ -2644,7 +2644,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64030000">
+	<S1 id="Board 3 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=3, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=3, eta=0, phi=22, CE-E" />
@@ -3526,7 +3526,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64040000">
+	<S1 id="Board 4 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=4, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=4, eta=0, phi=22, CE-E" />
@@ -4408,7 +4408,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64050000">
+	<S1 id="Board 5 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=5, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=5, eta=0, phi=22, CE-E" />
@@ -5290,7 +5290,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64060000">
+	<S1 id="Board 6 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=6, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=6, eta=0, phi=22, CE-E" />
@@ -6172,7 +6172,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64070000">
+	<S1 id="Board 7 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=7, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=7, eta=0, phi=22, CE-E" />
@@ -7054,7 +7054,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64080000">
+	<S1 id="Board 8 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=8, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=8, eta=0, phi=22, CE-E" />
@@ -7936,7 +7936,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x64090000">
+	<S1 id="Board 9 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=9, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=9, eta=0, phi=22, CE-E" />
@@ -8818,7 +8818,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640A0000">
+	<S1 id="Board 10 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=10, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=10, eta=0, phi=22, CE-E" />
@@ -9700,7 +9700,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640B0000">
+	<S1 id="Board 11 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=11, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=11, eta=0, phi=22, CE-E" />
@@ -10582,7 +10582,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640C0000">
+	<S1 id="Board 12 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=12, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=12, eta=0, phi=22, CE-E" />
@@ -11464,7 +11464,7 @@
 			<Frame id = "107" />
 		</Channel>
 	</S1>
-	<S1 id="0x640D0000">
+	<S1 id="Board 13 of sector 0">
 		<Channel : Link=0, Word=0, aux-id="0"
 			<Frame id = "000"  pTT : S1_Board=13, eta=0, phi=23, CE-E" />
 			<Frame id = "001"  pTT : S1_Board=13, eta=0, phi=22, CE-E" />

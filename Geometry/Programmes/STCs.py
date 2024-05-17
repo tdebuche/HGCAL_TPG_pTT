@@ -458,7 +458,7 @@ def STC4HD(Module,Layer): #Return the STCs of a single HD module with 4 vertices
         Y = P + (Module[:,I[0]]-Module[:,I[1]]) *((a-c/2)/(np.sqrt(res)))
         if (X[0]-Y[0])**2 + (X[1]-Y[1])**2 < 0.01:
             Y = X
-        Z = (P + Module[:,I[1]])/2
+        W = (P + Module[:,I[1]])/2
         P3 = (X4 + X8) /2
         x1,y1  = (X1[0],X1[1])
         x4,y4 = (X4[0],X4[1])
@@ -467,15 +467,15 @@ def STC4HD(Module,Layer): #Return the STCs of a single HD module with 4 vertices
         xp3,yp3 = (P3[0],P3[1])
         xX,yX = (X[0],X[1])
         xY,yY = (Y[0],Y[1])
-        xZ,yZ = (Z[0],Z[1])
+        xW,yW = (W[0],W[1])
         xP,yP =(P[0],P[1])
         first = [[Module[0,I[0]],xX,x1],[Module[1,I[0]],yX,y1]]
         second = [[xY,xP,x4],[yY,yP,y4]]
         third = [[Module[0,I[3]],x1,xX,xY,x4],[Module[1,I[3]],y1,yX,yY,y4]]
         fourth =  [[Module[0,I[2]],x9,xp3,x8],[Module[1,I[2]],y9,yp3,y8]]
         fifth = [[Module[0,I[3]],x4,xp3,x9],[Module[1,I[3]],y4,yp3,y9]]
-        sixth =[[xP,xZ,xp3,x4],[yP,yZ,yp3,y4]]
-        seventh = [[Module[0,I[1]],x8,xp3,xZ],[Module[1,I[1]],y8,yp3,yZ]]
+        sixth =[[xP,xW,xp3,x4],[yP,yW,yp3,y4]]
+        seventh = [[Module[0,I[1]],x8,xp3,xW],[Module[1,I[1]],y8,yp3,yW]]
         if subtype == 0:
             L.append(first)
             L.append(second)
@@ -501,7 +501,7 @@ def STC4HD(Module,Layer): #Return the STCs of a single HD module with 4 vertices
         Y = P + (Module[:,I[1]]-Module[:,I[0]]) *((a-c/2)/(np.sqrt(res)))
         if (X[0]-Y[0])**2 + (X[1]-Y[1])**2 < 0.01:
             Y = X
-        Z = (P + Module[:,I[0]])/2
+        W = (P + Module[:,I[0]])/2
         P2 = (X3 + X6) /2
         x2,y2  = (X2[0],X2[1])
         x6,y6 = (X6[0],X6[1])
@@ -510,11 +510,11 @@ def STC4HD(Module,Layer): #Return the STCs of a single HD module with 4 vertices
         xp2,yp2 = (P2[0],P2[1])
         xX,yX = (X[0],X[1])
         xY,yY = (Y[0],Y[1])
-        xZ,yZ = (Z[0],Z[1])
+        xW,yW = (W[0],W[1])
         xP,yP =(P[0],P[1])
         first = [[Module[0,I[3]],x6,xp2,x5],[Module[1,I[3]],y6,yp2,y5]]
-        second =  [[Module[0,I[0]],xZ,xp2,x6],[Module[1,I[0]],yZ,yp2,y6]]
-        third = [[xZ,xP,x3,xp2],[yZ,yP,y3,yp2]]
+        second =  [[Module[0,I[0]],xW,xp2,x6],[Module[1,I[0]],yW,yp2,y6]]
+        third = [[xW,xP,x3,xp2],[yW,yP,y3,yp2]]
         fourth = [[Module[0,I[2]],x5,xp2,x3],[Module[1,I[2]],y5,yp2,y3]]
         fifth = [[Module[0,I[1]],x2,xX],[Module[1,I[1]],y2,yX]]
         sixth = [[Module[0,I[2]],x3,xY,xX,x2],[Module[1,I[2]],y3,yY,yX,y2]]

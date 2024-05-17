@@ -192,7 +192,7 @@ def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
         if x == 0 and y == 0:
             return 'error'
         eta,phi = functions.XYtoetaphi(x,y,z)
-        if eta <= etamin and phi >= phimax:
+        if eta <= etamin+0.01 and phi >= phimax -0.1.:
             etamin,phimax = eta,phi
             marker_i = i
     I = np.array([(marker_i +i)%4 for i in range(4)])
@@ -202,7 +202,7 @@ def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
         x2,y2 = ((Scintillator[0,I[1]]+Scintillator[0,I[2]])/2,(Scintillator[1,I[1]]+Scintillator[1,I[2]])/2)
         x3,y3 = (((Scintillator[0,I[3]]-Scintillator[0,I[2]]) /(ratio*2) +Scintillator[0,I[2]]),((Scintillator[1,I[3]]-Scintillator[1,I[2]])/(ratio*2)+Scintillator[1,I[2]]))
         x4,y4 = ((Scintillator[0,I[3]]+Scintillator[0,I[0]])/2,(Scintillator[1,I[3]]+Scintillator[1,I[0]])/2)
-        x,y = ((x1+x3)/2,(y+y3)/2)
+        x,y = ((x1+x3)/2,(y1+y3)/2)
         L.append([[Scintillator[0,I[0]],x1,x,x4],[Scintillator[1,I[0]],y1,y,y4]])
         L.append([[Scintillator[0,I[1]],x2,x,x1],[Scintillator[1,I[1]],y2,y,y1]])
         L.append([[Scintillator[0,I[2]],x3,x,x2],[Scintillator[1,I[2]],y3,y,y2]])
@@ -213,7 +213,7 @@ def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
         x2,y2 = ((Scintillator[0,I[1]]+Scintillator[0,I[2]])/2,(Scintillator[1,I[1]]+Scintillator[1,I[2]])/2)
         x3,y3 = (((Scintillator[0,I[2]]-Scintillator[0,I[3]]) /(ratio*2) +Scintillator[0,I[3]]),((Scintillator[1,I[2]]-Scintillator[1,I[3]])/(ratio*2)+Scintillator[1,I[3]]))
         x4,y4 = ((Scintillator[0,I[3]]+Scintillator[0,I[0]])/2,(Scintillator[1,I[3]]+Scintillator[1,I[0]])/2)
-        x,y = ((x1+x3)/2,(y+y3)/2)
+        x,y = ((x1+x3)/2,(y1+y3)/2)
         L.append([[Scintillator[0,I[0]],x1,x,x4],[Scintillator[1,I[0]],y1,y,y4]])
         L.append([[Scintillator[0,I[1]],x2,x,x1],[Scintillator[1,I[1]],y2,y,y1]])
         L.append([[Scintillator[0,I[2]],x3,x,x2],[Scintillator[1,I[2]],y3,y,y2]])

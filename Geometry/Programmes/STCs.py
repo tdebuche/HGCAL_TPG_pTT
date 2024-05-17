@@ -22,10 +22,10 @@ def STCLayersLD(Geometry,Layermin, Layermax): #Returns the STCs of a LD layer (3
     L=[]
     l = []
     for Layer in range(Layermin,Layermax+1):
-        z = Z[Layer-1]
         Modules = Geometry[Layer-1]
-        for Module in Modules:
-            l.append(STCLD(Module,z))
+        for index in range(len(Modules)):
+            Module = Modules[i]
+            l.append(STCLD(Module,Layer,index))
         L.append(l)
         l = []
     maxmoduleperlayer  =0
@@ -50,10 +50,10 @@ def STCLayersHD(Geometry,Layermin, Layermax): #Returns the STCs of an HD layer (
     L=[]
     l = []
     for Layer in range(Layermin,Layermax+1):
-        z = Z[Layer-1]
         Modules = Geometry[Layer-1]
-        for Module in Modules:
-            l.append(STCHD(Module,z))
+        for index in range(len(Modules)):
+            Module = Modules[index]
+            l.append(STCHD(Module,Layer))
         L.append(l)
         l = []
     maxmoduleperlayer  =0
@@ -76,19 +76,19 @@ def STCLayersHD(Geometry,Layermin, Layermax): #Returns the STCs of an HD layer (
 
 
 
-def STCLD(Module,z): #Return the STCs of a single LD module
-    if type(Module,z) == 0:
+def STCLD(Module,Layer,index): #Return the STCs of a single LD module
+    if type(index,Layer) == 'Si_Module':
         a = 0
         for i in range(len(Module[0])):
             if Module[0,i] != 0 or Module[1,i] != 0:
                 a +=1
         if a == 6:
-            return STC6LD(Module,z)
+            return STC6LD(Module,Layer)
         if a == 4:
-            return STC4LD(Module,z)
+            return STC4LD(Module,Layer)
         if a ==  5:
-            return STC5LD(Module,z)
-    if type(Module,z) ==1:
+            return STC5LD(Module,Layer)
+    if type(index,Layer) == 'Scintillator_Module':
         L = [[],[]]
         for i in range(4):
             L[0].append(Module[0,i])
@@ -97,45 +97,35 @@ def STCLD(Module,z): #Return the STCs of a single LD module
     return []
 
 
-def STCHD(Module,z): #Return the STCs of a single HD module
-    if type(Module,z) == 0:
-        a = 0
-        for i in range(len(Module[0])):
-            if Module[0,i] != 0 or Module[1,i] != 0:
-                a +=1
-        if a != 0:
-            eta,phi = functions.etaphicentre(Module,z)
-            if (eta < 2.3 and z>  Z[27-1]) or (eta < 2.2 and z ==  Z[27-1]) :
-                return STCLD(Module,z)
+def STCHD(Module,Layer): #Return the STCs of a single HD module
+    z = Z[Layer-1]
+    a = 0
+    for i in range(len(Module[0])):
+        if Module[0,i] != 0 or Module[1,i] != 0:
+            a +=1
+    if a != 0:
+        eta,phi = functions.etaphicentre(Module,z)
+        if (eta < 2.3 and z>  Z[27-1]) or (eta < 2.2 and z ==  Z[27-1]) :
+            return STCLD(Module,Layer)
         if a == 6:
-            return STC6HD(Module,z)
+            return STC6HD(Module,Layer)
         if a == 4:
-            return STC4HD(Module,z)
+            return STC4HD(Module,Layer)
         if a ==  5:
-            return STC5HD(Module,z)
-    if type(Module,z) ==1:
-        L = [[],[]]
-        for i in range(4):
-            L[0].append(Module[0,i])
-            L[1].append(Module[1,i])
+            return STC5HD(Module,Layer)
     return []
 
-def type(Module,z): #Return 1 if the module is a scintillator, 0 if it is Sillicium
-    res = 0
-    dist = 0
-    for i in range(4):
-         dist = (Module[0,i]-Module[0,(i+1)%4])**2 + (Module[1,i]-Module[1,(i+1)%4])**2
-         if dist >res :
-             res = dist
-    if res > 42000:
-        return 1
-    return 0
-
+def type(index,Layer): #Return the type of the module Modules[index]
+    IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
+    if index < IndminScint[Layer-34]:
+        return 'Si_Module'
+    return 'Scintillator_Module'
 
 #Tous les fonctions sont basés sur le même principe : trouver le sommet marker_i tel que la coupe soit définie par les sommets marker_i et marker_i +1. Ensuite, selon la position de ce sommet on peut trouver l'orientation de la coupe et donc les STC. Lorque un module  a 6 sommest (et donc est entier marker_i est le sommet en haut à gauche de l'hexagone.
 
 
-def STC6LD(Module,z): #Return the STCs of a single LD module with 6 vertices
+def STC6LD(Module,Layer): #Return the STCs of a single LD module with 6 vertices
+    z = Z[Layer-1]
     L = []
     xmin = Module[0,0]
     marker_i =0
@@ -160,7 +150,8 @@ def STC6LD(Module,z): #Return the STCs of a single LD module with 6 vertices
         L.append([[Module[0,I[3]],Module[0,I[4]],Module[0,I[5]],x],[Module[1,I[3]],Module[1,I[4]],Module[1,I[5]],y]])
     return(L)
 
-def STC6HD(Module,z): #Return the STCs of a single HD module with 6 vertices
+def STC6HD(Module,Layer): #Return the STCs of a single HD module with 6 vertices
+    z = Z[Layer-1]
     L = []
     xmin = Module[0,0]
     marker_i =0
@@ -213,7 +204,8 @@ def STC6HD(Module,z): #Return the STCs of a single HD module with 6 vertices
             I = (I + 2)%6
     return(L)
 
-def STC4LD(Module,z): #Return the STCs of a single LD module with 4 vertices
+def STC4LD(Module,Layer): #Return the STCs of a single LD module with 4 vertices
+    z = Z[Layer-1]
     L = []
     res = 0
     marker_i =0
@@ -294,7 +286,8 @@ def STC4LD(Module,z): #Return the STCs of a single LD module with 4 vertices
     return(L)
 
 
-def STC4HD(Module,z): #Return the STCs of a single HD module with 4 vertices
+def STC4HD(Module,Layer): #Return the STCs of a single HD module with 4 vertices
+    z = Z[Layer-1]
     L = []
     res = 0
     marker_i =0
@@ -446,7 +439,8 @@ def STC4HD(Module,z): #Return the STCs of a single HD module with 4 vertices
     return(L)
 
 
-def STC5LD(Module,z):  #Return the STCs of a single LD module with 5 vertices
+def STC5LD(Module,Layer):  #Return the STCs of a single LD module with 5 vertices
+    z = Z[Layer-1]
     res = 0
     marker_i =0
     for i in range(5):
@@ -471,11 +465,12 @@ def STC5LD(Module,z):  #Return the STCs of a single LD module with 5 vertices
             if  dist < res/4:
                 typemod = 1
     if typemod == 0:
-        return STC5bigLD(Module,z,marker_i)
+        return STC5bigLD(Module,Layer,marker_i)
     if typemod == 1:
-        return STC5smallLD(Module,z,marker_i)
+        return STC5smallLD(Module,Layer,marker_i)
 
-def STC5HD(Module,z):  #Return the STCs of a single HD module with 5 vertices
+def STC5HD(Module,Layer):  #Return the STCs of a single HD module with 5 vertices
+    z = Z[Layer-1]
     res = 0
     marker_i =0
     for i in range(5):
@@ -500,12 +495,13 @@ def STC5HD(Module,z):  #Return the STCs of a single HD module with 5 vertices
             if  dist < res/4:
                 typemod = 1
     if typemod == 0:
-        return STC5bigHD(Module,z,marker_i)
+        return STC5bigHD(Module,Layer,marker_i)
     if typemod == 1:
-        return STC5smallHD(Module,z,marker_i)
+        return STC5smallHD(Module,Layer,marker_i)
 
 
-def STC5bigLD(Module,z,marker_i):  #Return the STCs of a single LD module with 5 vertices (when the type of the truncated module is "big"(two cuts are possible with 5vertices))
+def STC5bigLD(Module,Layer,marker_i):  #Return the STCs of a single LD module with 5 vertices (when the type of the truncated module is "big"(two cuts are possible with 5vertices))
+    z = Z[Layer-1]
     L = []
     xmin = Module[0,0]
     ymin = Module[1,0]
@@ -590,7 +586,7 @@ def STC5bigLD(Module,z,marker_i):  #Return the STCs of a single LD module with 5
     return L
 
 
-def STC5bigHD(Module,z,marker_i):  #Return the STCs of a single HD module with 5 vertices, for a "big" module
+def STC5bigHD(Module,Layer,marker_i):  #Return the STCs of a single HD module with 5 vertices, for a "big" module
     L = []
     xmin = Module[0,0]
     ymin = Module[1,0]
@@ -684,7 +680,8 @@ def STC5bigHD(Module,z,marker_i):  #Return the STCs of a single HD module with 5
         L.append([[Module[0,I[4]],x5,xp2,x3],[Module[1,I[4]],y5,yp2,y3]])
     return L
 
-def STC5smallLD(Module,z,marker_i):  #Return the STCs of a single small LD module with 5 vertices
+def STC5smallLD(Module,Layer,marker_i):  #Return the STCs of a single small LD module with 5 vertices
+    z = Z[Layer-1]
     L = []
     xmin = Module[0,0]
     ymin = Module[1,0]
@@ -759,7 +756,8 @@ def STC5smallLD(Module,z,marker_i):  #Return the STCs of a single small LD modul
     return L
 
 
-def STC5smallHD(Module,z,marker_i):  #Return the STCs of a single small HD module with 5 vertices
+def STC5smallHD(Module,Layer,marker_i):  #Return the STCs of a single small HD module with 5 vertices
+    z = Z[Layer-1]
     L = []
     xmin = Module[0,0]
     ymin = Module[1,0]

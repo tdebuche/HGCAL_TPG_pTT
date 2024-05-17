@@ -131,9 +131,9 @@ def Scintillatortype(index,Layer): #Return the type of the Scintillator Modules[
                 return('J',4)
             if Layer == 35:
                 return('J',6)
-            if Layer == 34:
+            if Layer == 36:
                 return('J',7)
-            if Layer == 34:
+            if Layer == 37:
                 return('J',8)
     if Layer == 38 or Layer == 39:
         if (index - IndminScint[Layer-34])%4 == 0:

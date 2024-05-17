@@ -24,6 +24,7 @@ def XYtoetaphi(x,y,z):
     if np.abs(x) < 0.01 and np.abs(y)<0.01:
         return('too small')
     if np.abs(y) < 0.001:
+        return('too small')
         if np.sign(x)<0:
             phi = 0
         else :

@@ -207,7 +207,7 @@ def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
         L.append([[Scintillator[0,I[1]],x2,x,x1],[Scintillator[1,I[1]],y2,y,y1]])
         L.append([[Scintillator[0,I[2]],x3,x,x2],[Scintillator[1,I[2]],y3,y,y2]])
         L.append([[Scintillator[0,I[3]],x4,x,x3],[Scintillator[1,I[3]],y4,y,y3]])
-    if Scint_Letter in ['A','B','C']:
+    if Scint_Letter in ['A','C']:
         ratio = Scint_Number/8
         x1,y1 = (((Scintillator[0,I[1]]-Scintillator[0,I[0]]) /(ratio*2) +Scintillator[0,I[0]]),((Scintillator[1,I[1]]-Scintillator[1,I[0]])/(ratio*2)+Scintillator[1,I[0]]))
         x2,y2 = ((Scintillator[0,I[1]]+Scintillator[0,I[2]])/2,(Scintillator[1,I[1]]+Scintillator[1,I[2]])/2)
@@ -223,6 +223,22 @@ def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
         x4,y4 = ((Scintillator[0,I[3]]+Scintillator[0,I[0]])/2,(Scintillator[1,I[3]]+Scintillator[1,I[0]])/2)
         L.append([[Scintillator[0,I[0]],Scintillator[0,I[1]],x2,x4],[Scintillator[1,I[0]],Scintillator[1,I[1]],y2,y4]])
         L.append([[Scintillator[0,I[2]],Scintillator[0,I[3]],x4,x2],[Scintillator[1,I[2]],Scintillator[1,I[3]],y4,y2]])
+    if Scint_Letter == 'B' :
+        ratio = Scint_Number/8
+        x1,y1 = ((Scintillator[0,I[0]] * 2/3+Scintillator[0,I[1]]*1/3),(Scintillator[1,I[0]] * 2/3+Scintillator[1,I[1]]*1/3))
+        x1bis,y1bis = ((Scintillator[0,I[0]] * 1/3+Scintillator[0,I[1]]*2/3),(Scintillator[1,I[0]] * 1/3+Scintillator[1,I[1]]*2/3))
+        x2,y2 = ((Scintillator[0,I[1]]+Scintillator[0,I[2]])/2,(Scintillator[1,I[1]]+Scintillator[1,I[2]])/2)
+        x3,y3 = ((Scintillator[0,I[2]] * 2/3+Scintillator[0,I[3]]*1/3),(Scintillator[1,I[2]] * 2/3+Scintillator[1,I[3]]*1/3))
+        x3bis,y3bis = ((Scintillator[0,I[2]] * 1/3+Scintillator[0,I[3]]*2/3),(Scintillator[1,I[2]] * 1/3+Scintillator[1,I[3]]*2/3))
+        x4,y4 = ((Scintillator[0,I[3]]+Scintillator[0,I[0]])/2,(Scintillator[1,I[3]]+Scintillator[1,I[0]])/2)
+        x5,y5 = ((x1+x3bis)/2,(y1+y3bis)/2)
+        x6,y6 = ((x1bis+x3)/2,(y1bis+y3)/2)
+        L.append([[Scintillator[0,I[0]],x1,x5,x4],[Scintillator[1,I[0]],y1,y5,y4]])
+        L.append([[x1,x1bis,x6,x5],[y1,y1bis,y6,y5]])
+        L.append([[Scintillator[0,I[1]],x2,x6,x1bis],[Scintillator[1,I[1]],y2,y6,y1bis]])
+        L.append([[Scintillator[0,I[2]],x3,x6,x2],[Scintillator[1,I[2]],y3,y6,y2]])
+        L.append([[x3,x3bis,x5,x6],[y3,y3bis,y5,y6]])
+        L.append([[Scintillator[0,I[3]],x4,x5,x3bis],[Scintillator[1,I[3]],y4,y5,y3bis]])
     return L
 
 def STC6LD(Module,Layer): #Return the STCs of a single LD module with 6 vertices

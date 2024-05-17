@@ -77,18 +77,18 @@ def STCLayersHD(Geometry,Layermin, Layermax): #Returns the STCs of an HD layer (
 
 
 def STCLD(Module,Layer,index): #Return the STCs of a single LD module
+    a = 0
+    for i in range(len(Module[0])):
+        if Module[0,i] != 0 or Module[1,i] != 0:
+            a +=1
     if type(index,Layer) == 'Si_Module':
-        a = 0
-        for i in range(len(Module[0])):
-            if Module[0,i] != 0 or Module[1,i] != 0:
-                a +=1
         if a == 6:
             return STC6LD(Module,Layer)
         if a == 4:
             return STC4LD(Module,Layer)
         if a ==  5:
             return STC5LD(Module,Layer)
-    if type(index,Layer) == 'Scintillator_Module' and not np.array_equal(Module,np.array([np.zeros(6),np.zeros(6)])) :
+    if type(index,Layer) == 'Scintillator_Module' and a != 0 :
         Scint_Letter,Scint_Number = Scintillatortype(index,Layer)
         return(ScintillatorSTCs(Module,Layer,Scint_Letter,Scint_Number))
     return []

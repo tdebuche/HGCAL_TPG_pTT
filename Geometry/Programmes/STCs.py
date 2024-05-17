@@ -192,7 +192,7 @@ def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
         if x == 0 and y == 0:
             return 'error'
         eta,phi = functions.XYtoetaphi(x,y,z)
-        if eta <= etamin+0.01 and phi >= phimax -0.1:
+        if eta <= etamin+0.01 and phi >= phimax -1:
             etamin,phimax = eta,phi
             marker_i = i
     I = np.array([(marker_i +i)%4 for i in range(4)])

@@ -934,8 +934,10 @@ def STC5smallHD(Module,Layer,marker_i):  #Return the STCs of a single small HD m
 #Record STCs
 
 
-os.chdir("../Ressources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path+"/../Ressources")
 STCLD3447 = STCLayersLD(G,34,47)
+os.chdir(dir_path+"/../Ressources")
 STCHD2733 = STCLayersHD(G,27,33)
 np.save('STCHD.npy',STCHD2733)
 np.save('STCLD.npy',STCLD3447)

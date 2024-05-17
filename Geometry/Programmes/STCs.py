@@ -88,7 +88,7 @@ def STCLD(Module,Layer,index): #Return the STCs of a single LD module
             return STC4LD(Module,Layer)
         if a ==  5:
             return STC5LD(Module,Layer)
-    if type(index,Layer) == 'Scintillator_Module':
+    if type(index,Layer) == 'Scintillator_Module' and not np.array_equal(Module,np.array([np.zeros(6),np.zeros(6)])) :
         Scint_Letter,Scint_Number = Scintillatortype(index,Layer)
         return(ScintillatorSTCs(Module,Layer,Scint_Letter,Scint_Number))
     return []

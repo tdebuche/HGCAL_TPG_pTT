@@ -89,11 +89,8 @@ def STCLD(Module,Layer,index): #Return the STCs of a single LD module
         if a ==  5:
             return STC5LD(Module,Layer)
     if type(index,Layer) == 'Scintillator_Module':
-        L = [[],[]]
-        for i in range(4):
-            L[0].append(Module[0,i])
-            L[1].append(Module[1,i])
-        return([L])
+        Scint_Letter,Scint_Number = Scintillatortype(index,Layer)
+        return(ScintillatorSTCs(Module,Layer,Scint_Letter,Scint_Number))
     return []
 
 
@@ -121,8 +118,108 @@ def type(index,Layer): #Return the type of the module Modules[index]
         return 'Si_Module'
     return 'Scintillator_Module'
 
+def Scintillatortype(index,Layer): #Return the type of the Scintillator Modules[index], see CMS-HGC-ScintMB-Docs_V0_9 page 5
+    IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
+    
+    if index < IndminScint[Layer-34]:
+        return 'error'
+    if Layer > 33 and Layer < 38:
+        if (index - IndminScint[Layer-34])%2 == 0:
+            return ('J',8)
+        if (index - IndminScint[Layer-34])%2 == 1:
+            if Layer == 34:
+                return('J',4)
+            if Layer == 35:
+                return('J',6)
+            if Layer == 34:
+                return('J',7)
+            if Layer == 34:
+                return('J',8)
+    if Layer == 38 or Layer == 39:
+        if (index - IndminScint[Layer-34])%4 == 0:
+            return ('C',5)
+        if (index - IndminScint[Layer-34])%4 == 1:
+            return ('D',8)
+        if (index - IndminScint[Layer-34])%4 == 2:
+            return ('E',8)
+        if (index - IndminScint[Layer-34])%4 == 3:
+            if Layer == 38:
+                return ('G',3)
+            if Layer == 39:
+                return ('G',5)
+    if Layer > 39 and Layer <44:
+        if (index - IndminScint[Layer-34])%4 == 0:
+            return ('B',12)
+        if (index - IndminScint[Layer-34])%4 == 1:
+            return ('D',8)
+        if (index - IndminScint[Layer-34])%4 == 2:
+            return ('E',8)
+        if (index - IndminScint[Layer-34])%4 == 3:
+            if Layer == 40:
+                return ('G',7)
+            if Layer > 40 :
+                return ('G',8)
+    if Layer > 43:
+        if (index - IndminScint[Layer-34])%5 == 0:
+            return ('A',5)
+        if (index - IndminScint[Layer-34])%5 == 1:
+            return ('B',12)
+        if (index - IndminScint[Layer-34])%5 == 2:
+            return ('D',8)
+        if (index - IndminScint[Layer-34])%5 == 3:
+            return ('E',8)
+        if (index - IndminScint[Layer-34])%5 == 4:
+            if Layer < 47:
+                return ('G',8)
+            if Layer == 47 :
+                return ('G',6)
+        
+
+
+
 #Tous les fonctions sont basés sur le même principe : trouver le sommet marker_i tel que la coupe soit définie par les sommets marker_i et marker_i +1. Ensuite, selon la position de ce sommet on peut trouver l'orientation de la coupe et donc les STC. Lorque un module  a 6 sommest (et donc est entier marker_i est le sommet en haut à gauche de l'hexagone.
 
+def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
+    z = Z[Layer-1]
+    L = []
+    etamin,phimax = functions.XYtoetaphi(Scintillator[0,0],Scintillator[1,0],z)
+    marker_i =0
+    for i in range(4):
+        x = Scintillator[0,i]
+        y = Scintillator[1,i]
+        eta,phi = functions.XYtoetaphi(x,y,z)
+        if eta <= etamin and phi >= phimax:
+            etamin,phimax = eta,phi
+            marker_i = i
+    I = np.array([(marker_i +i)%4 for i in range(4)])
+    if Scint_Letter in ['J','K','D','E','G'] and Scint_Number > 5 :
+        ratio = Scint_Number/8
+        x1,y1 = (((Scintillator[0,I[0]]-Scintillator[0,I[1]]) /(ratio*2) +Scintillator[0,I[1]]),((Scintillator[1,I[0]]-Scintillator[1,I[1]])/(ratio*2)+Scintillator[1,I[1]]))
+        x2,y2 = ((Scintillator[0,I[1]]+Scintillator[0,I[2]])/2,(Scintillator[1,I[1]]+Scintillator[1,I[2]])/2)
+        x3,y3 = (((Scintillator[0,I[3]]-Scintillator[0,I[2]]) /(ratio*2) +Scintillator[0,I[2]]),((Scintillator[1,I[3]]-Scintillator[1,I[2]])/(ratio*2)+Scintillator[1,I[2]]))
+        x4,y4 = ((Scintillator[0,I[3]]+Scintillator[0,I[0]])/2,(Scintillator[1,I[3]]+Scintillator[1,I[0]])/2)
+        x,y = ((x1+x3)/2,y+y3)/2)
+        L.append([[Scintillator[0,I[0]],x1,x,x4],[Scintillator[1,I[0]],y1,y,y4]])
+        L.append([[Scintillator[0,I[1]],x2,x,x1],[Scintillator[1,I[1]],y2,y,y1]])
+        L.append([[Scintillator[0,I[2]],x3,x,x2],[Scintillator[1,I[2]],y3,y,y2]])
+        L.append([[Scintillator[0,I[3]],x4,x,x3],[Scintillator[1,I[3]],y4,y,y3]])
+    if Scint_Letter in ['A','B','C']:
+        ratio = Scint_Number/8
+        x1,y1 = (((Scintillator[0,I[1]]-Scintillator[0,I[0]]) /(ratio*2) +Scintillator[0,I[0]]),((Scintillator[1,I[1]]-Scintillator[1,I[0]])/(ratio*2)+Scintillator[1,I[0]]))
+        x2,y2 = ((Scintillator[0,I[1]]+Scintillator[0,I[2]])/2,(Scintillator[1,I[1]]+Scintillator[1,I[2]])/2)
+        x3,y3 = (((Scintillator[0,I[2]]-Scintillator[0,I[3]]) /(ratio*2) +Scintillator[0,I[3]]),((Scintillator[1,I[2]]-Scintillator[1,I[3]])/(ratio*2)+Scintillator[1,I[3]]))
+        x4,y4 = ((Scintillator[0,I[3]]+Scintillator[0,I[0]])/2,(Scintillator[1,I[3]]+Scintillator[1,I[0]])/2)
+        x,y = ((x1+x3)/2,y+y3)/2)
+        L.append([[Scintillator[0,I[0]],x1,x,x4],[Scintillator[1,I[0]],y1,y,y4]])
+        L.append([[Scintillator[0,I[1]],x2,x,x1],[Scintillator[1,I[1]],y2,y,y1]])
+        L.append([[Scintillator[0,I[2]],x3,x,x2],[Scintillator[1,I[2]],y3,y,y2]])
+        L.append([[Scintillator[0,I[3]],x4,x,x3],[Scintillator[1,I[3]],y4,y,y3]])
+    if Scint_Letter in ['J','K','D','E','G'] and Scint_Number <= 5 :
+        x2,y2 = ((Scintillator[0,I[1]]+Scintillator[0,I[2]])/2,(Scintillator[1,I[1]]+Scintillator[1,I[2]])/2)
+        x4,y4 = ((Scintillator[0,I[3]]+Scintillator[0,I[0]])/2,(Scintillator[1,I[3]]+Scintillator[1,I[0]])/2)
+        L.append([[Scintillator[0,I[0]],Scintillator[0,I[1]],x2,x4],[Scintillator[1,I[0]],Scintillator[1,I[1]],y2,y4]])
+        L.append([[Scintillator[0,I[2]],Scintillator[0,I[3]],x4,x2],[Scintillator[1,I[2]],Scintillator[1,I[3]],y4,y2]])
+    return L
 
 def STC6LD(Module,Layer): #Return the STCs of a single LD module with 6 vertices
     z = Z[Layer-1]

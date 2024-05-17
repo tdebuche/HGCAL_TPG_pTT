@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import math
 import os
 import functions
-
-os.chdir("../Ressources")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+os.chdir(dir_path+"/../Ressources")
 G = np.load('ModulesGeometry.npy')
 Z = np.load("Z.npy")
 

@@ -187,6 +187,8 @@ def ScintillatorSTCs(Scintillator,Layer,Scint_Letter,Scint_Number):
     for i in range(4):
         x = Scintillator[0,i]
         y = Scintillator[1,i]
+        if x == 0 and y == 0:
+            return 'error'
         eta,phi = functions.XYtoetaphi(x,y,z)
         if eta <= etamin and phi >= phimax:
             etamin,phimax = eta,phi

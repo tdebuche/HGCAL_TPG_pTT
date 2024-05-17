@@ -21,6 +21,12 @@ def polygontopoints(poly):
     return(L)
 
 def XYtoetaphi(x,y,z):
+    if y == 0:
+        if np.sign(x)<0:
+            phi = 0
+        else :
+            phi = np.pi
+        return((-np.log(np.tan(0.5*np.arctan(x/(z * np.cos(phi)))))),phi)
     if x == 0:
         if np.sign(y)<0:
             phi = 3*np.pi/2

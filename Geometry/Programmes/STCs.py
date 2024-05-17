@@ -24,7 +24,7 @@ def STCLayersLD(Geometry,Layermin, Layermax): #Returns the STCs of a LD layer (3
     for Layer in range(Layermin,Layermax+1):
         Modules = Geometry[Layer-1]
         for index in range(len(Modules)):
-            Module = Modules[i]
+            Module = Modules[index]
             l.append(STCLD(Module,Layer,index))
         L.append(l)
         l = []

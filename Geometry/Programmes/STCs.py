@@ -53,7 +53,7 @@ def STCLayersHD(Geometry,Layermin, Layermax): #Returns the STCs of an HD layer (
         Modules = Geometry[Layer-1]
         for index in range(len(Modules)):
             Module = Modules[index]
-            l.append(STCHD(Module,Layer))
+            l.append(STCHD(Module,Layer,index))
         L.append(l)
         l = []
     maxmoduleperlayer  =0
@@ -94,7 +94,7 @@ def STCLD(Module,Layer,index): #Return the STCs of a single LD module
     return []
 
 
-def STCHD(Module,Layer): #Return the STCs of a single HD module
+def STCHD(Module,Layer,index): #Return the STCs of a single HD module
     z = Z[Layer-1]
     a = 0
     for i in range(len(Module[0])):
@@ -103,7 +103,7 @@ def STCHD(Module,Layer): #Return the STCs of a single HD module
     if a != 0:
         eta,phi = functions.etaphicentre(Module,z)
         if (eta < 2.3 and z>  Z[27-1]) or (eta < 2.2 and z ==  Z[27-1]) :
-            return STCLD(Module,Layer)
+            return STCLD(Module,Layer,index)
         if a == 6:
             return STC6HD(Module,Layer)
         if a == 4:
@@ -113,6 +113,8 @@ def STCHD(Module,Layer): #Return the STCs of a single HD module
     return []
 
 def type(index,Layer): #Return the type of the module Modules[index]
+    if Layer<34:
+        return 'Si_Module'
     IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
     if index < IndminScint[Layer-34]:
         return 'Si_Module'

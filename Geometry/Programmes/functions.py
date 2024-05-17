@@ -21,6 +21,8 @@ def polygontopoints(poly):
     return(L)
 
 def XYtoetaphi(x,y,z):
+    if np.abs(x) < 0.01 and np.abs(y)<0.01:
+        print('too small')
     if np.abs(y) < 0.001:
         if np.sign(x)<0:
             phi = 0

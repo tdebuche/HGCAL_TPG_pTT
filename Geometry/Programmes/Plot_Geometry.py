@@ -23,7 +23,7 @@ parser.add_argument("--Bins",default = 'no', help="With or without bins")
 parser.add_argument("--UV",default = 'no', help="With or without UV")
 parser.add_argument("--Numbering",default = 'no', help="With or without numbering")
 parser.add_argument("--STCs",default = 'yes', help="With or without STCs")
-parser.add_argument("--Edges",default = 'no', help="With or without edges")
+parser.add_argument("--Edges",default = 'yes', help="With or without edges")
 parser.add_argument("--Record",default = 'no', help="Record all layers")
 args = parser.parse_args()
 Layer = args.Layer
@@ -145,7 +145,10 @@ if args.Record == 'yes':
             Layer = k + 14
         zlay = Z[Layer-1]
         Modules = G[Layer-1]
-        BinXY= functions.binetaphitoXY(Binetaphi,zlay)
+        if args.Edges == 'yes':
+            BinXY= functions.binetaphitoXY(Binetaphi2028,zlay)
+        if args.Edges == 'no':
+            BinXY= functions.binetaphitoXY(Binetaphi2024,zlay)
         ModuleVertices = functions.ModulestoVertices(Modules)
         BinVertices = functions.BintoBinVertices(BinXY)
         uv = UV[Layer-1]

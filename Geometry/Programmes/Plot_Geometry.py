@@ -164,7 +164,7 @@ if args.Record == 'yes':
         plt.ylabel('y (mm)')
         for i in range(len(ModuleVertices)):
             plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black')
-            eta,phi = etaphicentre(Modules[i],zlay)
+            eta,phi = functions.etaphicentre(Modules[i],zlay)
             x,y = functions.etaphitoXY(eta,phi,zlay)
 
 

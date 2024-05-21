@@ -168,10 +168,10 @@ if args.Record == 'yes':
         if Layer <34 and Layer > 26:
             STC = STCHD[Layer-27]
             STCVertices = functions.STCtoSTCVertices(STCHD[Layer-27])
-        if args.Edges == 'no':
-            plt.figure(figsize = (12,8))
-        if args.Edges == 'yes':
+        if args.Edges == 'yes'and args.Bins == 'yes':
             plt.figure(figsize = (11,8))
+        else:
+            plt.figure(figsize = (12,8))
         plt.title(label =  'Layer '+str(Layer))
         plt.xlabel('x (mm)')
         plt.ylabel('y (mm)')

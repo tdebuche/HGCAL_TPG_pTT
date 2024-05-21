@@ -56,7 +56,7 @@ def constructionPTT(Layer,STCyesorno,edges,Values):
     if Layer > 26 and STCyesorno :
         L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
         for i in range(len(listpttpermodules)):
-         for j in range(len(listpttpermodules[i])):
+            for j in range(len(listpttpermodules[i])):
                 for k in range(len(listpttpermodules[i][j])):
                     iptt,jptt,ratio = listpttpermodules[i][j][k]
                     u = UV[Layer-1,i,0]

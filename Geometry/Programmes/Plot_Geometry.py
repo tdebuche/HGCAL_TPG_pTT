@@ -24,6 +24,7 @@ parser.add_argument("--UV",default = 'no', help="With or without UV")
 parser.add_argument("--Numbering",default = 'no', help="With or without numbering")
 parser.add_argument("--STCs",default = 'yes', help="With or without STCs")
 parser.add_argument("--Edges",default = 'no', help="With or without edges")
+parser.add_argument("--Record",default = 'no', help="Record all layers")
 args = parser.parse_args()
 Layer = args.Layer
 
@@ -125,68 +126,73 @@ for i in range(20):
 
 
 #record  all layers
-"""
-#choose the good directory
-#os.chdir("./LayerswithbinswithSTCs")
-#os.chdir("./LayerswithUV")  
-#os.chdir("./Layerswithnumbering") 
-#os.chdir("./Layerswithbins") 
+if args.Record == 'yes':
+    if args.Bins == 'yes' and args.STCs == 'yes':
+        os.chdir("./LayerswithbinswithSTCs")
+    if args.Record == 'yes':
+        os.chdir("./LayerswithUV")  
+    if args.Numbering == 'yes':
+        os.chdir("./Layerswithnumbering")
+    if args.Bins == 'yes' and args.STCs  == 'no':
+        os.chdir("./Layerswithbins")
+    if args.Bins == 'yes' and args.STCs  == 'yes':
+        os.chdir("./LayerswithSTCs")
 
-for k in range(0,34):
-    if k <13:
-        Layer = 2 *k+1
-    else :
-        Layer = k + 14
-    zlay = Z[Layer-1]
-    Modules = G[Layer-1]
-    BinXY= functions.binetaphitoXY(Binetaphi,zlay)
-    ModuleVertices = functions.ModulestoVertices(Modules)
-    BinVertices = functions.BintoBinVertices(BinXY)
-    uv = UV[Layer-1]
-    if Layer >33:
-        STC = STCLD[Layer-34]
-        STCVertices = functions.STCtoSTCVertices(STCLD[Layer-34])
-    if Layer <34 and Layer > 26:
-        STC = STCHD[Layer-27]
-        STCVertices = functions.STCtoSTCVertices(STCHD[Layer-27])
-    plt.figure(figsize = (12,8))
-    plt.title(label =  'Layer '+str(Layer))
-    plt.xlabel('x (mm)')
-    plt.ylabel('y (mm)')
-    for i in range(len(ModuleVertices)):
-        plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black')
-        eta,phi = etaphicentre(Modules[i],zlay)
-        x,y = functions.etaphitoXY(eta,phi,zlay)
-
-
-        #if numbering
-        if Layer > 33:
-            if i < IndminScint[Layer-34]:
-                N = min_numberingmod[Layer-14]
-                #plt.annotate(str(N + i),(x - 60,y -10),size =  '8')
-            else:
-                N = min_numberingscint[Layer -34]
-                #plt.annotate(str(N + i - IndminScint[Layer-34]),(x - 60,y -10),size =  '8')
+    for k in range(0,34):
+        if k <13:
+            Layer = 2 *k+1
         else :
-            N = min_numberingmod[Layer//2]
-            #plt.annotate(str(N+i),(x - 60,y -10),size =  '8')
+            Layer = k + 14
+        zlay = Z[Layer-1]
+        Modules = G[Layer-1]
+        BinXY= functions.binetaphitoXY(Binetaphi,zlay)
+        ModuleVertices = functions.ModulestoVertices(Modules)
+        BinVertices = functions.BintoBinVertices(BinXY)
+        uv = UV[Layer-1]
+        if Layer >33:
+            STC = STCLD[Layer-34]
+            STCVertices = functions.STCtoSTCVertices(STCLD[Layer-34])
+        if Layer <34 and Layer > 26:
+            STC = STCHD[Layer-27]
+            STCVertices = functions.STCtoSTCVertices(STCHD[Layer-27])
+        plt.figure(figsize = (12,8))
+        plt.title(label =  'Layer '+str(Layer))
+        plt.xlabel('x (mm)')
+        plt.ylabel('y (mm)')
+        for i in range(len(ModuleVertices)):
+            plt.plot(ModuleVertices[i][0] + [ModuleVertices[i][0][0]],ModuleVertices[i][1]+ [ModuleVertices[i][1][0]], color = 'black')
+            eta,phi = etaphicentre(Modules[i],zlay)
+            x,y = functions.etaphitoXY(eta,phi,zlay)
+
+
+            if args.Numbering == 'yes':
+                if Layer > 33:
+                    if i < IndminScint[Layer-34]:
+                        N = min_numberingmod[Layer-14]
+                        plt.annotate(str(N + i),(x - 60,y -10),size =  '8')
+                    else:
+                        N = min_numberingscint[Layer -34]
+                        plt.annotate(str(N + i - IndminScint[Layer-34]),(x - 60,y -10),size =  '8')
+                else :
+                    N = min_numberingmod[Layer//2]
+                    plt.annotate(str(N+i),(x - 60,y -10),size =  '8')
 
             
-        #if uv
-        #plt.annotate('(' + str(uv[i][0]) +','+str(uv[i][1])+')',(x - 60,y -10),size =  '8')
+            if args.UV == 'yes':
+                plt.annotate('(' + str(uv[i][0]) +','+str(uv[i][1])+')',(x - 60,y -10),size =  '8')
 
 
-    #if withbins
-    #for i in range(len(BinXY)):
-         #plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
+        if args.Bins == 'yes':
+            for i in range(len(BinXY)):
+                plt.plot(BinVertices[i][0] + [BinVertices[i][0][0]],BinVertices[i][1]+ [BinVertices[i][1][0]], color = 'red',linewidth = '0.5')
 
 
-    #if STCs
-    if Layer > 26:
-        for i in range(len(STCVertices)):
-            for j in range(len(STCVertices[i])):
-                stc = STCVertices[i][j]
-                #plt.plot(stc[0]+[stc[0][0]],stc[1]+[stc[1][0]],linewidth = 0.2,color  = 'blue') #STC
+        if args.STCs == 'yes':
+            if Layer > 26:
+                for i in range(len(STCVertices)):
+                    for j in range(len(STCVertices[i])):
+                        stc = STCVertices[i][j]
+                        plt.plot(stc[0]+[stc[0][0]],stc[1]+[stc[1][0]],linewidth = 0.2,color  = 'blue') #STC
 
                 
-    plt.savefig('Layer '+str(Layer)+'.png')"""
+        plt.savefig('Layer '+str(Layer)+'.png')

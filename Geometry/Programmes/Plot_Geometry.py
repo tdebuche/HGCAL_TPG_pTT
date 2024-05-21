@@ -34,8 +34,10 @@ Modules = G[Layer-1]
 ModuleVertices = functions.ModulestoVertices(Modules)
 uv = UV[Layer-1]
 
-
-plt.figure(figsize = (12,8))
+if args.Edges == 'no':
+    plt.figure(figsize = (12,8))
+if args.Edges == 'yes':
+    plt.figure(figsize = (11,8))
 
 #Modules
 for i in range(len(ModuleVertices)):
@@ -158,7 +160,10 @@ if args.Record == 'yes':
         if Layer <34 and Layer > 26:
             STC = STCHD[Layer-27]
             STCVertices = functions.STCtoSTCVertices(STCHD[Layer-27])
-        plt.figure(figsize = (12,8))
+        if args.Edges == 'no':
+            plt.figure(figsize = (12,8))
+        if args.Edges == 'yes':
+            plt.figure(figsize = (11,8))
         plt.title(label =  'Layer '+str(Layer))
         plt.xlabel('x (mm)')
         plt.ylabel('y (mm)')

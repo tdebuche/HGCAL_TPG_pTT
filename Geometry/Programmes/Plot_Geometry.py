@@ -129,13 +129,13 @@ for i in range(20):
 if args.Record == 'yes':
     if args.Bins == 'yes' and args.STCs == 'yes':
         os.chdir("./LayerswithbinswithSTCs")
-    if args.Record == 'yes':
+    if args.UV == 'yes':
         os.chdir("./LayerswithUV")  
     if args.Numbering == 'yes':
         os.chdir("./Layerswithnumbering")
     if args.Bins == 'yes' and args.STCs  == 'no':
         os.chdir("./Layerswithbins")
-    if args.Bins == 'yes' and args.STCs  == 'yes':
+    if args.Bins == 'no' and args.STCs  == 'yes':
         os.chdir("./LayerswithSTCs")
 
     for k in range(0,34):

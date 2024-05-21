@@ -131,12 +131,20 @@ for i in range(20):
 if args.Record == 'yes':
     if args.Bins == 'yes' and args.STCs == 'yes':
         os.chdir("./LayerswithbinswithSTCs")
+        if args.Edges == 'no':
+            os.chdir("./NoEdges")
+        if args.Edges == 'yes':
+            os.chdir("./Edges")
     if args.UV == 'yes':
         os.chdir("./LayerswithUV")  
     if args.Numbering == 'yes':
         os.chdir("./Layerswithnumbering")
     if args.Bins == 'yes' and args.STCs  == 'no':
         os.chdir("./Layerswithbins")
+        if args.Edges == 'no':
+            os.chdir("./NoEdges")
+        if args.Edges == 'yes':
+            os.chdir("./Edges")
     if args.Bins == 'no' and args.STCs  == 'yes':
         os.chdir("./LayerswithSTCs")
 

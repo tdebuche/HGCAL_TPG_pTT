@@ -23,11 +23,11 @@ def allocation4linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector,board) for board in range(14)]
     text = ''
     for i in range(len(Boards)):
-        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        text +=  '<S1 id="'+Boards[i]+'">'
         for j in range(4):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector,S2Board)+'" aux-id="'+ str(j*2+k)+'"'+'\n'
+                text += '<Channel id="'+ channel(Boards[i],j,k,Sector,S2Board)+'" aux-id="'+ str(j*2+k)+'">'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
@@ -38,7 +38,7 @@ def allocation4linksNoEdges(Sector,S2Board):
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                        text += '<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />'
                         res +=1
                     if res < 10:
                         nbzeros = '00'
@@ -46,16 +46,16 @@ def allocation4linksNoEdges(Sector,S2Board):
                         nbzeros = '0'
                     if res > 99:
                         nbzeros = ''
-                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    text += '<Frame id = "'+nbzeros +str( res)+'" />'
                     res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
                         nbzeros = ''
-                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />' + '\n'
-                text += '\t\t'+'</Channel>' + '\n'
-        text += '\t'+'</S1>'+'\n'
+                    text += '<Frame id = "'+nbzeros +str(f)+'" />'
+                text += '</Channel>'
+        text += '</S1>'
 
 
 
@@ -309,19 +309,31 @@ def binarytohexa(nbhexa,binary):
 
 
 if args.Edges == 'yes':
-    file = open("AllocationPPTsEdges.txt", "w")
-    file.write(allocation4linksEdges(Sector,S2))
+    file = open("AllocationPPTsEdges.xml", "w")
+    text = <AllocationPPTsEdges>
+    text += allocation4linksEdges(Sector,S2)
+    text += <AllocationPPTsEdges>
+    file.write(text)
 if args.Edges == 'no':
-    file = open("AllocationPttsNoEdges.txt", "w")
-    file.write(allocation4linksNoEdges(Sector,S2))
+    file = open("AllocationPttsNoEdges.xml", "w")
+    text = <AllocationPttsNoEdges>
+    text += allocation4linksNoEdges(Sector,S2)
+    text += <AllocationPttsNoEdges>
+    file.write(text)
 file.close()
 
 if args.Edges == 'yes':
-    file = open("DuplicationPPTsEdges.txt", "w")
-    file.write(allocation2linksEdges(Sector,S2))
+    file = open("DuplicationPPTsEdges.xml", "w")
+    text = <DuplicationPPTsEdges>
+    text += allocation2linksEdges(Sector,S2)
+    text += <DuplicationPPTsEdges>
+    file.write(text)
 if args.Edges == 'no':
-    file = open("DuplicationPttsNoEdges.txt", "w")
-    file.write(allocation2linksNoEdges(Sector,S2))
+    file = open("DuplicationPttsNoEdges.xml", "w")
+    text = <DuplicationPttsNoEdges>
+    text += allocation2linksNoEdges(Sector,S2)
+    text += <DuplicationPttsNoEdges>
+    file.write(text)
 file.close()
 
 

@@ -324,20 +324,6 @@ if args.Edges == 'no':
     file.write(allocation2linksNoEdges(Sector,S2))
 file.close()
 
-if args.Edges == 'yes':
-    file = open("AllocationPPTsEdges.xml", "w")
-    file.write(allocation4linksEdges(Sector,S2))
-if args.Edges == 'no':
-    file = open("AllocationPttsNoEdges.xml", "w")
-    file.write(allocation4linksNoEdges(Sector,S2))
-file.close()
 
-if args.Edges == 'yes':
-    file = open("DuplicationPPTsEdges.xml", "w")
-    file.write(allocation2linksEdges(Sector,S2))
-if args.Edges == 'no':
-    file = open("DuplicationPttsNoEdges.xml", "w")
-    file.write(allocation2linksNoEdges(Sector,S2))
-file.close()
 
 

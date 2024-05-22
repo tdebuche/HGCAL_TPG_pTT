@@ -310,13 +310,13 @@ def binarytohexa(nbhexa,binary):
 
 if args.Edges == 'yes':
     file = open("AllocationPPTsEdges.xml", "w")
-    text = '<AllocationPPTsEdges>'
+    text = '<AllocationPPTsEdges>'+'\n'
     text += allocation4linksEdges(Sector,S2)
     text += '</AllocationPPTsEdges>'
     file.write(text)
 if args.Edges == 'no':
     file = open("AllocationPttsNoEdges.xml", "w")
-    text = '<AllocationPttsNoEdges>'
+    text = '<AllocationPttsNoEdges>'+'\n'
     text += allocation4linksNoEdges(Sector,S2)
     text += '</AllocationPttsNoEdges>'
     file.write(text)
@@ -324,13 +324,13 @@ file.close()
 
 if args.Edges == 'yes':
     file = open("DuplicationPPTsEdges.xml", "w")
-    text = '<DuplicationPPTsEdges>'
+    text = '<DuplicationPPTsEdges>'+'\n'
     text += allocation2linksEdges(Sector,S2)
     text += '</DuplicationPPTsEdges>'
     file.write(text)
 if args.Edges == 'no':
     file = open("DuplicationPttsNoEdges.xml", "w")
-    text = '<DuplicationPttsNoEdges>'
+    text = '<DuplicationPttsNoEdges>'+'\n'
     text += allocation2linksNoEdges(Sector,S2)
     text += '</DuplicationPttsNoEdges>'
     file.write(text)

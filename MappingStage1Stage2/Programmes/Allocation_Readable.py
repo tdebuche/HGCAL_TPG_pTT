@@ -36,7 +36,7 @@ def allocation4linksNoEdges(Sector,S2Board):
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+' />' + '\n'
                         res +=1
                     if res < 10:
                         nbzeros = '00'
@@ -80,7 +80,7 @@ def allocation4linksEdges(Sector,S2Board):
                             nbzeros = '0'
                         if res > 99:
                             nbzeros = ''
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+' />' + '\n'
                         res +=1
                     for phi in range(9 * (1-j//2+1) +8, 9* (1-j//2) +8,-1):
                         if j%2 == 0:
@@ -93,7 +93,7 @@ def allocation4linksEdges(Sector,S2Board):
                             nbzeros = '0'
                         if res > 99:
                             nbzeros = ''
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+' />' + '\n'
                         res +=1
                     if res < 10:
                         nbzeros = '00'
@@ -138,7 +138,7 @@ def allocation2linksNoEdges(Sector,S2Board):
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+' />' + '\n'
                         res +=1
                     if res < 10:
                         nbzeros = '00'
@@ -182,7 +182,7 @@ def allocation2linksEdges(Sector,S2Board):
                             nbzeros = '0'
                         if res > 99:
                             nbzeros = ''
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+' />' + '\n'
                         res +=1
                     if res < 10:
                         nbzeros = '00'
@@ -320,18 +320,4 @@ if args.Edges == 'no':
     file.write(allocation2linksNoEdges(Sector,S2))
 file.close()
 
-if args.Edges == 'yes':
-    file = open("AllocationPPTsEdges.xml", "w")
-    file.write(allocation4linksEdges(Sector,S2))
-if args.Edges == 'no':
-    file = open("AllocationPttsNoEdges.xml", "w")
-    file.write(allocation4linksNoEdges(Sector,S2))
-file.close()
 
-if args.Edges == 'yes':
-    file = open("DuplicationPPTsEdges.xml", "w")
-    file.write(allocation2linksEdges(Sector,S2))
-if args.Edges == 'no':
-    file = open("DuplicationPttsNoEdges.xml", "w")
-    file.write(allocation2linksNoEdges(Sector,S2))
-file.close()

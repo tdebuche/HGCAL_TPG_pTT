@@ -23,11 +23,11 @@ def allocation4linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector,board) for board in range(14)]
     text = ''
     for i in range(len(Boards)):
-        text +=  '<S1 id="'+Boards[i]+'">'
+        text +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for j in range(4):
             for k in range(2):
                 res = 0
-                text += '<Channel id="'+ channel(Boards[i],j,k,Sector,S2Board)+'" aux-id="'+ str(j*2+k)+'">'
+                text += '\t'+'\t' +'<Channel id="'+ channel(Boards[i],j,k,Sector,S2Board)+'" aux-id="'+ str(j*2+k)+'">'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
@@ -38,7 +38,7 @@ def allocation4linksNoEdges(Sector,S2Board):
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
-                        text += '<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />'
+                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' +'\n'
                         res +=1
                     if res < 10:
                         nbzeros = '00'
@@ -46,16 +46,16 @@ def allocation4linksNoEdges(Sector,S2Board):
                         nbzeros = '0'
                     if res > 99:
                         nbzeros = ''
-                    text += '<Frame id = "'+nbzeros +str( res)+'" />'
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
                     res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
                         nbzeros = ''
-                    text += '<Frame id = "'+nbzeros +str(f)+'" />'
-                text += '</Channel>'
-        text += '</S1>'
+                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />'+'\n'
+                text +=  '\t\t'+'</Channel>'+'\n'
+        text +=  '\t'+'</S1>'+'\n'
 
 
 

@@ -25,7 +25,7 @@ def allocation4linksNoEdges(Sector,S2Board):
         for j in range(4):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j))+', Word='+str(int(k))+', aux-id="'+ str(j*2+k)+'"'+'\n'
+                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j))+', Word='+str(int(k))+', aux-id="'+ str(j*2+k)+'">'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
@@ -67,7 +67,7 @@ def allocation4linksEdges(Sector,S2Board):
         for j in range(4):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j))+' Word='+str(int(k))+', aux-id="'+ str(j*2+k)+'"'+'\n'
+                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j))+' Word='+str(int(k))+', aux-id="'+ str(j*2+k)+'">'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     if j//2 != 1:
                         if j%2 == 0:
@@ -127,7 +127,7 @@ def allocation2linksNoEdges(Sector,S2Board):
         for j in range(2):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j+4))+', Word='+str(int(k))+', aux-id="'+ str((j+4)*2+k)+'"'+'\n'
+                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j+4))+', Word='+str(int(k))+', aux-id="'+ str((j+4)*2+k)+'">'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(5, -1,-1):
                         if j%2 == 0:
@@ -169,7 +169,7 @@ def allocation2linksEdges(Sector,S2Board):
         for j in range(2):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j+4))+' Word='+str(int(k))+', aux-id="'+ str((j+4)*2+k)+'"'+'\n'
+                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j+4))+' Word='+str(int(k))+', aux-id="'+ str((j+4)*2+k)+'">'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(8, -1,-1):
                         if j%2 == 0:

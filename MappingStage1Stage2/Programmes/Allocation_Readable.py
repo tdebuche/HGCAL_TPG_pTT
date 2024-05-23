@@ -305,18 +305,18 @@ def binarytohexa(nbhexa,binary):
 
 
 if args.Edges == 'yes':
-    file = open("AllocationPPTsEdges_Readable.txt", "w")
+    file = open("AllocationpTTsEdges_Readable.txt", "w")
     file.write(allocation4linksEdges(Sector,S2))
 if args.Edges == 'no':
-    file = open("AllocationPttsNoEdges_Readable.txt", "w")
+    file = open("AllocationpTTsNoEdges_Readable.txt", "w")
     file.write(allocation4linksNoEdges(Sector,S2))
 file.close()
 
 if args.Edges == 'yes':
-    file = open("DuplicationPPTsEdges_Readable.txt", "w")
+    file = open("DuplicationpTTsEdges_Readable.txt", "w")
     file.write(allocation2linksEdges(Sector,S2))
 if args.Edges == 'no':
-    file = open("DuplicationPttsNoEdges_Readable.txt", "w")
+    file = open("DuplicationpTTsNoEdges_Readable.txt", "w")
     file.write(allocation2linksNoEdges(Sector,S2))
 file.close()
 

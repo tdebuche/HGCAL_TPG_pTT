@@ -470,7 +470,7 @@ if args.Record == 'yes':
 
 
 
-    if args.Edges == 'yes' and args.STCs == 'yes':
+if args.Edges == 'yes' and args.STCs == 'yes':
     os.chdir(dir_path+"/../Ressources/Readable_files")
     textCEE,textCEH ='',''
     for Board in range(13,-1,-1):

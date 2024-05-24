@@ -489,11 +489,11 @@ if args.Edges == 'no' and args.STCs == 'yes':
     textCEE,textCEH ='',''        
     for Board in range(13,-1,-1):
         textCEE,textCEH += PTTmodulestoTextwithSTC(G,Board,False)
-    name = 'CE_E_allBoards_Edges'
+    name = 'CE_E_allBoards_NoEdges'
     file = open(name+".txt", "w")
     file.write(textCEE)
     file.close()
-    name = 'CE_H_allBoards_Edges'
+    name = 'CE_H_allBoards_NoEdges'
     file = open(name+".txt", "w")
     file.write(textCEH)
     file.close()

@@ -474,7 +474,9 @@ if args.Edges == 'yes' and args.STCs == 'yes':
     os.chdir(dir_path+"/../Ressources/Readable_files")
     textCEE,textCEH ='',''
     for Board in range(13,-1,-1):
-        textCEE,textCEH += PTTmodulestoTextwithSTC(G,Board,True)
+        res1,res2 = PTTmodulestoTextwithSTC(G,Board,True)
+        textCEE += res1
+        textCEH += res2
     name = 'CE_E_allBoards_Edges'
     file = open(name+".txt", "w")
     file.write(textCEE)
@@ -488,7 +490,9 @@ if args.Edges == 'no' and args.STCs == 'yes':
     os.chdir(dir_path+"/../Ressources/Readable_files")
     textCEE,textCEH ='',''        
     for Board in range(13,-1,-1):
-        textCEE,textCEH += PTTmodulestoTextwithSTC(G,Board,False)
+        res1,res2 = PTTmodulestoTextwithSTC(G,Board,False)
+        textCEE += res1
+        textCEH += res2
     name = 'CE_E_allBoards_NoEdges'
     file = open(name+".txt", "w")
     file.write(textCEE)

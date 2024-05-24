@@ -470,4 +470,33 @@ if args.Record == 'yes':
 
 
 
+    if args.Edges == 'yes' and args.STCs == 'yes':
+    os.chdir(dir_path+"/../Ressources/Readable_files")
+    textCEE,textCEH ='',''
+    for Board in range(13,-1,-1):
+        textCEE,textCEH += PTTmodulestoTextwithSTC(G,Board,True)
+    name = 'CE_E_allBoards_Edges'
+    file = open(name+".txt", "w")
+    file.write(textCEE)
+    file.close()
+    name = 'CE_H_allBoards_Edges'
+    file = open(name+".txt", "w")
+    file.write(textCEH)
+    file.close()
+
+if args.Edges == 'no' and args.STCs == 'yes':
+    os.chdir(dir_path+"/../Ressources/Readable_files")
+    textCEE,textCEH ='',''        
+    for Board in range(13,-1,-1):
+        textCEE,textCEH += PTTmodulestoTextwithSTC(G,Board,False)
+    name = 'CE_E_allBoards_Edges'
+    file = open(name+".txt", "w")
+    file.write(textCEE)
+    file.close()
+    name = 'CE_H_allBoards_Edges'
+    file = open(name+".txt", "w")
+    file.write(textCEH)
+    file.close()
+
+
 

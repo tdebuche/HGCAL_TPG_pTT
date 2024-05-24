@@ -473,7 +473,9 @@ if args.Record == 'yes':
 if args.Edges == 'yes' and args.STCs == 'yes':
     os.chdir(dir_path+"/../Ressources/Readable_files")
     textCEE,textCEH ='',''
+    print('ok')
     for Board in range(13,-1,-1):
+        print(Board)
         res1,res2 = PTTmodulestoTextwithSTC(G,Board,True)
         textCEE += res1
         textCEH += res2
@@ -490,6 +492,7 @@ if args.Edges == 'no' and args.STCs == 'yes':
     os.chdir(dir_path+"/../Ressources/Readable_files")
     textCEE,textCEH ='',''        
     for Board in range(13,-1,-1):
+        print(Board)
         res1,res2 = PTTmodulestoTextwithSTC(G,Board,False)
         textCEE += res1
         textCEH += res2

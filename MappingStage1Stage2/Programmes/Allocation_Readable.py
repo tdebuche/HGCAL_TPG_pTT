@@ -337,4 +337,7 @@ if args.Edges == 'no':
     file.write(allocation2linksNoEdges(Sector,S2))
 file.close()
 
+file = open("For_Toni.txt", "w")
+file.write(allocation4linksNoEdgesStage1(Sector,S2))
+file.close()
 

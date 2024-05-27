@@ -30,7 +30,7 @@ def allocation4linksNoEdgesStage1(Sector,S1Board):
                         if j%2 == 0:
                             t = 'S1_Board='+str(S1Board+)+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
                         if j%2 == 1 :
-                            t = 'S1_Board='+str(S1Board+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
+                            t = 'S1_Board='+str(S1Board)+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:

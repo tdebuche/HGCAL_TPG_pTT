@@ -44,19 +44,14 @@ def allocation4linksNoEdges(Sector,S2Board):
                         nbzeros = '0'
                     if res > 99:
                         nbzeros = ''
-                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
                     res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
                         nbzeros = ''
-                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />' + '\n'
-                text += '\t\t'+'</Channel>' + '\n'
-        text += '\t'+'</S1>'+'\n'
-
-
-
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
     return text
 
 def allocation4linksEdges(Sector,S2Board):

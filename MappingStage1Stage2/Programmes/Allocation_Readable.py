@@ -113,7 +113,7 @@ def allocation4linksEdges(Sector,S2Board):
 def allocation2linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector+1,board) for board in range(14)]
     text = ''
-    for i in range(len(Boards)):'
+    for i in range(len(Boards)):
         for j in range(2):
             for k in range(2):
                 res = 0

@@ -44,14 +44,14 @@ def allocation4linksNoEdges(Sector,S2Board):
                         nbzeros = '0'
                     if res > 99:
                         nbzeros = ''
-                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
                     res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
                         nbzeros = ''
-                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
     return text
 
 def allocation4linksEdges(Sector,S2Board):
@@ -95,14 +95,14 @@ def allocation4linksEdges(Sector,S2Board):
                     if res > 99:
                         nbzeros = ''
                     if j//2 == 1 or res < 97:
-                        text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                        text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
                         res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
                         nbzeros = ''
-                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
 
     return text
 
@@ -135,14 +135,14 @@ def allocation2linksNoEdges(Sector,S2Board):
                         nbzeros = '0'
                     if res > 99:
                         nbzeros = ''
-                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
                     res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
                         nbzeros = ''
-                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
 
     return text
 
@@ -174,14 +174,14 @@ def allocation2linksEdges(Sector,S2Board):
                     if res > 99:
                         nbzeros = ''
                     if j//2 == 1 or res < 97:
-                        text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                        text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
                         res +=1
                 for f in range(res,108):
                     if f < 100:
                         nbzeros = '0'
                     else:
                         nbzeros = ''
-                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +'\n'
+                    text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
 
     return text
 

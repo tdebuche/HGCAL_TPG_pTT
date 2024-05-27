@@ -17,6 +17,42 @@ Sector = args.Sector
 Subsector = 0
 S2 = args.S2Board
 
+def allocation4linksNoEdgesStage1(Sector,S1Board):
+    TM = [S1ID(Sector,board) for board in range(18)]
+    text = ''
+    for i in range(len(Boards)):
+        text +=  ''
+        for j in range(4):
+            for k in range(2):
+                res = 0
+                for eta in range(10*(k%2),10*(k%2 + 1)):
+                    for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
+                        if j%2 == 0:
+                            t = 'S1_Board='+S1Board+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
+                        if j%2 == 1 :
+                            t = 'S1_Board='+S1Board+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
+                        if res < 10:
+                            nbzeros = '00'
+                        if  res > 9:
+                            nbzeros = '0'
+                        text += 'Sector='+str(Sector)+', S2_board='+str(i)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k)+', pTT : '+ t +'\n'
+                        
+                        res +=1
+                    if res < 10:
+                        nbzeros = '00'
+                    if  res > 9:
+                        nbzeros = '0'
+                    if res > 99:
+                        nbzeros = ''
+                    text += 'Sector='+str(Sector)+', S2_board='+str(i)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
+                    res +=1
+                for f in range(res,108):
+                    if f < 100:
+                        nbzeros = '0'
+                    else:
+                        nbzeros = ''
+                    text += 'Sector='+str(Sector)+', S2_board='+str(i)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
+    return text
 def allocation4linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector,board) for board in range(14)]
     text = ''

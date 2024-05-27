@@ -20,7 +20,7 @@ S2 = args.S2Board
 def allocation4linksNoEdgesStage1(Sector,S1Board):
     TM = [S1ID(Sector,board) for board in range(18)]
     text = ''
-    for i in range(len(Boards)):
+    for i in range(len(TM)):
         text +=  ''
         for j in range(4):
             for k in range(2):

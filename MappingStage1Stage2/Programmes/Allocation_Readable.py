@@ -28,9 +28,9 @@ def allocation4linksNoEdgesStage1(Sector,S1Board):
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
-                            t = 'S1_Board='+S1Board+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
+                            t = 'S1_Board='+str(S1Board+)+', eta='+str(eta)+', phi='+str(phi)+ ', CE-E'
                         if j%2 == 1 :
-                            t = 'S1_Board='+S1Board+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
+                            t = 'S1_Board='+str(S1Board+', eta='+str(eta)+', phi='+str(phi)+ ', CE-H'
                         if res < 10:
                             nbzeros = '00'
                         if  res > 9:

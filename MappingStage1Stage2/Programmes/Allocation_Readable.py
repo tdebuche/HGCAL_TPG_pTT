@@ -19,13 +19,12 @@ S2 = args.S2Board
 
 def allocation4linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector,board) for board in range(14)]
-    text = 'From sector ' + str(Sector) +' to S2 Board '+str(S2Board)+' of sector '+ str(Sector) + '\n'
+    text = ''
     for i in range(len(Boards)):
-        text +=  '\t'+ '<S1 id="'+'Board '+str(i)+ ' of sector ' +str(Sector)+'">'+'\n'
+        text +=  ''
         for j in range(4):
             for k in range(2):
                 res = 0
-                text +=  '\t'+'\t' +'<Channel : Link='+str(int(j))+', Word='+str(int(k))+', aux-id="'+ str(j*2+k)+'">'+'\n'
                 for eta in range(10*(k%2),10*(k%2 + 1)):
                     for phi in range(9 * (1-j//2+1) +5, 9* (1-j//2) +5,-1):
                         if j%2 == 0:
@@ -36,7 +35,8 @@ def allocation4linksNoEdges(Sector,S2Board):
                             nbzeros = '00'
                         if  res > 9:
                             nbzeros = '0'
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT : '+ t+' />' + '\n'
+                        text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'++nbzeros +str( res)++'", Link='+str(j)+', Word='+str(k)+', pTT : '+ t +'\n'
+                        
                         res +=1
                     if res < 10:
                         nbzeros = '00'

@@ -52,6 +52,7 @@ def allocation4linksNoEdgesStage1(Sector,S1Board):
                     else:
                         nbzeros = ''
                     text += 'Sector='+str(Sector)+', S2_board='+str(i)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
+                    res +=1
     return text
 def allocation4linksNoEdges(Sector,S2Board):
     Boards = [S1ID(Sector,board) for board in range(14)]
@@ -88,6 +89,7 @@ def allocation4linksNoEdges(Sector,S2Board):
                     else:
                         nbzeros = ''
                     text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
+                    res +=1
     return text
 
 def allocation4linksEdges(Sector,S2Board):
@@ -139,6 +141,7 @@ def allocation4linksEdges(Sector,S2Board):
                     else:
                         nbzeros = ''
                     text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
+                    res +=1
 
     return text
 
@@ -179,6 +182,7 @@ def allocation2linksNoEdges(Sector,S2Board):
                     else:
                         nbzeros = ''
                     text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k) +', pTT : S1_Board=99, eta=99, phi=99, CE-E'+'\n'
+                    res +=1
 
     return text
 
@@ -218,6 +222,7 @@ def allocation2linksEdges(Sector,S2Board):
                     else:
                         nbzeros = ''
                     text += 'Sector='+str(Sector)+', S2_board='+str(S2Board)+', Frame id = "'+nbzeros +str( res)+'", Link='+str(j)+', Word='+str(k)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
+                    res +=1
 
     return text
 

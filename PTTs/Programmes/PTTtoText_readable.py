@@ -250,7 +250,7 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
     adderH = 0
     maxE = 0
     maxH = 0
-    for i in range(24):
+    for i in range(nb_binphi):
         for j in range(20):
             resE,intmatrixE,adderE,nbmodintowerE = OnepTTCEEwithSTC(pTTCEE,i,j,intmatrixE,adderE)
             if nbmodintowerE > maxE:

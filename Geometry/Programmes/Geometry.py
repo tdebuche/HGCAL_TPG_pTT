@@ -3,6 +3,7 @@ import awkward as ak
 import xml.etree.ElementTree as ET
 from collections import defaultdict
 import json
+import os
 
 
 def read_xml():

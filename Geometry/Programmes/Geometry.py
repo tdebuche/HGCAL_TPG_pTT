@@ -13,7 +13,8 @@ def read_xml():
         layer = int(layer_element.get('id'))
         for motherboard_element in layer_element.findall('.//Motherboard'):
             for module_element in motherboard_element.findall('.//Module'):
-                module_id = str(f'{int(module_element.get('id'),16) : 08x}')
+                int_id = int(module_element.get('id'),16)
+                module_id = str(f'{int_id : 08x}')
                 u = int(module_element.get('u'))
                 v  = int(module_element.get('v'))
                 x = float(module_element.get('x'))

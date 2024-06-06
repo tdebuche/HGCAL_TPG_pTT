@@ -48,7 +48,7 @@ def vertices(x):
     ycourant = ''
     res = 0 
     for i in range(len(x)):
-        if pos[i] ==';':
+        if x[i] ==';':
             res = 0
             X.append(float(xcourant))
             Y.append(float(ycourant))

@@ -54,12 +54,12 @@ def vertices(x):
             Y.append(float(ycourant))
             xcourant = ''
             ycourant = ''
-        elif pos[i] == ',':
+        elif x[i] == ',':
             res = 1
         elif res == 0:
-            xcourant += pos[i]
+            xcourant += x[i]
         elif res == 1:
-            ycourant += pos[i]
+            ycourant += x[i]
     X.append(xcourant)
     Y.append(ycourant)
     return(X,Y)

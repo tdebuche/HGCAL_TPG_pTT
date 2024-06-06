@@ -66,5 +66,5 @@ def vertices(x):
     return(X,Y)
 
 
-with open('../Ressources/data.json', 'w') as mon_fichier:
+with open('../Ressources/Modules.json', 'w') as mon_fichier:
     json.dump(read_xml(), mon_fichier)

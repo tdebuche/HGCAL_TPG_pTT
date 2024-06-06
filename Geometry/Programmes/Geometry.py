@@ -35,6 +35,7 @@ def read_xml():
                 y = float(tile_element.get('y'))
                 verticesX,verticesY = vertices(tile_element.get('vertices'))
                 Modules[layer-1].append({'id':tile_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
+    print(Modules)
     return Modules
 
         

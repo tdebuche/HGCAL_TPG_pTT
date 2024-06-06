@@ -2,6 +2,7 @@ import numpy as np
 import awkward as ak
 import xml.etree.ElementTree as ET
 from collections import defaultdict
+import json
 
 
 def read_xml():
@@ -60,8 +61,10 @@ def vertices(x):
             xcourant += x[i]
         elif res == 1:
             ycourant += x[i]
-    X.append(xcourant)
-    Y.append(ycourant)
+    X.append(float(xcourant))
+    Y.append(float(ycourant))
     return(X,Y)
 
-print(read_xml())
+
+with open('../Ressources/data.json', 'w') as mon_fichier:
+    json.dump(read_xml(), mon_fichier)

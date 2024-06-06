@@ -7,6 +7,7 @@ from collections import defaultdict
 def read_xml():
     tree = ET.parse('../Ressources/Geometry.xml')
     root = tree.getroot()
+    print(root.findall('.//HGC'))
     root = root.findall('.//HGC')
     Modules = [[] for layer in range(47)]
     layer = 0

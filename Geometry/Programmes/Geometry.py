@@ -80,7 +80,7 @@ for i in range(len(jsonlist)):
     for  j in range(len(jsonlist[i])):
         for vertice_idx in range(len(jsonlist[i][j]['verticesX'])):
             G[i,j,0,vertice_idx] = jsonlist[i][j]['verticesX'][vertice_idx]
-            G[i,j,0,vertice_idx] = jsonlist[i][j]['verticesY'][vertice_idx]
+            G[i,j,1,vertice_idx] = jsonlist[i][j]['verticesY'][vertice_idx]
 
 UV = np.zeros((len(jsonlist),max,2),dtype = int)
 for i in range(len(jsonlist)):

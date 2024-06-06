@@ -65,6 +65,35 @@ def vertices(x):
     Y.append(float(ycourant))
     return(X,Y)
 
-
+json = read_xml()
 with open('../Ressources/Modules.json', 'w') as mon_fichier:
-    json.dump(read_xml(), mon_fichier)
+    json.dump(json, mon_fichier)
+
+max = 0
+for x in json:
+    if len(x) >max:
+        max = len(x)
+        
+G = np.zeros((len(json),max,2,6))
+
+for i in range(len(json)):
+    for  j in range(len(json[i])):
+        G[i,j,0] = json[i][j]['VerticesX']
+        G[i,j,0] = json[i][j]['VerticesY']
+
+UV = np.zeros((len(json),max,2),dtype = int)
+for i in range(len(json)):
+    for j in range(len(json[i])):
+        UV[i,j,0] = int(json[i][j]['u'])
+        UV[i,j,1] = int(json[i][j]['v'])
+
+
+#record the files
+os.chdir("../Ressources")
+np.save('ModulesGeometry',G)
+np.save('UVModules.npy',UV)
+
+os.chdir("../../ProgrammesRessources")
+np.save('ModulesGeometry',G)
+np.save('UVModules.npy',UV)
+

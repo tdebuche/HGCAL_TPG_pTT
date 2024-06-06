@@ -69,7 +69,7 @@ with open('../Ressources/Modules.json', 'w') as mon_fichier:
     json.dump(jsonlist, mon_fichier)
 
 max = 0
-for x in json:
+for x in jsonlist:
     if len(x) >max:
         max = len(x)
         

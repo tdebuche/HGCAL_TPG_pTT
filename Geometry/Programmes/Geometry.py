@@ -6,6 +6,7 @@ from collections import defaultdict
 
 def read_xml():
     tree = ET.parse('../Ressources/Geometry.xml')
+    print(tree)
     root = tree.getroot()
     print(root.findall('.//HGC'))
     root = root.findall('.//HGC')

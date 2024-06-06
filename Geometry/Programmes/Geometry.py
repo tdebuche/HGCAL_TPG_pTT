@@ -39,25 +39,25 @@ def read_xml():
 
         
                 
-  def vertices(x):
-      X = []
-      Y = []
-      x courant = ''
-      ycourant = ''
-      res = 0
-      for i in range(len(x)):
-          if pos[i] ==';':
-              res = 0
-              X.append(float(xcourant))
-              Y.append(float(ycourant))
-              xcourant = ''
-              ycourant = ''
-          elif pos[i] == ',':
-              res = 1
-          elif res == 0:
-              xcourant += pos[i]
-          elif res == 1:
-              ycourant += pos[i]
+def vertices(x):
+    X = []
+    Y = []
+    x courant = ''
+    ycourant = ''
+    res = 0 
+    for i in range(len(x)):
+        if pos[i] ==';':
+            res = 0
+            X.append(float(xcourant))
+            Y.append(float(ycourant))
+            xcourant = ''
+            ycourant = ''
+        elif pos[i] == ',':
+            res = 1
+        elif res == 0:
+            xcourant += pos[i]
+        elif res == 1:
+            ycourant += pos[i]
     X.append(xcourant)
     Y.append(ycourant)
     return(X,Y)

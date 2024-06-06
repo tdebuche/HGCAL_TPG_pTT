@@ -37,7 +37,6 @@ def read_xml():
                 y = float(tile_element.get('y'))
                 verticesX,verticesY = vertices(tile_element.get('Vertices'))
                 Modules[layer-1].append({'id':tile_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
-    print(Modules)
     return Modules
 
         
@@ -65,27 +64,27 @@ def vertices(x):
     Y.append(float(ycourant))
     return(X,Y)
 
-json = read_xml()
+jsonlist = read_xml()
 with open('../Ressources/Modules.json', 'w') as mon_fichier:
-    json.dump(json, mon_fichier)
+    json.dump(jsonlist, mon_fichier)
 
 max = 0
 for x in json:
     if len(x) >max:
         max = len(x)
         
-G = np.zeros((len(json),max,2,6))
+G = np.zeros((len(jsonlist),max,2,6))
 
-for i in range(len(json)):
-    for  j in range(len(json[i])):
-        G[i,j,0] = json[i][j]['VerticesX']
-        G[i,j,0] = json[i][j]['VerticesY']
+for i in range(len(jsonlist)):
+    for  j in range(len(jsonlist[i])):
+        G[i,j,0] = jsonlist[i][j]['VerticesX']
+        G[i,j,0] = jsonlist[i][j]['VerticesY']
 
-UV = np.zeros((len(json),max,2),dtype = int)
-for i in range(len(json)):
-    for j in range(len(json[i])):
-        UV[i,j,0] = int(json[i][j]['u'])
-        UV[i,j,1] = int(json[i][j]['v'])
+UV = np.zeros((len(jsonlist),max,2),dtype = int)
+for i in range(len(jsonlist)):
+    for j in range(len(jsonlist[i])):
+        UV[i,j,0] = int(jsonlist[i][j]['u'])
+        UV[i,j,1] = int(jsonlist[i][j]['v'])
 
 
 #record the files

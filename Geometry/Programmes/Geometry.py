@@ -20,7 +20,7 @@ def read_xml():
                 v  = int(module_element.get('v'))
                 x = float(module_element.get('x'))
                 y = float(module_element.get('y'))
-                verticesX,verticesY = vertices(module_element.get('vertices'))
+                verticesX,verticesY = vertices(module_element.get('Vertices'))
                 Modules[layer-1].append({'id':module_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
 
     layer = 0
@@ -34,7 +34,7 @@ def read_xml():
                 v  = int(tile_element.get('v'))
                 x = float(tile_element.get('x'))
                 y = float(tile_element.get('y'))
-                verticesX,verticesY = vertices(tile_element.get('vertices'))
+                verticesX,verticesY = vertices(tile_element.get('Vertices'))
                 Modules[layer-1].append({'id':tile_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
     print(Modules)
     return Modules

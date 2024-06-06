@@ -66,4 +66,4 @@ def vertices(x):
     Y.append(ycourant)
     return(X,Y)
 
-print(read_xml)
+print(read_xml())

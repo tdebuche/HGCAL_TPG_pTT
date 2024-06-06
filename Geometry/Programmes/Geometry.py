@@ -20,20 +20,21 @@ def read_xml():
                 x = float(module_element.get('x'))
                 y = float(module_element.get('y'))
                 verticesX,verticesY = vertices(module_element.get('vertices'))
-                Modules[layer-1].append({'id':id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
+                Modules[layer-1].append({'id':module_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
 
     layer = 0
     for layer_element in root.findall('.//Plane'):
         layer = int(layer_element.get('id'))
         for motherboard_element in layer_element.findall('.//Motherboard'):
             for tile_element in motherboard_element.findall('.//TileBoard'):
-                module_id = str(f'{int(tile_element.get('id'),16) : 08x}')
+                int_id = int(tile_element.get('id'),16)
+                tile_id = str(f'{int_id : 08x}')
                 u = int(tile_element.get('u'))
                 v  = int(tile_element.get('v'))
                 x = float(tile_element.get('x'))
                 y = float(tile_element.get('y'))
                 verticesX,verticesY = vertices(tile_element.get('vertices'))
-                Modules[layer-1].append({'id':id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
+                Modules[layer-1].append({'id':tile_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
 
         
                 

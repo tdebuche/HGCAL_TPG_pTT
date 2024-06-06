@@ -42,7 +42,7 @@ def read_xml():
 def vertices(x):
     X = []
     Y = []
-    x courant = ''
+    xcourant = ''
     ycourant = ''
     res = 0 
     for i in range(len(x)):

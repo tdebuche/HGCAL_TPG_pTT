@@ -23,7 +23,8 @@ def read_xml():
                 x = float(module_element.get('x'))
                 y = float(module_element.get('y'))
                 verticesX,verticesY = vertices(module_element.get('Vertices'))
-                Modules[layer-1].append({'id':module_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
+                if Silliciumorscintillateur(int_id) == 'sillicium':
+                    Modules[layer-1].append({'id':module_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
 
     layer = 0
     for layer_element in root.findall('.//Plane'):
@@ -40,7 +41,11 @@ def read_xml():
                 Modules[layer-1].append({'id':tile_id,'u':u,'v':v,'verticesX' :verticesX,'verticesY' :verticesY})
     return Modules
 
-        
+def Silliciumorscintillateur(id):
+    objtype = (id & 0x03C00000) //(16**5 *4)
+    if objtype == 15:
+        return('scintillator')
+    return('sillicium')
                 
 def vertices(x):
     X = []

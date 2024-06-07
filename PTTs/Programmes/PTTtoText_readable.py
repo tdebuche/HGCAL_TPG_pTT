@@ -506,4 +506,41 @@ if args.Edges == 'no' and args.STCs == 'yes':
     file.close()
 
 
+if args.Edges == 'yes' and args.STCs == 'no':
+    os.chdir(dir_path+"/../Ressources/Readable_files")
+    textCEE,textCEH ='',''
+    print('ok')
+    for Board in range(14):
+        print(Board)
+        res1,res2 = PTTmodulestoTextnoSTC(G,Board,True)
+        textCEE += res1
+        textCEH += res2
+    name = 'CE_E_allBoards_EdgesNoSTCs'
+    file = open(name+".txt", "w")
+    file.write(textCEE)
+    file.close()
+    name = 'CE_H_allBoards_EdgesNoSTCs'
+    file = open(name+".txt", "w")
+    file.write(textCEH)
+    file.close()
+
+if args.Edges == 'no' and args.STCs == 'no':
+    os.chdir(dir_path+"/../Ressources/Readable_files")
+    textCEE,textCEH ='',''        
+    for Board in range(14):
+        print(Board)
+        res1,res2 = PTTmodulestoTextnoSTC(G,Board,False)
+        textCEE += res1
+        textCEH += res2
+    name = 'CE_E_allBoards_NoEdgesNoSTCs'
+    file = open(name+".txt", "w")
+    file.write(textCEE)
+    file.close()
+    name = 'CE_H_allBoards_NoEdgesNoSTCs'
+    file = open(name+".txt", "w")
+    file.write(textCEH)
+    file.close()
+
+
+
 

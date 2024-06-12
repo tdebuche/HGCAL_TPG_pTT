@@ -64,16 +64,19 @@ def PTTmodulestoTextnoSTC(Geometry,Board,edges):
             resH,intmatrixH,adderH,nbmodintowerH = OnepTTCEHnoSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint)
             if nbmodintowerH > maxH:
                 maxH = nbmodintowerH
+            if (i = nb_binphi-1) and (j = nb_bineta-1): 
+                resE = resE[0:-1]
+                resH = resE[0:-1]
             tCEE += resE + '\n'
             tCEH += resH + '\n'
-    tCEE = '//* total number of input in adders '+str(int(adderE))+' */' + '\n' + '\n' +tCEE
+    tCEE = '//* total number of input in adders '+str(int(adderE-1))+' */' + '\n' + '\n' +tCEE
     tCEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' +tCEE
     tCEE = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEE
     tCEE = '/* num inputs = ' +str(int(nb_moduleCEE))+ '(in0-in' + str(int(nb_moduleCEE-1)) + ') */' + '\n' + tCEE
     tCEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + tCEE
     tCEE += '};'
 
-    tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
+    tCEH = '//* total number of input in adders '+str(int(adderH-1))+' */' + '\n' + '\n' +tCEH
     tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
     tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEH
     tCEH = '/* num inputs = ' +str(int(nb_moduleCEH+nb_scint))+ '(in0-in' + str(int(nb_moduleCEH+nb_scint-1)) + ') */' + '\n' + tCEH
@@ -259,16 +262,19 @@ def PTTmodulestoTextwithSTC(Geometry,Board,edges):
             resH,intmatrixH,adderH,nbmodintowerH = OnepTTCEHwithSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint)
             if nbmodintowerH > maxH:
                 maxH = nbmodintowerH
+            if (i = nb_binphi-1) and (j = nb_bineta-1): 
+                resE = resE[0:-1]
+                resH = resE[0:-1]
             tCEE += resE + '\n'
             tCEH += resH + '\n'
-    tCEE = '//* total number of input in adders '+str(int(adderE))+' */' + '\n' + '\n' +tCEE
+    tCEE = '//* total number of input in adders '+str(int(adderE-1))+' */' + '\n' + '\n' +tCEE
     tCEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' +tCEE
     tCEE = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEE
     tCEE = '/* num inputs = ' +str(int(nb_moduleCEE))+ '(in0-in' + str(int(nb_moduleCEE-1)) + ') */' + '\n' + tCEE
     tCEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + tCEE
     tCEE += '};'
 
-    tCEH = '//* total number of input in adders '+str(int(adderH))+' */' + '\n' + '\n' +tCEH
+    tCEH = '//* total number of input in adders '+str(int(adderH-1))+' */' + '\n' + '\n' +tCEH
     tCEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' +tCEH
     tCEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' +tCEH
     tCEH = '/* num inputs = ' +str(int(nb_moduleCEH+nb_scint))+ '(in0-in' + str(int(nb_moduleCEH+nb_scint-1)) + ') */' + '\n' + tCEH

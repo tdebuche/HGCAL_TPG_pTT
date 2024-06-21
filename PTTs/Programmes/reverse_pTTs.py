@@ -1,22 +1,19 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import json
 import os
-from shapely.geometry import Polygon
-import functions
 from STCtopTTs import pTT_single_STC_layer
 from ModuleSumtopTTs import pTT_single_module_layer
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path+'/../../ProgrammesRessources')
 
-UV =  functions.item_list('Modules.json','uv')
-G =  functions.item_list('Modules.json','vertices')
-Module_type =  functions.item_list('Modules.json','type')
 
-STCs = functions.item_list('STCs.json','vertices')
-STCLD = STCs[33:47]
-STCHD = STCs[26:33]
-STC_type =  functions.item_list('STCs.json','type')
-STC_index = functions.item_list('STCs.json','index')
+with open('Modules.json','r') as file:
+    Modules = json.load(file)
+with open('STCs.json','r') as file:
+    STCs = json.load(file)
+
+
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 
@@ -26,28 +23,28 @@ Values2028 = np.load('ValuesBins2028.npy')
 ############# 24 -> phi, 20 -> eta, maxmod... ok, 6 : i (numéro du module), u,v, ratio, indice STC (for CEH) #######
 
 
-def pTT_single_layer(Layer,STCyesorno,edges):
+def pTT_single_layer(args,Layer,Modules,STCs):
     if Layer < 27:
-        return pTT_single_module_layer(G,Layer,edges)
+        return pTT_single_module_layer(args,Layer,Modules)
     else :
         if not STCyesorno:
-            return pTT_single_module_layer(G,Layer,edges)      
+            return pTT_single_module_layer(args,Layer,Modules)      
         if STCyesorno :
-            return pTT_single_STC_layer(STCLD,STCHD,Layer,edges)  
+            return pTT_single_STC_layer(args,Layer,STCs)  
 
 
-def build_pTTs(Layer,STCyesorno,edges,Values):
-    listpttpermodules = pTT_single_layer(Layer,STCyesorno,edges)
+def build_pTTs(args,Layer,Modules,STCs,Values):
+    pTTs = pTT_single_layer(args,Layer,Modules,STCs)
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
+    reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
     if Layer < 48 and not STCyesorno : 
-        L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
-        for i in range(len(listpttpermodules)):
-            for j in range(len(listpttpermodules[i])):
-                iptt,jptt,ratio = listpttpermodules[i][j]
+        for module_idx in range(len(pTTs)):
+            for pTT_idx in range(len(pTTs[module_idx])):
+                eta,phi,ratio = pTTs[i][j]
                 u = UV[Layer-1][i][0]
                 v = UV[Layer-1][i][1]
-                L[iptt][jptt].append([Module_type[Layer-1][i],u,v,ratio])
+                reversed_pTTs[phi][eta].append([Module_type[Layer-1][i],u,v,ratio])
                                           
     if Layer < 27 and STCyesorno :   
         L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]

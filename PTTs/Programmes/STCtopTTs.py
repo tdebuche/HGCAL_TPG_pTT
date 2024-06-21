@@ -17,7 +17,7 @@ etamin = 1.305
 
 
 
-def pTTSTCs(STCLD,STCHD,Layer,edges): #Répartit les énergies des modules dans les Towers pour un layer donné
+def pTT_single_STC_layer(STCLD,STCHD,Layer,edges): 
     z = Z[Layer-1]
     if edges:
         BinXY= functions.binetaphitoXY(Binetaphi2028,z)
@@ -25,41 +25,28 @@ def pTTSTCs(STCLD,STCHD,Layer,edges): #Répartit les énergies des modules dans 
     else :
         BinXY= functions.binetaphitoXY(Binetaphi2024,z)
         Values = Values2024
-    PolyLimite = Arealimit(Layer)
     if Layer > 33:
-        STC = STCLD[Layer-34]
+        STCs = STCLD[Layer-34]
     else :
-        STC = STCHD[Layer-27]
+        STCs = STCHD[Layer-27]
     L = []
     l = []
-    for i in range(len(STC)):
-        for j in range(len(STC[i])):
-            if not np.array_equal(STC[i,j],np.zeros((2,5))):
-                Towers = areatocoef(pTTSTC(STC[i,j],z,BinXY,PolyLimite,edges,Values))
-                l.append(Towers)
+    for i in range(len(STCs)):
+        for j in range(len(STCs[i])):
+            pTTs_single_STC= areatocoef(pTT_single_STC(STCs[i][j],z,BinXY,edges,Values))
+            l.append(pTTs_single_STC)
         if l != []:
             L.append(l)
+        else: print('STC without pTTs')
         l = []
     return(L)
 
 
 
 
-def Arealimit(Layer):  #Permet de regarder seulement l'air concernée par les bins
-    Limite = np.zeros((2,50))
-    z = Z[Layer-1]
-    for i in range(25):
-        x,y = functions.etaphitoXY(etamin,i*np.pi/36,z)
-        Limite[0,i] = x
-        Limite[1,i] = y
-        x,y = functions.etaphitoXY(etamin +20 * np.pi/36,(24-i)*np.pi/36,z)
-        Limite[0,i+25] = x
-        Limite[1,i+25] = y
-    PolyLimite = functions.pointtopolygon(Limite)
-    return PolyLimite
 
 
-def pTTSTC(STC,z,BinXY,PolyLimite,edges,Values): # Renvoie les rapports [aire(intersection modulebin)/aire(module)]
+def pTT_single_STC(STC,z,BinXY,edges,Values):
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     

@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import os
 from shapely.geometry import Polygon
 import functions
-from STCtoPTT import pTTSTCs
-from ModuleSumtoPTT import pTTModules
+from STCtopTTs import pTT_single_STC_layer
+from ModuleSumtopTTs import pTT_single_module_layer
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path+'/../../ProgrammesRessources')
 
@@ -28,12 +28,12 @@ Values2028 = np.load('ValuesBins2028.npy')
 
 def pTT_single_layer(Layer,STCyesorno,edges):
     if Layer < 27:
-        return pTTModules(G,Layer,edges)
+        return pTT_single_module_layer(G,Layer,edges)
     else :
         if not STCyesorno:
-            return pTTModules(G,Layer,edges)      
+            return pTT_single_module_layer(G,Layer,edges)      
         if STCyesorno :
-            return pTTSTCs(STCLD,STCHD,Layer,edges)  
+            return pTT_single_STC_layer(STCLD,STCHD,Layer,edges)  
 
 
 def build_pTTs(Layer,STCyesorno,edges,Values):

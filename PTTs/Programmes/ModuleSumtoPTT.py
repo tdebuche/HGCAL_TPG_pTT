@@ -26,7 +26,7 @@ def reverse_pTTs(args,Layer,Modules,STCs):
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
 
-    reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi):                  
+    reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]:                  
     for module_idx in range(len(pTTs)):
         Module = pTTs[module_idx][0]
         for bin_idx in range(len(pTTs[module_idx])):

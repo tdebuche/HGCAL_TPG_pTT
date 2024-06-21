@@ -17,18 +17,14 @@ etamin = 1.305
 
 
 
-def pTT_single_STC_layer(STCLD,STCHD,Layer,edges): 
-    z = Z[Layer-1]
+def pTT_single_STC_layer(args,Layer,STCs): 
     if edges:
-        BinXY= functions.binetaphitoXY(Binetaphi2028,z)
+        BinXY= functions.binetaphitoXY(Binetaphi2028,Z[Layer-1])
         Values = Values2028
     else :
-        BinXY= functions.binetaphitoXY(Binetaphi2024,z)
+        BinXY= functions.binetaphitoXY(Binetaphi2024,Z[Layer-1])
         Values = Values2024
-    if Layer > 33:
-        STCs = STCLD[Layer-34]
-    else :
-        STCs = STCHD[Layer-27]
+    STCs = STCs[Layer-1]
     L = []
     l = []
     for i in range(len(STCs)):

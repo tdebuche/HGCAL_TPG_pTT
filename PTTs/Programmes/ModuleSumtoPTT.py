@@ -19,7 +19,7 @@ etamin = 1.305
 
 
 
-def pTT_single_module_layer(args,Layer,Modules): #Share the energy of each module pf one layer
+def pTT_single_layer(args,Layer,Modules): #Share the energy of each module pf one layer
     #choose the scenario
     if args.Edges:
         BinXY= functions.binetaphitoXY(Binetaphi2028,Z[Layer-1])

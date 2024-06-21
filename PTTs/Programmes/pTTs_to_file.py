@@ -1,24 +1,29 @@
 
 import numpy as np
-import matplotlib.pyplot as plt
 import os
-from shapely.geometry import Polygon
-import functions
 import argparse
+
 from ModuleSumtoPTT import reverse_pTTs
-dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dir_path + '/../../ProgrammesRessources')
 
-with open('Modules.json','r') as file:
+with open('ProgrammesRessources/Modules.json','r') as file:
     Modules = json.load(file)
-with open('STCs.json','r') as file:
+with open('ProgrammesRessources/STCs.json','r') as file:
     STCs = json.load(file)
-
+    
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
-
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]
 Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43], ['0x64030000', 37], ['0x64040000', 38], ['0x64050000', 35], ['0x64060000', 40], ['0x64070000', 39], ['0x64080000',42], ['0x64090000', 36], ['0x640A0000', 44], ['0x640B0000',45], ['0x640C0000', 46], ['0x640D0000', 34]]
+
+#Parameters:
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--Format",default = 'readable', help="textfile : readable, vhfile: vh",type=int)
+parser.add_argument("--STCs",default = 'yes', help="With (yes) or without STCs (no)")
+parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(no)")
+args = parser.parse_args()
+
+
 
 
 def record_all_boards():
@@ -28,6 +33,32 @@ def record_all_boards():
     if args.Edges == 'no' : path += '/24_Phi_Bins'
     if args.STCs == 'yes' : path += '/with_STCs'
     if args.STCs == 'no' : path += '/without_STCs'
+    os.chdir(path)
+    all_boards_CEE,all_boards_CEH = '',''
+    for Board in range(14):
+        text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs)
+        all_boards_CEE += text_CEE
+        all_boards_CEH += text_CEH
+        name = 'CE_E_'+  str(Board)+ '_v2'
+        if args.Format == 'vh': name += '.vh'
+        if args.Format == 'readable': name += '.txt'
+        file = open(name, "w")
+        file.write(text_CEE)
+        file.close()
+        name = 'CE_H_'+  str(Board)+ '_v2'
+        if args.Format == 'vh': name += '.vh'
+        if args.Format == 'readable': name += '.txt'
+        file = open(name, "w")
+        file.write(text_CEH)
+        file.close()
+    name = CE_E_allBoards
+    file = open(name+".txt", "w")
+    file.write(all_boards_CEE)
+    file.close()
+    name = CE_H_allBoards
+    file = open(name+".txt", "w")
+    file.write(all_boards_CEH)
+    file.close()
 
     
 def files_single_board(args,Board,Modules,STCs):
@@ -137,165 +168,6 @@ def single_pTT_text(pTT,phi,eta,intmatrix,adder):
     adder += nb_module_in_pTT
     return(res,intmatrix,adder,nb_module_in_pTT)
 
-
-##################################################################################################################################
-#Parameters:
-
-parser = argparse.ArgumentParser()
-parser.add_argument("Board", help="Layer to display",type=int)
-parser.add_argument("--STCs",default = 'yes', help="With (yes) or without STCs (no)")
-parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(no)")
-parser.add_argument("--Record",default = 'no', help="Record all boards")
-args = parser.parse_args()
-
-# to test
-os.chdir(dir_path+"/../Ressources/test")
-
-Board = args.Board
-if args.Edges == 'yes' and args.STCs == 'yes':
-    textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,True)
-    name ="PTTs_Board"+  str(Board) + 'Edges'+'STCs'
-if args.Edges == 'no'and args.STCs == 'yes':
-    name ="PTTs_Board"+  str(Board) + 'NoEdges'+'STCs'
-    textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
-if args.Edges == 'yes' and args.STCs == 'no':
-    name ="PTTs_Board"+  str(Board) + 'Edges'+'NoSTCs'
-    textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,True)
-if args.Edges == 'no'and args.STCs == 'no':
-    name ="PTTs_Board"+  str(Board) + 'NoEdges'+'NoSTCs'
-    textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,False)
-    
-file = open(name+"CEE"+".txt", "w")
-file.write(textCEE)
-file.close()
-file = open(name+"CEH"+".txt", "w")
-file.write(textCEH)
-file.close()
-
-# Record
-if args.Record == 'yes':
-    if args.Edges == 'yes' and args.STCs == 'yes':
-        os.chdir(dir_path+"/../Ressources/Readable_files/28_Phi_Bins/with_STCs")
-        for Board in range(14):
-            textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,True)
-            name = 'CE_E_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEE)
-            file.close()
-            name = 'CE_H_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEH)
-            file.close()
-    if args.Edges == 'yes' and args.STCs == 'no':
-        os.chdir(dir_path+"/../Ressources/Readable_files/28_Phi_Bins/without_STCs")
-        for Board in range(14):
-            textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,True)
-            name = 'CE_E_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEE)
-            file.close()
-            name = 'CE_H_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEH)
-            file.close()
-    if args.Edges == 'no' and args.STCs == 'yes':
-        os.chdir(dir_path+"/../Ressources/Readable_files/24_Phi_Bins/with_STCs")
-        for Board in range(14):
-            textCEE,textCEH = PTTmodulestoTextwithSTC(G,Board,False)
-            name = 'CE_E_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEE)
-            file.close()
-            name = 'CE_H_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEH)
-            file.close()
-    
-    if args.Edges == 'no' and args.STCs == 'no':
-        os.chdir(dir_path+"/../Ressources/Readable_files/24_Phi_Bins/without_STCs")
-        for Board in range(14):
-            textCEE,textCEH = PTTmodulestoTextnoSTC(G,Board,False)
-            name = 'CE_E_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEE)
-            file.close()
-            name = 'CE_H_'+  str(Board)+ '_v1'
-            file = open(name+".txt", "w")
-            file.write(textCEH)
-            file.close()
-
-
-
-if args.Edges == 'yes' and args.STCs == 'yes':
-    os.chdir(dir_path+"/../Ressources/Readable_files")
-    textCEE,textCEH ='',''
-    print('ok')
-    for Board in range(14):
-        print(Board)
-        res1,res2 = PTTmodulestoTextwithSTC(G,Board,True)
-        textCEE += res1
-        textCEH += res2
-    name = 'CE_E_allBoards_Edges'
-    file = open(name+".txt", "w")
-    file.write(textCEE)
-    file.close()
-    name = 'CE_H_allBoards_Edges'
-    file = open(name+".txt", "w")
-    file.write(textCEH)
-    file.close()
-
-if args.Edges == 'no' and args.STCs == 'yes':
-    os.chdir(dir_path+"/../Ressources/Readable_files")
-    textCEE,textCEH ='',''        
-    for Board in range(14):
-        print(Board)
-        res1,res2 = PTTmodulestoTextwithSTC(G,Board,False)
-        textCEE += res1
-        textCEH += res2
-    name = 'CE_E_allBoards_NoEdges'
-    file = open(name+".txt", "w")
-    file.write(textCEE)
-    file.close()
-    name = 'CE_H_allBoards_NoEdges'
-    file = open(name+".txt", "w")
-    file.write(textCEH)
-    file.close()
-
-
-if args.Edges == 'yes' and args.STCs == 'no':
-    os.chdir(dir_path+"/../Ressources/Readable_files")
-    textCEE,textCEH ='',''
-    print('ok')
-    for Board in range(14):
-        print(Board)
-        res1,res2 = PTTmodulestoTextnoSTC(G,Board,True)
-        textCEE += res1
-        textCEH += res2
-    name = 'CE_E_allBoards_EdgesNoSTCs'
-    file = open(name+".txt", "w")
-    file.write(textCEE)
-    file.close()
-    name = 'CE_H_allBoards_EdgesNoSTCs'
-    file = open(name+".txt", "w")
-    file.write(textCEH)
-    file.close()
-
-if args.Edges == 'no' and args.STCs == 'no':
-    os.chdir(dir_path+"/../Ressources/Readable_files")
-    textCEE,textCEH ='',''        
-    for Board in range(14):
-        print(Board)
-        res1,res2 = PTTmodulestoTextnoSTC(G,Board,False)
-        textCEE += res1
-        textCEH += res2
-    name = 'CE_E_allBoards_NoEdgesNoSTCs'
-    file = open(name+".txt", "w")
-    file.write(textCEE)
-    file.close()
-    name = 'CE_H_allBoards_NoEdgesNoSTCs'
-    file = open(name+".txt", "w")
-    file.write(textCEH)
-    file.close()
 
 
 

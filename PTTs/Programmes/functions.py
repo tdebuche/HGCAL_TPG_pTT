@@ -31,11 +31,11 @@ def item_list(jsonfile,item):
   return L
 
 
-def pointtopolygon(L):
+def pointtopolygon(vertices):
     points = []
-    for i in range(len(L[0])):
-        if L[0][i]!= 0 or L[1][i] != 0:
-            points.append((L[0][i],L[1][i]))
+    for i in range(len(vertices[0])):
+        if vertices[0][i]!= 0 or vertices[1][i] != 0:
+            points.append((vertices[0][i],vertices[1][i]))
     return(Polygon(points))
 
 def polygontopoints(poly):

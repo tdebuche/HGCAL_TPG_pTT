@@ -4,7 +4,7 @@ import os
 import argparse
 
 from pTTs.Programmes.ModuleSumtoPTT import reverse_pTTs
-from S1_Input.Programmes.tools import nb_inputs,get_module_channel,get_STC_channel
+from S1_Input.Programmes.create_numbering import nb_inputs,get_module_channel,get_STC_channel
 
 with open('ProgrammesRessources/Modules.json','r') as file:
     Modules = json.load(file)

@@ -10,7 +10,9 @@ os.chdir(dir_path+'/../../ProgrammesRessources')
 
 UV =  np.array(functions.item_list('Modules.json','uv'))
 G =  np.array(functions.item_list('Modules.json','vertices'))
-
+STCs = functions.item_list('STCs.json','vertices')
+STCLD = np.array(STCs[33:47])
+STCHD = np.array(STCs[26:33])
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 

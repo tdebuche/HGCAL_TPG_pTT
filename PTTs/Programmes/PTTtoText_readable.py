@@ -5,7 +5,7 @@ import os
 from shapely.geometry import Polygon
 import functions
 import argparse
-from PTT import PTTarray
+from reverse_pTTs import PTTarray
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path + '/../../ProgrammesRessources')
 
@@ -14,18 +14,8 @@ os.chdir(dir_path + '/../../ProgrammesRessources')
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 
-
-
-#for the numbering of modules in a board
-nb_modules=[96,96,96,96,102,102,102,102,102,102,104,104,108,110,114,114,118,122,136,146,95,95,95,95,72,72,52,52,52,52,37,37,37,37]
-min_numberingmod = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 146, 198, 0, 52, 72, 95, 72, 95]
-min_numberingscint = [132, 109, 136, 109, 104, 122, 110, 132, 118, 250, 114, 114, 95, 95]
-IndminScint = [95,95,95,95,72,72,52,52,52,52,37,37,37,37]
-
-
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]
 Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43], ['0x64030000', 37], ['0x64040000', 38], ['0x64050000', 35], ['0x64060000', 40], ['0x64070000', 39], ['0x64080000',42], ['0x64090000', 36], ['0x640A0000', 44], ['0x640B0000',45], ['0x640C0000', 46], ['0x640D0000', 34]]
-
 ##########################################        Without STCs   #######################################
 
 
@@ -151,18 +141,15 @@ def OnepTTCEHnoSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
         for k  in range(len(pTTCEH[i][j][lay][1])):
             if not np.array_equal(pTTCEH[i][j][lay][1][k],np.zeros(4)):
                 mod = pTTCEH[i][j][lay][1][k]
-                if Layer == Layers_Scint and mod[0] >= IndminScint[Layer-34]:
-                    nbl = min_numberingscint[Layer - 34]
+                if Layer == Layers_Scint and mod[0] >= :
                     nbmodintower += 1
                     res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                     intmatrixH += 2
                 if Layer <34:
-                    nbl = min_numberingmod[Layer - 14]
                     res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                     intmatrixH += 2
                     nbmodintower += 1
-                if  Layer >33 and Layer != Layers_Scint and mod[0] < IndminScint[Layer-34]:
-                    nbl = min_numberingmod[Layer - 14]
+                if  Layer >33 and Layer != Layers_Scint and mod[0] < :
                     res +=  '('+str(int(Layer))+','+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                     intmatrixH += 2
                     nbmodintower += 1

@@ -8,15 +8,15 @@ from ModuleSumtoPTT import pTTModules
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path+'/../../ProgrammesRessources')
 
-UV =  np.array(functions.item_list('Modules.json','uv'))
-G =  np.array(functions.item_list('Modules.json','vertices'))
-Module_type =  np.array(functions.item_list('Modules.json','type'))
+UV =  functions.item_list('Modules.json','uv')
+G =  functions.item_list('Modules.json','vertices')
+Module_type =  functions.item_list('Modules.json','type')
 
 STCs = functions.item_list('STCs.json','vertices')
-STCLD = np.array(STCs[33:47])
-STCHD = np.array(STCs[26:33])
-STC_type =  np.array(functions.item_list('STC.json','type'))
-STC_index =  np.array(functions.item_list('STC.json','index'))
+STCLD = STCs[33:47]
+STCHD = STCs[26:33]
+STC_type =  functions.item_list('STCs.json','type')
+STC_index = functions.item_list('STCs.json','index')
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 
@@ -26,7 +26,7 @@ Values2028 = np.load('ValuesBins2028.npy')
 ############# 24 -> phi, 20 -> eta, maxmod... ok, 6 : i (numéro du module), u,v, ratio, indice STC (for CEH) #######
 
 
-def PTTLayer(Layer,STCyesorno,edges):
+def pTT_single_layer(Layer,STCyesorno,edges):
     if Layer < 27:
         return pTTModules(G,Layer,edges)
     else :
@@ -36,8 +36,8 @@ def PTTLayer(Layer,STCyesorno,edges):
             return pTTSTCs(STCLD,STCHD,Layer,edges)  
 
 
-def constructionPTT(Layer,STCyesorno,edges,Values):
-    listpttpermodules = PTTLayer(Layer,STCyesorno,edges)
+def build_pTTs(Layer,STCyesorno,edges,Values):
+    listpttpermodules = pTT_single_layer(Layer,STCyesorno,edges)
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     if Layer < 48 and not STCyesorno : 
@@ -45,18 +45,18 @@ def constructionPTT(Layer,STCyesorno,edges,Values):
         for i in range(len(listpttpermodules)):
             for j in range(len(listpttpermodules[i])):
                 iptt,jptt,ratio = listpttpermodules[i][j]
-                u = UV[Layer-1,i,0]
-                v = UV[Layer-1,i,1]
-                L[iptt][jptt].append([Module_type[Layer-1,i],u,v,ratio])
+                u = UV[Layer-1][i][0]
+                v = UV[Layer-1][i][1]
+                L[iptt][jptt].append([Module_type[Layer-1][i],u,v,ratio])
                                           
     if Layer < 27 and STCyesorno :   
         L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
         for i in range(len(listpttpermodules)):
             for j in range(len(listpttpermodules[i])):
                 iptt,jptt,ratio = listpttpermodules[i][j]
-                u = UV[Layer-1,i,0]
-                v = UV[Layer-1,i,1]
-                L[iptt][jptt].append([Module_type[Layer-1,i],u,v,ratio])
+                u = UV[Layer-1][i][0]
+                v = UV[Layer-1][i][1]
+                L[iptt][jptt].append([Module_type[Layer-1][i],u,v,ratio])
 
     if Layer > 26 and STCyesorno :
         L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
@@ -64,37 +64,10 @@ def constructionPTT(Layer,STCyesorno,edges,Values):
             for j in range(len(listpttpermodules[i])):
                 for k in range(len(listpttpermodules[i][j])):
                     iptt,jptt,ratio = listpttpermodules[i][j][k]
-                    u = UV[Layer-1,i,0]
-                    v = UV[Layer-1,i,1]
-                    L[iptt][jptt].append([STC_type[Layer-1,i],u,v,STC_index[Layer-1,i],ratio])
+                    u = UV[Layer-1][i][0]
+                    v = UV[Layer-1][i][1]
+                    L[iptt][jptt].append([STC_type[Layer-1][i],u,v,STC_index[Layer-1][i],ratio])
 
     return(L)
 
-
-def PTTarray(Layer,STCyesorno,edges):
-    if edges:
-        Values = Values2028
-    else :
-        Values = Values2024
-    L = constructionPTT(Layer,STCyesorno,edges,Values)
-    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
-    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    
-    max = 0
-    for i in range(len(L)):
-        for j in range(len(L[i])):
-            if len(L[i][j]) >max:
-                max = len(L[i][j])
-    if Layer < 27:
-        A = np.zeros((nb_binphi,nb_bineta,max,4))
-    else :
-        if not STCyesorno:
-            A = np.zeros((nb_binphi,nb_bineta,max,4)) 
-        if STCyesorno:
-            A = np.zeros((nb_binphi,nb_bineta,max,5)) 
-    for i in range(len(L)):
-        for j in range(len(L[i])):
-            for k in range(len(L[i][j])):
-                A[i,j,k] = np.array(L[i][j][k])
-    return A
 

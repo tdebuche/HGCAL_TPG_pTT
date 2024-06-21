@@ -7,11 +7,10 @@ from STCtoPTT import pTTSTCs
 from ModuleSumtoPTT import pTTModules
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path+'/../../ProgrammesRessources')
-UV = np.load('UVModules.npy')
-G = np.load('ModulesGeometry.npy')
-Z = np.load('Z.npy')
-STCLD = np.load('STCLD.npy')
-STCHD = np.load('STCHD.npy')
+
+UV =  np.array(functions.item_list('Modules.json','uv'))
+G =  np.array(functions.item_list('Modules.json','vertices'))
+
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 

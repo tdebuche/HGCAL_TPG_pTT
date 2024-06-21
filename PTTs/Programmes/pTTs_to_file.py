@@ -19,9 +19,17 @@ Values2028 = np.load('ValuesBins2028.npy')
 
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]
 Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43], ['0x64030000', 37], ['0x64040000', 38], ['0x64050000', 35], ['0x64060000', 40], ['0x64070000', 39], ['0x64080000',42], ['0x64090000', 36], ['0x640A0000', 44], ['0x640B0000',45], ['0x640C0000', 46], ['0x640D0000', 34]]
-##########################################        Without STCs   #######################################
 
 
+def record_all_boards():
+    if args.Format == 'vh': path = "pTTs/Ressources/VH_files"
+    if args.Format == 'readable':path = "pTTs/Ressources/Readable_files"
+    if args.Edges == 'yes' : path += '/28_Phi_Bins'
+    if args.Edges == 'no' : path += '/24_Phi_Bins'
+    if args.STCs == 'yes' : path += '/with_STCs'
+    if args.STCs == 'no' : path += '/without_STCs'
+
+    
 def files_single_board(args,Board,Modules,STCs):
     CEE_pTTs,CEH_pTTs = pTTs_single_board(args,Board_number,Modules,STCs)
     nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number)
@@ -30,7 +38,7 @@ def files_single_board(args,Board,Modules,STCs):
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     text_CEE, text_CEH= '',''
-    intmatrixE,intmatrixH = 0,0
+    intmatrixE,intmatrixH = -1,-1
     adderE,adderH = 0,0
     maxE,maxH = 0,0
     for phi in range(nb_binphi):
@@ -103,7 +111,7 @@ def single_pTT_text(pTT,phi,eta,intmatrix,adder):
             module_u,module_v = str(module[1]),str(module[2])
             if module[0] == 'silicon': module_type = 'Si'
             if module[0] == 'scintillator': module_type = 'Sc'
-            if args.Format == 'text':
+            if args.Format == 'readable':
                 if Layer <27 or not args.STCs :
                     module_energy = str(module[3])
                     res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+'),'+ module_energy +','

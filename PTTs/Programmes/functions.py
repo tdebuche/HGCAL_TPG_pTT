@@ -6,21 +6,26 @@ from shapely.geometry import Polygon
 ####################### Few functions used for the conversion XY/EtaPhi and the building of list and array for plots #########
 
 
-def item_list(jsonfile,item,layer):
+def item_list(jsonfile,item):
   L = []
+  res = []
   with open(jsonfile,'r') as file:
-    data = json.load(file)[layer-1]
-  for module_idx in range(len(data)):
-    if item =="id":
-      L.append(data[module_idx]['id'])
-    if item =="irot":
-      L.append(data[module_idx]['irot'])
-    if item =="TCcount":
-      L.append(data[module_idx]['TCcount'])
-    if item =="uv":
-      L.append([data[module_idx]['u'],data[module_idx]['v']])
-    if item =="vertices":
-      L.append([data[module_idx]['verticesX'],data[module_idx]['verticesY']])
+    alldata = json.load(file)
+  for layer in range(47):
+    data = alldata[layer-1]
+    for module_idx in range(len(data)):
+      if item =="id":
+        res.append(data[module_idx]['id'])
+      if item =="irot":
+        res.append(data[module_idx]['irot'])
+      if item =="TCcount":
+        res.append(data[module_idx]['TCcount'])
+      if item =="uv":
+        res.append([data[module_idx]['u'],data[module_idx]['v']])
+      if item =="vertices":
+        res.append([data[module_idx]['verticesX'],data[module_idx]['verticesY']])
+    L.append(res)
+    res = []
   return L
 
 

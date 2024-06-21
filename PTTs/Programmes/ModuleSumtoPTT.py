@@ -19,68 +19,54 @@ etamin = 1.305
 
 
 
-def pTTModules(Geometry,Layer,edges): #Share the energy of each module
-    z = Z[Layer-1]
-    if edges:
-        BinXY= functions.binetaphitoXY(Binetaphi2028,z)
+def pTT_single_module_layer(args,Layer,Modules): #Share the energy of each module pf one layer
+    #choose the scenario
+    if args.Edges:
+        BinXY= functions.binetaphitoXY(Binetaphi2028,Z[Layer-1])
         Values = Values2028
     else :
-        BinXY= functions.binetaphitoXY(Binetaphi2024,z)
+        BinXY= functions.binetaphitoXY(Binetaphi2024,Z[Layer-1])
         Values = Values2024
-    PolyLimite = Arealimit(Layer)
-    Modules = Geometry[Layer-1]
-    L = []
-    for i in range(len(Modules)):
-        if not np.array_equal(Modules[i],np.zeros((2,6))):
-            Towers = areatocoef(pTTModule(Modules[i],z,BinXY,PolyLimite,edges,Values))
-            L.append(Towers)
-    return(L)
+    Modules = Modules[Layer-1]
+    
+    #create a list with the enegy sharing
+    Bins_per_Modules = []
+    for module_idx in range(len(Modules)):
+        Module_vertices = [Modules[module_idx]['verticesX'],Modules[module_idx]['verticesY']]
+        Bins = areatocoef(pTT_single_Module(BinXY,Module_vertices,Values,Z[Layer-1]))
+        Bins_per_Modules.append([Modules[module_idx],Bins])
+    return(Bins_per_Modules)
 
 
 
 
-def Arealimit(Layer):  #Look at the area covered by bins only (avoid the edges problems in 20**24 configuration)
-    Limite = np.zeros((2,50))
-    z = Z[Layer-1]
-    for i in range(25):
-        x,y = functions.etaphitoXY(etamin,i*np.pi/36,z)
-        Limite[0,i] = x
-        Limite[1,i] = y
-        x,y = functions.etaphitoXY(etamin +20 * np.pi/36,(24-i)*np.pi/36,z)
-        Limite[0,i+25] = x
-        Limite[1,i+25] = y
-    PolyLimite = functions.pointtopolygon(Limite)
-    return PolyLimite
-
-
-def pTTModule(Module,z,BinXY,PolyLimite,edges,Values): # Return the sharing of the energy of each module
+def pTT_single_Module(BinXY,Module,Values,Z[Layer-1]): # Return the sharing of the energy of each module
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    L = []
-    Mod_Poly = functions.pointtopolygon(Module)
-    if not edges:
-        area_module = Mod_Poly.intersection(PolyLimite).area
-    if edges:
-        area_module = Mod_Poly.area
+    pTTs = []
+    Module_Polygon = functions.pointtopolygon(Module)
+    area_module = Module_Polygon.area
     eta,phi = functions.etaphicentre(Module,z)
-    icentre= int((phi-phimin) *36 /np.pi)
-    jcentre= int((eta -etamin) *36 /np.pi)
-    for i in range(-4,5):
-        for j in range(-4,5):
-            if icentre+i >= 0 and icentre+i < nb_binphi:
-                if jcentre+j >= 0 and jcentre+j < nb_bineta:
-                    Area = AireBinModule(Module,BinXY[(icentre+i)*20 + (jcentre+j)])
+    phi_center = int((phi-phimin) *36 /np.pi)
+    eta_center = int((eta -etamin) *36 /np.pi)
+    for phi in range(-4,5):
+        for eta in range(-4,5):
+            phi_idx = phi_center + phi
+            eta_idx = eta_center + eta
+            if phi_idx >= 0 and phi_idx < nb_binphi:
+                if eta_idx >= 0 and eta_idx < nb_bineta:
+                    Area = AireBinModule(Module,BinXY[(phi_idx)*20 + (eta_idx)])
                     if Area !=0:
-                        L.append([icentre+i,jcentre+j,Area/area_module])
-    return(L)
+                        pTTs.append([phi_idx,eta_idx,Area/area_module])
+    return(pTTs)
 
 
 
-def AireBinModule(Module,Bin): # Return [area(intersection module and bin)/area(module)] for a given module and a given bin
-    M = functions.pointtopolygon(Module)
-    B = functions.pointtopolygon(Bin)
-    if M.intersects(B):
-        return(M.intersection(B).area)
+def AireBinModule(Module,Bin): # Return [area(intersection module and bin)] for a given module and a given bin
+    Module = functions.pointtopolygon(Module)
+    Bin = functions.pointtopolygon(Bin)
+    if Module.intersects(Bin):
+        return(Module.intersection(Bin).area)
     else :
         return(0)
 

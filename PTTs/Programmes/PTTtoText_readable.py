@@ -68,104 +68,66 @@ def pTTs_single_board(args,Board_number,Modules,STCs):
     else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    Layers = Boards[Board]
-    Layers_Scint = Boards_scintillators[Board][1]
+    Layers = Boards[Board_number]
+    Layers.append(Boards_scintillators[Board_number][1])
     CEE_pTTs,CEH_pTTs = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)],[[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
 
     for lay in range(1,len(Layers)):
         Layer = Layers[lay]
-        pTTs_one_layer = PTTarray(Layer,False,edges)
-            for phi in range(nb_binphi):
-                for eta in range(nb_bineta):
-        if Layer < 27:
-                    pTTCEE[phi][j].append([Layer,pTTlay[phi][eta]])
-        if Layer > 26:
-            pTTlay = PTTarray(Layer,False,edges)
-            for phi in range(nb_binphi):
-                for eta in range(nb_bineta):
-                    mods = []
-                    for k in range(len(pTTlay[phi][eta])):
-                        type = pTTlay[phi][eta][k][0]
-                        if Layer > 33:
-                            if type == 'silicon' :
-                                mods.append(pTTlay[phi,j,k])
-                        else :
-                            mods.append(pTTlay[phi,j,k])
-                    if mods != []:
-                        pTTCEH[phi][j].append([Layer,mods])
-
-    Layer = Layers_Scint
-    pTTscint = PTTarray(Layer,False,edges)
-    for i in range(nb_binphi):
-        for j in range(nb_bineta):
-            sc = []
-            for k in range(len(pTTscint[i,j])):
-                if not np.array_equal(pTTscint[i,j,k],np.zeros(4)):
-                    type = pTTscint[i,j,k,0]
-                    if type == 'scintillator':
-                        sc.append(pTTscint[i,j,k])
-            if sc != []:
-                pTTCEH[i][j].append([Layer,sc])
+        pTTs_one_layer = reverse_pTTs(args,Layer,Modules,STCs)
+        for phi in range(nb_binphi):
+            for eta in range(nb_bineta):
+                pTT = pTTs_one_layer[phi][eta]
+                if Layer < 34 : 
+                    CEE_pTTs[phi][eta].append([Layer,pTT])
+                if Layer > 33:
+                    Si_Modules = []
+                    for module_idx in range(len(pTT)):
+                        module_type = pTT[module_idx][0]
+                        if module_type == 'silicon' and (lay!=len(Layers)) : Si_Modules.append(pTT[module_idx])
+                        if module_type == 'scintillator' and (lay==len(Layers)-1) : Si_Modules.append(pTT[module_idx])
+                    CEH_pTTs[phi][eta].append([Layer,Si_Modules])
 
     return(pTTCEE,pTTCEH)
 
 def single_pTT_text(pTT,phi,eta,intmatrix,adder):
     res = ''
-    nbmodintower = 0
-    intmatrixE +=1    #pour le nbmodintower
-    for lay in range(len(pTTCEE[i][j])):
-        Layer = pTTCEE[i][j][lay][0]
-        for k  in range(len(pTTCEE[i][j][lay][1])):
-            if not np.array_equal(pTTCEE[i][j][lay][1][k],np.zeros(4)):
-                nbmodintower += 1
-                mod = pTTCEE[i][j][lay][1][k]
-                res +=  '('+str(int(Layer))+',Si,'+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
-                intmatrixE += 2
-    if i*20+j<10:
-        nbzeros= '000'
-    if i*20+j>9 and i*20+j<100:
-        nbzeros='00'
-    if i*20+j>=100:
-        nbzeros= '0'
-    res ='/* out'+nbzeros+str(int(i*20+j))+'_em-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' +res
-    adderE += nbmodintower
-    return(res,intmatrixE,adderE,nbmodintower)
-
-
-def OnepTTCEHnoSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
-    res = ''
-    intmatrixH +=1 #pour le nbmodintower
-    nbmodintower = 0
-    for lay in range(len(pTTCEH[i][j])):
-        Layer = pTTCEH[i][j][lay][0]
-        for k  in range(len(pTTCEH[i][j][lay][1])):
-            if not np.array_equal(pTTCEH[i][j][lay][1][k],np.zeros(4)):
-                mod = pTTCEH[i][j][lay][1][k]
-                if Layer == Layers_Scint and mod[0] == 'scintillator':
-                    nbmodintower += 1
-                    res +=  '('+str(int(Layer))+',Sc,'+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
-                    intmatrixH += 2
-                if Layer <34:
-                    res +=  '('+str(int(Layer))+',Si,'+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
-                    intmatrixH += 2
-                    nbmodintower += 1
-                if  Layer >33 and Layer != Layers_Scint and mod[0] != 'scintillator' :
-                    res +=  '('+str(int(Layer))+',Si,'+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
-                    intmatrixH += 2
-                    nbmodintower += 1
-    if i*20+j<10:
-        nbzeros= '000'
-    if i*20+j>9 and i*20+j<100:
-        nbzeros='00'
-    if i*20+j>=100:
-        nbzeros= '0'
-    res ='/* out'+nbzeros+str(int(i*20+j))+'_had-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' + res
-    adderH += nbmodintower
-    return(res,intmatrixH,adderH,nbmodintower)
-
-
-
-
+    nb_module_in_pTT = 0
+    intmatrix +=1    #pour le nbmodintower
+    pTT  = pTT[phi][eta]
+    for lay in range(len(pTT)):
+        Layer = pTT[lay][0]
+        for module_idx in range(len(pTT[lay][1])):
+            nb_module_in_pTT += 1
+            module = pTT[lay][1][module_idx]
+            module_u,module_v = str(module[1]),str(module[2])
+            if module[0] == 'silicon': module_type = 'Si'
+            if module[0] == 'scintillator': module_type = 'Sc'
+            if args.Format == 'text':
+                if Layer <27 or not args.STCs :
+                    module_energy = str(module[3])
+                    res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+'),'+ module_energy +','
+                    intmatrix += 2
+                 if Layer >26 and args.STCs :
+                    stc_index = str(module[3])
+                    stc_energy = str(module[4])
+                    res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+','+stc_index+'),'+ module_energy +','
+                    intmatrix += 3
+            if args.Format == 'vh':
+                if Layer <27 or not args.STCs :
+                    module_energy = str(module[3])
+                    module_channel = get_module_channel(Layer,module[0],module_u,module_v)
+                    res +=  str(module_channel)+','+ module_energy +','
+                    intmatrix += 2
+                 if Layer >26 and args.STCs :
+                    stc_index = str(module[3])
+                    stc_energy = str(module[4])
+                    STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
+                    res +=  str(STC_channel)+','+str(STC_word)+','+ module_energy +','
+                    intmatrix += 3
+    res ='/* out'+nbzeros+str(int(i*20+j)).zfill(4)+'_em-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' +res
+    adder += nb_module_in_pTT
+    return(res,intmatrix,adder,nb_module_in_pTT)
 
 
 ##################################################################################################################################

@@ -5,13 +5,14 @@ import os
 from shapely.geometry import Polygon
 import functions
 import argparse
-from reverse_pTTs import PTTarray
+from ModuleSumtoPTT import reverse_pTTs
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path + '/../../ProgrammesRessources')
 
-UV =  np.array(functions.item_list('Modules.json','uv'))
-G =  np.array(functions.item_list('Modules.json','vertices'))
-Module_type =  np.array(functions.item_list('Modules.json','type'))
+with open('Modules.json','r') as file:
+    Modules = json.load(file)
+with open('STCs.json','r') as file:
+    STCs = json.load(file)
 
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
@@ -21,77 +22,77 @@ Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43]
 ##########################################        Without STCs   #######################################
 
 
-def PTTmodulestoTextnoSTC(Geometry,Board,edges):
-    Layers = Boards[Board]
-    Layers_Scint = Boards_scintillators[Board][1]
-    if edges:
-        Values = Values2028
-    else :
-        Values = Values2024
+def files_single_board(args,Board,Modules,STCs):
+    CEE_pTTs,CEH_pTTs = pTTs_single_board(args,Board_number,Modules,STCs)
+    nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number)
+    if args.Edges: Values = Values2028
+    else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    pTTCEE,pTTCEH = PTTarraytoPTTboardnoSTC(Geometry,Board,edges,nb_binphi,nb_bineta)
-
-    tCEE = ''
-    tCEH = ''
-    intmatrixE = 0
-    intmatrixH = 0
-    adderE = 0
-    adderH = 0
-    maxE = 0
-    maxH = 0
-    for i in range(nb_binphi):
-        for j in range(nb_bineta):
-            resE,intmatrixE,adderE,nbmodintowerE = OnepTTCEEnoSTC(pTTCEE,i,j,intmatrixE,adderE)
+    text_CEE, text_CEH= '',''
+    intmatrixE,intmatrixH = 0,0
+    adderE,adderH = 0,0
+    maxE,maxH = 0,0
+    for phi in range(nb_binphi):
+        for eta in range(nb_bineta):
+            resE,intmatrixE,adderE,nbmodintowerE = single_pTT_text(CEE_pTTs,phi,eta,intmatrixE,adderE)
             if nbmodintowerE > maxE:
                 maxE = nbmodintowerE
-            resH,intmatrixH,adderH,nbmodintowerH = OnepTTCEHnoSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint)
+            resH,intmatrixH,adderH,nbmodintowerH = single_pTT_text(CEH_pTTs,phi,eta,intmatrixH,adderH)
             if nbmodintowerH > maxH:
                 maxH = nbmodintowerH
-            tCEE += resE + '\n'
-            tCEH += resH + '\n'
-    tCEE = '\n' + tCEE 
-    tCEE = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEE
-    tCEE = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEE
-    tCEE = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEE
+            if (phi == nb_binphi-1) and (eta == nb_bineta-1): 
+                resE = resE[0:-1]
+                resH = resH[0:-1]
+            text_CEE += resE + '\n'
+            text_CEH += resH + '\n'
+    text_CEE = '//* total number of input in adders '+str(int(adderE-1))+' */' + '\n' + '\n' + text_CEE
+    text_CEE = '//* max inputs per outputs = '+str(int(maxE))+' */'+ '\n' + text_CEE
+    text_CEE = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' + text_CEE
+    text_CEE = '/* num inputs = ' +str(int(nb_CEE_inputs))+ '(in0-in' + str(int(nb_CEE_inputs-1)) + ') */' + '\n' + text_CEE
+    text_CEE = 'parameter integer matrixE [0:'+str(int(intmatrixE))+'] = {' + '\n' + text_CEE
+    text_CEE += '};'
 
-    tCEH = '\n' + tCEH
+    text_CEH = '//* total number of input in adders '+str(int(adderH-1))+' */' + '\n' + '\n' + text_CEH
+    text_CEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' + text_CEH
+    text_CEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' + text_CEH
+    text_CEH = '/* num inputs = ' +str(int(nb_CEH_inputs))+ '(in0-in' + str(int(nb_CEH_inputs-1)) + ') */' + '\n' + text_CEH
+    text_CEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + text_CEH
+    text_CEH += '};'
 
-    tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
-    tCEH = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEH
-    tCEH = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEH
-
-    return (tCEE,tCEH)
+    return (text_CEE,text_CEH)
 
 
-def PTTarraytoPTTboardnoSTC(Geometry,Board,edges,nb_binphi,nb_bineta):
+def pTTs_single_board(args,Board_number,Modules,STCs):
+    if args.Edges: Values = Values2028
+    else : Values = Values2024
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     Layers = Boards[Board]
     Layers_Scint = Boards_scintillators[Board][1]
-    pTTCEE = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
-    pTTCEH = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
+    CEE_pTTs,CEH_pTTs = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)],[[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
 
-    for i in range(1,len(Layers)):
-        Layer = Layers[i]
+    for lay in range(1,len(Layers)):
+        Layer = Layers[lay]
+        pTTs_one_layer = PTTarray(Layer,False,edges)
+            for phi in range(nb_binphi):
+                for eta in range(nb_bineta):
         if Layer < 27:
-            pTTlay = PTTarray(Layer,False,edges)
-            for i in range(nb_binphi):
-                for j in range(nb_bineta):
-                    pTTCEE[i][j].append([Layer,pTTlay[i,j]])
+                    pTTCEE[phi][j].append([Layer,pTTlay[phi][eta]])
         if Layer > 26:
             pTTlay = PTTarray(Layer,False,edges)
-            for i in range(nb_binphi):
-                for j in range(nb_bineta):
+            for phi in range(nb_binphi):
+                for eta in range(nb_bineta):
                     mods = []
-                    for k in range(len(pTTlay[i,j])):
-                        if not np.array_equal(pTTlay[i,j,k],np.zeros(4)):
-                            type = pTTlay[i,j,k,0]
-                            if Layer > 33:
-                                if type == 'silicon' :
-                                    mods.append(pTTlay[i,j,k])
-                            else :
-                                mods.append(pTTlay[i,j,k])
+                    for k in range(len(pTTlay[phi][eta])):
+                        type = pTTlay[phi][eta][k][0]
+                        if Layer > 33:
+                            if type == 'silicon' :
+                                mods.append(pTTlay[phi,j,k])
+                        else :
+                            mods.append(pTTlay[phi,j,k])
                     if mods != []:
-                        pTTCEH[i][j].append([Layer,mods])
+                        pTTCEH[phi][j].append([Layer,mods])
 
     Layer = Layers_Scint
     pTTscint = PTTarray(Layer,False,edges)
@@ -108,7 +109,7 @@ def PTTarraytoPTTboardnoSTC(Geometry,Board,edges,nb_binphi,nb_bineta):
 
     return(pTTCEE,pTTCEH)
 
-def OnepTTCEEnoSTC(pTTCEE,i,j,intmatrixE,adderE):
+def single_pTT_text(pTT,phi,eta,intmatrix,adder):
     res = ''
     nbmodintower = 0
     intmatrixE +=1    #pour le nbmodintower
@@ -152,158 +153,6 @@ def OnepTTCEHnoSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
                     res +=  '('+str(int(Layer))+',Si,'+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
                     intmatrixH += 2
                     nbmodintower += 1
-    if i*20+j<10:
-        nbzeros= '000'
-    if i*20+j>9 and i*20+j<100:
-        nbzeros='00'
-    if i*20+j>=100:
-        nbzeros= '0'
-    res ='/* out'+nbzeros+str(int(i*20+j))+'_had-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' + res
-    adderH += nbmodintower
-    return(res,intmatrixH,adderH,nbmodintower)
-
-
-
-
-
-#########################################################          WITH STCs        ###############################################
-
-
-def PTTmodulestoTextwithSTC(Geometry,Board,edges):
-    Layers = Boards[Board]
-    Layers_Scint = Boards_scintillators[Board][1]
-    if edges:
-        Values = Values2028
-    else :
-        Values = Values2024
-    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
-    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    pTTCEE,pTTCEH = PTTarraytoPTTboardwithSTC(Geometry,Board,edges,nb_binphi,nb_bineta)
-
-    
-
-    tCEE = ''
-    tCEH = ''
-    intmatrixE = 0
-    intmatrixH = 0
-    adderE = 0
-    adderH = 0
-    maxE = 0
-    maxH = 0
-    for i in range(nb_binphi):
-        for j in range(20):
-            resE,intmatrixE,adderE,nbmodintowerE = OnepTTCEEwithSTC(pTTCEE,i,j,intmatrixE,adderE)
-            if nbmodintowerE > maxE:
-                maxE = nbmodintowerE
-            resH,intmatrixH,adderH,nbmodintowerH = OnepTTCEHwithSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint)
-            if nbmodintowerH > maxH:
-                maxH = nbmodintowerH
-            tCEE += resE + '\n'
-            tCEH += resH + '\n'
-
-    tCEE = '\n' + tCEE
-
-    tCEE = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEE
-    tCEE = 'format module = (Layer,u,v),fraction of 1/16' + '\n' + tCEE
-    tCEE = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEE
-
-    tCEH = '\n' + tCEH
-    tCEH = 'Number of Ptts = '+str(int(nb_binphi*nb_bineta)) + '\n' +tCEH
-    tCEH = 'format module = (Layer,u,v,index_STC),fraction of 1/16' + '\n' + tCEH
-    tCEH = 'Board '+Boards[Board][0]+ ', Board number = ' +str(int(Board))+ '\n' +tCEH
-
-
-    return (tCEE,tCEH)
-
-def PTTarraytoPTTboardwithSTC(Geometry,Board,edges,nb_binphi,nb_bineta):
-    Layers = Boards[Board]
-    Layers_Scint = Boards_scintillators[Board][1]
-    pTTCEE = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
-    pTTCEH = [[[]for j in range(nb_bineta)]for i in range(nb_binphi)]
-
-    for i in range(1,len(Layers)):
-        Layer = Layers[i]
-        if Layer < 27:
-            pTTlay = PTTarray(Layer,True,edges)
-            for i in range(nb_binphi):
-                for j in range(nb_bineta):
-                    pTTCEE[i][j].append([Layer,pTTlay[i,j]])
-        if Layer > 26:
-            pTTlay = PTTarray(Layer,True,edges)
-            for i in range(nb_binphi):
-                for j in range(nb_bineta):
-                    stc = []
-                    for k in range(len(pTTlay[i,j])):
-                        if not np.array_equal(pTTlay[i,j,k],np.zeros(5)):
-                            type = pTTlay[i,j,k,0]
-                            if Layer > 33:
-                                if type == 'silicon' :
-                                    stc.append(pTTlay[i,j,k])
-                            else :
-                                stc.append(pTTlay[i,j,k])
-                    if stc != []:
-                        pTTCEH[i][j].append([Layer,stc])
-
-    Layer = Layers_Scint
-    pTTscint = PTTarray(Layer,True,edges)
-    for i in range(nb_binphi):
-        for j in range(nb_bineta):
-            sc = []
-            for k in range(len(pTTscint[i,j])):
-                if not np.array_equal(pTTscint[i,j,k],np.zeros(4)):
-                    type = pTTlay[i,j,k,0]
-                    if type == 'scintillator' :
-                        sc.append(pTTscint[i,j,k])
-            if sc != []:
-                pTTCEH[i][j].append([Layer,sc])
-
-    return(pTTCEE,pTTCEH)
-
-def OnepTTCEEwithSTC(pTTCEE,i,j,intmatrixE,adderE):
-    res = ''
-    nbmodintower = 0
-    intmatrixE +=1    #pour le nbmodintower
-    for lay in range(len(pTTCEE[i][j])):
-        Layer = pTTCEE[i][j][lay][0]
-        for k  in range(len(pTTCEE[i][j][lay][1])):
-            if not np.array_equal(pTTCEE[i][j][lay][1][k],np.zeros(4)):
-                nbmodintower += 1
-                mod = pTTCEE[i][j][lay][1][k]
-                res +=  '('+str(int(Layer))+',Si,'+str(int(mod[1]))+','+str(int(mod[2]))+')'+', '+str(int(mod[3]))+', '
-                intmatrixE += 2
-    if i*20+j<10:
-        nbzeros= '000'
-    if i*20+j>9 and i*20+j<100:
-        nbzeros='00'
-    if i*20+j>=100:
-        nbzeros= '0'
-    res ='/* out'+nbzeros+str(int(i*20+j))+'_em-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' +res
-    adderE += nbmodintower
-    return(res,intmatrixE,adderE,nbmodintower)
-
-
-def OnepTTCEHwithSTC(pTTCEH,i,j,intmatrixH,adderH,Layers_Scint):
-    res = ''
-    intmatrixH +=1 #pour le nbmodintower
-    nbmodintower = 0
-    for lay in range(len(pTTCEH[i][j])):
-        Layer = pTTCEH[i][j][lay][0]
-        for k  in range(len(pTTCEH[i][j][lay][1])):
-            #if not np.array_equal(pTTCEH[i][j][lay][1][k],np.zeros(4)):  #Useless ??
-            mod = pTTCEH[i][j][lay][1][k]
-            if Layer == Layers_Scint and mod[0] == 'scintillator':
-                nbmodintower += 1
-                res +=  '('+str(int(Layer))+',Sc,'+str(int(mod[1]))+','+str(int(mod[2]))+','+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
-                intmatrixH += 3
-            if Layer <34:
-                res +=  '('+str(int(Layer))+',Si,'+str(int(mod[1]))+','+str(int(mod[2]))+','+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
-                intmatrixH += 3
-                nbmodintower += 1
-            if  Layer >33 and Layer != Layers_Scint and mod[0] == 'silicon':
-                nbl = min_numberingmod[Layer - 14]
-                res +=  '('+str(int(Layer))+',Si'+str(int(mod[1]))+','+str(int(mod[2]))+','+str(int(mod[3]))+')'+', '+str(int(mod[4]))+', '
-                intmatrixH += 3
-                nbmodintower += 1
     if i*20+j<10:
         nbzeros= '000'
     if i*20+j>9 and i*20+j<100:

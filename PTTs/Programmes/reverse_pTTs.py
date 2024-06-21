@@ -8,12 +8,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path+'/../../ProgrammesRessources')
 
 
-with open('Modules.json','r') as file:
-    Modules = json.load(file)
-with open('STCs.json','r') as file:
-    STCs = json.load(file)
-
-
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 

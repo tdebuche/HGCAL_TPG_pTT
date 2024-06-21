@@ -15,8 +15,24 @@ Values2028 = np.load('ValuesBins2028.npy')
 
 N = 16 #energies divided by N (for the sharing)
 etamin = 1.305
-#########################Build PTTs : array(nb_modules,nb_PTTs,3) (module,PTTs)-->[phiBin,etaBin,ratio] ########################
 
+def reverse_pTTs(args,Layer,Modules,STCs):
+    if Layer < 27 or (Layer>=27 and not args.STCs):
+        pTTs = pTT_single_layer(args,Layer,Modules)
+    else :
+        pTTs = pTT_single_layer(args,Layer,STCs)
+    if args.Edges: Values = Values2028
+    else : Values = Values2024
+    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
+
+    reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi):                  
+    for module_idx in range(len(pTTs)):
+        Module = pTTs[module_idx][0]
+        for bin_idx in range(len(pTTs[module_idx])):
+              eta,phi,ratio = pTTs[module_idx][1][bin_idx]
+              reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],ratio])
+    return(reversed_pTTs)
 
 
 def pTT_single_layer(args,Layer,Modules): #Share the energy of each module pf one layer

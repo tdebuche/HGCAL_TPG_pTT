@@ -3,7 +3,8 @@ import numpy as np
 import os
 import argparse
 
-from ModuleSumtoPTT import reverse_pTTs
+from pTTs.Programmes.ModuleSumtoPTT import reverse_pTTs
+from S1_Input.Programmes.tools import nb_inputs,get_module_channel,get_STC_channel
 
 with open('ProgrammesRessources/Modules.json','r') as file:
     Modules = json.load(file)

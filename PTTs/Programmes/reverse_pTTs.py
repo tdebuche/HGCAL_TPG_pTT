@@ -10,9 +10,13 @@ os.chdir(dir_path+'/../../ProgrammesRessources')
 
 UV =  np.array(functions.item_list('Modules.json','uv'))
 G =  np.array(functions.item_list('Modules.json','vertices'))
+Module_type =  np.array(functions.item_list('Modules.json','type'))
+
 STCs = functions.item_list('STCs.json','vertices')
 STCLD = np.array(STCs[33:47])
 STCHD = np.array(STCs[26:33])
+STC_type =  np.array(functions.item_list('STC.json','type'))
+STC_index =  np.array(functions.item_list('STC.json','index'))
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 
@@ -43,8 +47,8 @@ def constructionPTT(Layer,STCyesorno,edges,Values):
                 iptt,jptt,ratio = listpttpermodules[i][j]
                 u = UV[Layer-1,i,0]
                 v = UV[Layer-1,i,1]
-                L[iptt][jptt].append([i,u,v,ratio])
-                
+                L[iptt][jptt].append([Module_type[Layer-1,i],u,v,ratio])
+                                          
     if Layer < 27 and STCyesorno :   
         L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
         for i in range(len(listpttpermodules)):
@@ -52,7 +56,7 @@ def constructionPTT(Layer,STCyesorno,edges,Values):
                 iptt,jptt,ratio = listpttpermodules[i][j]
                 u = UV[Layer-1,i,0]
                 v = UV[Layer-1,i,1]
-                L[iptt][jptt].append([i,u,v,ratio])
+                L[iptt][jptt].append([Module_type[Layer-1,i],u,v,ratio])
 
     if Layer > 26 and STCyesorno :
         L =[[[] for j in range(nb_bineta)] for i in range(nb_binphi)]
@@ -62,7 +66,7 @@ def constructionPTT(Layer,STCyesorno,edges,Values):
                     iptt,jptt,ratio = listpttpermodules[i][j][k]
                     u = UV[Layer-1,i,0]
                     v = UV[Layer-1,i,1]
-                    L[iptt][jptt].append([i,u,v,j,ratio])
+                    L[iptt][jptt].append([STC_type[Layer-1,i],u,v,STC_index[Layer-1,i],ratio])
 
     return(L)
 

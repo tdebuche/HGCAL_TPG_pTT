@@ -5,19 +5,12 @@ import os
 from shapely.geometry import Polygon
 import functions
 import argparse
-from STCtoPTT import pTTSTCs
-from ModuleSumtoPTT import pTTModules
 from PTT import PTTarray
 dir_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(dir_path + '/../../ProgrammesRessources')
 
-UV = np.load('UVModules.npy')
-Binetaphi2024 = np.load('Binetaphi2024.npy')
-Binetaphi2028 = np.load('Binetaphi2028.npy')
-G = np.load('ModulesGeometry.npy')
-Z = np.load('Z.npy')
-STCLD = np.load('STCLD.npy')
-STCHD = np.load('STCHD.npy')
+
+
 Values2024 = np.load('ValuesBins2024.npy')
 Values2028 = np.load('ValuesBins2028.npy')
 

@@ -5,6 +5,25 @@ from shapely.geometry import Polygon
 
 ####################### Few functions used for the conversion XY/EtaPhi and the building of list and array for plots #########
 
+
+def item_list(jsonfile,item,layer):
+  L = []
+  with open(jsonfile,'r') as file:
+    data = json.load(file)[layer-1]
+  for module_idx in range(len(data)):
+    if item =="id":
+      L.append(data[module_idx]['id'])
+    if item =="irot":
+      L.append(data[module_idx]['irot'])
+    if item =="TCcount":
+      L.append(data[module_idx]['TCcount'])
+    if item =="uv":
+      L.append([data[module_idx]['u'],data[module_idx]['v']])
+    if item =="vertices":
+      L.append([data[module_idx]['verticesX'],data[module_idx]['verticesY']])
+  return L
+
+
 def pointtopolygon(L):
     points = []
     for i in range(len(L[0])):

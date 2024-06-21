@@ -20,6 +20,8 @@ def item_list(jsonfile,item):
         res.append(data[module_idx]['irot'])
       if item =="TCcount":
         res.append(data[module_idx]['TCcount'])
+      if item =="index":
+        res.append(data[module_idx]['index'])
       if item =="uv":
         res.append([data[module_idx]['u'],data[module_idx]['v']])
       if item =="vertices":

@@ -145,7 +145,7 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
                     res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+','+stc_index+'),'+ stc_energy +','
                     intmatrix += 3
             if args.Format == 'vh':
-                if Layer <27 or args.STCs != 'no' :
+                if Layer <27 or args.STCs == 'no' :
                     module_energy = str(module[3])
                     module_channel = get_module_channel(Layer,module[0],module_u,module_v)
                     res +=  str(module_channel)+','+ module_energy +','

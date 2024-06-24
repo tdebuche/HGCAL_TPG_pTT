@@ -41,10 +41,10 @@ def record_input(args):
                         channel,word =get_STC_channel(Layer,module_type,module_u,module_v,stc_idx)
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel) + ', Word_' + str(word) 
                         text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+', '+str(module_v)+str(stc_idx)+') '+ module_type +' \n'
-    file = open('S1_Input/Ressoucres/Input_CEE.txt', "w")
+    file = open('S1_Input/Ressources/Input_CEE.txt', "w")
     file.write(textCEE)
     file.close()
-    file = open('S1_Input/Ressoucres/Input_CEH_.txt', "w")
+    file = open('S1_Input/Ressources/Input_CEH_.txt', "w")
     file.write(textCEH)
     file.close()
     return text_CEE,text_CEH

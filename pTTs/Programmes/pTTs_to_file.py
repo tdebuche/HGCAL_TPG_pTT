@@ -154,7 +154,7 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
                     STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
                     res +=  str(STC_channel)+','+str(STC_word)+','+ stc_energy +','
                     intmatrix += 3
-    res ='/* out'+str(int(phi*20+eta)).zfill(4)+'_em-eta'+str(eta)+'-phi'+str(phi)+'*/'+'\t'+str(nb_module_in_pTT)+', ' +res
+    res ='/* out'+str(int(phi*20+eta)).zfill(4)+'_em-eta'+str(eta)+'-phi'+str(phi)+'*/'+'\t'+str(nb_module_in_pTT)+',' + res
     adder += nb_module_in_pTT
     return(res,intmatrix,adder,nb_module_in_pTT)
 

@@ -24,11 +24,11 @@ parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(
 args = parser.parse_args()
 
 
+record_all_boards(args)
 
-
-def record_all_boards():
-    if args.Format == 'vh': path = "pTTs/Ressources/VH_files"
-    if args.Format == 'readable':path = "pTTs/Ressources/Readable_files"
+def record_all_boards(args):
+    if args.Format == 'vh': path = "pTTs/Ressources/v2/VH_files"
+    if args.Format == 'readable':path = "pTTs/Ressources/v2/Readable_files"
     if args.Edges == 'yes' : path += '/28_Phi_Bins'
     if args.Edges == 'no' : path += '/24_Phi_Bins'
     if args.STCs == 'yes' : path += '/with_STCs'

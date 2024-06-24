@@ -139,7 +139,7 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
                 if Layer >26 and args.STCs :
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
-                    res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+','+stc_index+'),'+ module_energy +','
+                    res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+','+stc_index+'),'+ stc_energy +','
                     intmatrix += 3
             if args.Format == 'vh':
                 if Layer <27 or not args.STCs :
@@ -151,7 +151,7 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
                     STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
-                    res +=  str(STC_channel)+','+str(STC_word)+','+ module_energy +','
+                    res +=  str(STC_channel)+','+str(STC_word)+','+ stc_energy +','
                     intmatrix += 3
     res ='/* out'+str(int(phi*20+eta)).zfill(4)+'_em-eta'+str(eta)+'-phi'+str(phi)+'*/'+'\t'+str(nb_module_in_pTT)+', ' +res
     adder += nb_module_in_pTT

@@ -147,7 +147,7 @@ def single_pTT_text(pTT,phi,eta,intmatrix,adder):
                     module_energy = str(module[3])
                     res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+'),'+ module_energy +','
                     intmatrix += 2
-                 if Layer >26 and args.STCs :
+                if Layer >26 and args.STCs :
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
                     res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+','+stc_index+'),'+ module_energy +','

@@ -29,10 +29,10 @@ def create_module_numbering():
           module_u = module['u']
           module_v = module['v']
           if Layer < 27:
-            CEE_numbering[(Layer,module_type,module_u,module_v)].append(count)
+            CEE_numbering[(Layer,module['type'],module_u,module_v)].append(CEE_count)
             CEE_count +=1
           if Layer > 26:
-            CEH_numbering[(Layer,module_type,module_u,module_v)].append(count)
+            CEH_numbering[(Layer,module['type'],module_u,module_v)].append(CEH_count)
             CEH_count +=1
     CEE_count,CEH_count = 0,0
   return(CEE_numbering,CEH_numbering)

@@ -153,6 +153,7 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
                 if Layer >26 and args.STCs =='yes' :
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
+                    print(Layer,module[0],module_u,module_v,stc_index)
                     STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
                     res +=  str(STC_channel)+','+str(STC_word)+','+ stc_energy +','
                     intmatrix += 3

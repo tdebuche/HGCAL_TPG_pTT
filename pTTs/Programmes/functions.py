@@ -102,10 +102,10 @@ def etaphicentre(Module,z):
     x = 0
     y = 0
     for i in range(len(Module[0])):
-        if Module[0,i] != 0 or Module[1,i] !=0:
+        if Module[0][i] != 0 or Module[1][i] !=0:
             nbsommet +=1
-            x += Module[0,i]
-            y += Module[1,i]
+            x += Module[0][i]
+            y += Module[1][i]
     return(XYtoetaphi(x/nbsommet,y/nbsommet,z))
 
 

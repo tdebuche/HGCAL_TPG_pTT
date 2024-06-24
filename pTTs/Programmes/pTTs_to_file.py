@@ -63,10 +63,10 @@ def files_single_board(args,Board_number,Modules,STCs):
     maxE,maxH = 0,0
     for phi in range(nb_binphi):
         for eta in range(nb_bineta):
-            resE,intmatrixE,adderE,nbmodintowerE = single_pTT_text(CEE_pTTs,phi,eta,intmatrixE,adderE)
+            resE,intmatrixE,adderE,nbmodintowerE = single_pTT_text(args,CEE_pTTs,phi,eta,intmatrixE,adderE)
             if nbmodintowerE > maxE:
                 maxE = nbmodintowerE
-            resH,intmatrixH,adderH,nbmodintowerH = single_pTT_text(CEH_pTTs,phi,eta,intmatrixH,adderH)
+            resH,intmatrixH,adderH,nbmodintowerH = single_pTT_text(args,CEH_pTTs,phi,eta,intmatrixH,adderH)
             if nbmodintowerH > maxH:
                 maxH = nbmodintowerH
             if (phi == nb_binphi-1) and (eta == nb_bineta-1): 
@@ -116,9 +116,9 @@ def pTTs_single_board(args,Board_number,Modules,STCs):
                         if module_type == 'scintillator' and (lay==len(Layers)-1) : Si_Modules.append(pTT[module_idx])
                     CEH_pTTs[phi][eta].append([Layer,Si_Modules])
 
-    return(pTTCEE,pTTCEH)
+    return(CEE_pTTs,CEH_pTTs)
 
-def single_pTT_text(pTT,phi,eta,intmatrix,adder):
+def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
     res = ''
     nb_module_in_pTT = 0
     intmatrix +=1    #pour le nbmodintower
@@ -153,7 +153,7 @@ def single_pTT_text(pTT,phi,eta,intmatrix,adder):
                     STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
                     res +=  str(STC_channel)+','+str(STC_word)+','+ module_energy +','
                     intmatrix += 3
-    res ='/* out'+nbzeros+str(int(i*20+j)).zfill(4)+'_em-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' +res
+    res ='/* out'+str(int(phi*20+eta)).zfill(4)+'_em-eta'+str(eta)+'-phi'+str(phi)+'*/'+'\t'+str(nb_module_in_pTT)+', ' +res
     adder += nb_module_in_pTT
     return(res,intmatrix,adder,nb_module_in_pTT)
 

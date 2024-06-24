@@ -26,8 +26,8 @@ def reverse_pTTs(args,Layer,Modules,STCs):
     reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  
     for module_idx in range(len(pTTs)):
         Module = pTTs[module_idx][0]
-        for bin_idx in range(len(pTTs[module_idx])):
-              eta,phi,ratio = pTTs[module_idx][1][bin_idx]
+        for bin_idx in range(len(pTTs[module_idx][1])):
+              phi,eta,ratio = pTTs[module_idx][1][bin_idx]
               reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],ratio])
     return(reversed_pTTs)
 

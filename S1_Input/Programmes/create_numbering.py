@@ -79,7 +79,7 @@ def create_STC_numbering():
                 module_count += 1
               STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1])
               STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1][stc_idx].append(STC_count)
-     module_count,STC_count = 0
+    module_count,STC_count = 0,0
   return(STC_numbering)
 
 

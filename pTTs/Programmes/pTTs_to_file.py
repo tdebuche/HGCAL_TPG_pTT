@@ -135,22 +135,22 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
             if module[0] == 'silicon': module_type = 'Si'
             if module[0] == 'scintillator': module_type = 'Sc'
             if args.Format == 'readable':
-                if Layer <27 or not args.STCs :
+                if Layer <27 or args.STCs =='no' :
                     module_energy = str(module[3])
                     res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+'),'+ module_energy +','
                     intmatrix += 2
-                if Layer >26 and args.STCs :
+                if Layer >26 and args.STCs =='yes':
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
                     res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+','+stc_index+'),'+ stc_energy +','
                     intmatrix += 3
             if args.Format == 'vh':
-                if Layer <27 or not args.STCs :
+                if Layer <27 or args.STCs != 'no' :
                     module_energy = str(module[3])
                     module_channel = get_module_channel(Layer,module[0],module_u,module_v)
                     res +=  str(module_channel)+','+ module_energy +','
                     intmatrix += 2
-                if Layer >26 and args.STCs :
+                if Layer >26 and args.STCs =='yes' :
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
                     STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)

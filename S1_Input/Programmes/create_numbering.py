@@ -25,8 +25,7 @@ def create_module_numbering():
         module = Modules[Layer-1][module_idx]
         if module['type'] == 'silicon': module_type = 0 
         if module['type'] == 'scintillator': module_type = 1
-        print(module)
-        if (module_type=='silicon' and lay!=len(Layers)-1) or (module_type=='scintillator' and lay==len(Layers)-1):
+        if (module['type']=='silicon' and lay!=len(Layers)-1) or (module['type']=='scintillator' and lay==len(Layers)-1):
           module_u = module['u']
           module_v = module['v']
           if Layer < 27:

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
-import pTTs.Programmes.functions
+import pTTs.Programmes.functions as functions
 
 Binetaphi2024 = np.load('ProgrammesRessources/Binetaphi2024.npy')
 Binetaphi2028 = np.load('ProgrammesRessources/Binetaphi2028.npy')

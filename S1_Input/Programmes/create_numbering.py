@@ -33,7 +33,8 @@ def create_module_numbering():
       Layer = Layers[lay]
       for module_idx in range(len(Modules[Layer-1])):
         module = Modules[Layer-1][module_idx]
-        module_type = module['type']
+        if module['type'] == 'silicon': module_type = 0 
+        if module['type'] == 'scintillator': module_type = 1
         if (module_type=='silicon' and lay!=len(Layers)-1) or (module_type=='scintillator' and lay==len(Layers)-1):
           module_u = module['u']
           module_v = module['v']
@@ -59,6 +60,8 @@ def create_STC_numbering():
       if Layer >26:
         for STC_idx in range(len(STCs[Layer-1])):
           stc = STCs[Layer-1][module_idx]
+          if stc['type'] == 'silicon': stc = 0 
+          if stc['type'] == 'scintillator': stc = 1
           stc_type = stc['type']
           if (stc_type=='silicon' and lay!=len(Layers)-1) or (stc_type=='scintillator' and lay==len(Layers)-1):
             stc_u = stc['u']
@@ -92,13 +95,17 @@ def nb_inputs(args,Board):
   return(nb_CEE_inputs,nb_CEH_inputs)
 
 def get_module_channel(Layer,type,module_u,module_v):
-  return(module_numbering[(Layer,type,module_u,module_v)][0])
+  if type == 'silicon': module_type = 0 
+  if type == 'scintillator': module_type = 1
+  return(module_numbering[(Layer,module_type,module_u,module_v)][0])
 
 def get_STC_channel(Layer,type,module_u,module_v,index):
-  if module_numbering[(Layer,type,module_u,module_v,0)][1][index] != []:
-    STC_channel = module_numbering[(Layer,type,module_u,module_v,0)][0]
-    STC_word = module_numbering[(Layer,type,module_u,module_v,0)][1][index][0]
-  if module_numbering[(Layer,type,module_u,module_v,1)][1][index] != []:
-    STC_channel = module_numbering[(Layer,type,module_u,module_v,1)][0]
-    STC_word = module_numbering[(Layer,type,module_u,module_v,1)][1][index][0]
+  if type == 'silicon': module_type = 0 
+  if type == 'scintillator': module_type = 1
+  if module_numbering[(Layer,module_type,module_u,module_v,0)][1][index] != []:
+    STC_channel = module_numbering[(Layer,module_type,module_u,module_v,0)][0]
+    STC_word = module_numbering[(Layer,module_type,module_u,module_v,0)][1][index][0]
+  if module_numbering[(Layer,module_type,module_u,module_v,1)][1][index] != []:
+    STC_channel = module_numbering[(Layer,module_type,module_u,module_v,1)][0]
+    STC_word = module_numbering[(Layer,module_type,module_u,module_v,1)][1][index][0]
   return(STC_channel,STC_word)

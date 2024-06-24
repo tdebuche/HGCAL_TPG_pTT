@@ -1,16 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 from shapely.geometry import Polygon
-import functions
-dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dir_path + "/../../ProgrammesRessources")
+import pTTs.Programmes.functions
 
-Binetaphi2024 = np.load('Binetaphi2024.npy')
-Binetaphi2028 = np.load('Binetaphi2028.npy')
-Z = np.load('Z.npy')
-Values2024 = np.load('ValuesBins2024.npy')
-Values2028 = np.load('ValuesBins2028.npy')
+Binetaphi2024 = np.load('ProgrammesRessources/Binetaphi2024.npy')
+Binetaphi2028 = np.load('ProgrammesRessources/Binetaphi2028.npy')
+Z = np.load('ProgrammesRessources/Z.npy')
+Values2024 = np.load('ProgrammesRessources/ValuesBins2024.npy')
+Values2028 = np.load('ProgrammesRessources/ValuesBins2028.npy')
                      
 
 N = 16 #energies divided by N (for the sharing)
@@ -26,7 +23,7 @@ def reverse_pTTs(args,Layer,Modules,STCs):
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
 
-    reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]:                  
+    reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  
     for module_idx in range(len(pTTs)):
         Module = pTTs[module_idx][0]
         for bin_idx in range(len(pTTs[module_idx])):
@@ -56,7 +53,7 @@ def pTT_single_layer(args,Layer,Modules): #Share the energy of each module pf on
 
 
 
-def pTT_single_Module(BinXY,Module,Values,Z[Layer-1]): # Return the sharing of the energy of each module
+def pTT_single_Module(BinXY,Module,Values,z): # Return the sharing of the energy of each module
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     pTTs = []

@@ -1,17 +1,16 @@
 import numpy as np
-import os
 import argparse
-
+import json
 from pTTs.Programmes.ModuleSumtoPTT import reverse_pTTs
-import S1_Input.Programmes.create_numbering 
+from S1_Input.Programmes.create_numbering import nb_inputs,get_STC_channel,get_module_channel 
 
-with open('ProgrammesRessources/Modules.json','r') as file:
+with open('./ProgrammesRessources/Modules.json','r') as file:
     Modules = json.load(file)
-with open('ProgrammesRessources/STCs.json','r') as file:
+with open('./ProgrammesRessources/STCs.json','r') as file:
     STCs = json.load(file)
     
-Values2024 = np.load('ValuesBins2024.npy')
-Values2028 = np.load('ValuesBins2028.npy')
+Values2024 = np.load('ProgrammesRessources/ValuesBins2024.npy')
+Values2028 = np.load('ProgrammesRessources/ValuesBins2028.npy')
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]
 Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43], ['0x64030000', 37], ['0x64040000', 38], ['0x64050000', 35], ['0x64060000', 40], ['0x64070000', 39], ['0x64080000',42], ['0x64090000', 36], ['0x640A0000', 44], ['0x640B0000',45], ['0x640C0000', 46], ['0x640D0000', 34]]
 
@@ -24,7 +23,6 @@ def record_all_boards(args):
     if args.Edges == 'no' : path += '/24_Phi_Bins'
     if args.STCs == 'yes' : path += '/with_STCs'
     if args.STCs == 'no' : path += '/without_STCs'
-    os.chdir(path)
     all_boards_CEE,all_boards_CEH = '',''
     for Board in range(14):
         text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs)
@@ -33,28 +31,28 @@ def record_all_boards(args):
         name = 'CE_E_'+  str(Board)+ '_v2'
         if args.Format == 'vh': name += '.vh'
         if args.Format == 'readable': name += '.txt'
-        file = open(name, "w")
+        file = open(path+name, "w")
         file.write(text_CEE)
         file.close()
         name = 'CE_H_'+  str(Board)+ '_v2'
         if args.Format == 'vh': name += '.vh'
         if args.Format == 'readable': name += '.txt'
-        file = open(name, "w")
+        file = open(path+name, "w")
         file.write(text_CEH)
         file.close()
     name = CE_E_allBoards
-    file = open(name+".txt", "w")
+    file = open(path+name+".txt", "w")
     file.write(all_boards_CEE)
     file.close()
     name = CE_H_allBoards
-    file = open(name+".txt", "w")
+    file = open(path+name+".txt", "w")
     file.write(all_boards_CEH)
     file.close()
 
     
-def files_single_board(args,Board,Modules,STCs):
+def files_single_board(args,Board_number,Modules,STCs):
     CEE_pTTs,CEH_pTTs = pTTs_single_board(args,Board_number,Modules,STCs)
-    nb_CEE_inputs,nb_CEH_inputs = create_numbering.nb_inputs(args,Board_number)
+    nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number)
     if args.Edges: Values = Values2028
     else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
@@ -146,13 +144,13 @@ def single_pTT_text(pTT,phi,eta,intmatrix,adder):
             if args.Format == 'vh':
                 if Layer <27 or not args.STCs :
                     module_energy = str(module[3])
-                    module_channel = create_numbering.get_module_channel(Layer,module[0],module_u,module_v)
+                    module_channel = get_module_channel(Layer,module[0],module_u,module_v)
                     res +=  str(module_channel)+','+ module_energy +','
                     intmatrix += 2
                 if Layer >26 and args.STCs :
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
-                    STC_channel,STC_word = create_numbering.get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
+                    STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
                     res +=  str(STC_channel)+','+str(STC_word)+','+ module_energy +','
                     intmatrix += 3
     res ='/* out'+nbzeros+str(int(i*20+j)).zfill(4)+'_em-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' +res

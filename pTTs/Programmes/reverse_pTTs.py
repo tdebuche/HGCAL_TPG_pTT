@@ -1,15 +1,11 @@
 import numpy as np
 import json
-import os
 from STCtopTTs import pTT_single_STC_layer
 from ModuleSumtopTTs import pTT_single_module_layer
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-os.chdir(dir_path+'/../../ProgrammesRessources')
 
-
-Values2024 = np.load('ValuesBins2024.npy')
-Values2028 = np.load('ValuesBins2028.npy')
+Values2024 = np.load('ProgrammesRessources/ValuesBins2024.npy')
+Values2028 = np.load('ProgrammesRessources/ValuesBins2028.npy')
 
 
 ######### PTTarray -> array(24,20,maxmodulesperPTT,5(or6)) -> 5 for CE-E (without STC indices) -> 6 for CE-H ########

@@ -18,7 +18,7 @@ def reverse_pTTs(args,Layer,Modules,STCs):
         pTTs = pTT_single_layer(args,Layer,Modules)
     else :
         pTTs = pTT_single_layer(args,Layer,STCs)
-    if args.Edges: Values = Values2028
+    if args.Edges == "yes": Values = Values2028
     else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
@@ -37,7 +37,7 @@ def reverse_pTTs(args,Layer,Modules,STCs):
 
 def pTT_single_layer(args,Layer,Modules): #Share the energy of each module pf one layer
     #choose the scenario
-    if args.Edges:
+    if args.Edges == "yes":
         BinXY= functions.binetaphitoXY(Binetaphi2028,Z[Layer-1])
         Values = Values2028
     else :

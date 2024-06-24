@@ -131,18 +131,18 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
         for module_idx in range(len(pTT[lay][1])):
             nb_module_in_pTT += 1
             module = pTT[lay][1][module_idx]
-            module_u,module_v = str(module[1]),str(module[2])
+            module_u,module_v = module[1],module[2]
             if module[0] == 'silicon': module_type = 'Si'
             if module[0] == 'scintillator': module_type = 'Sc'
             if args.Format == 'readable':
                 if Layer <27 or args.STCs =='no' :
                     module_energy = str(module[3])
-                    res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+'),'+ module_energy +','
+                    res +=  '('+ str(Layer) +','+module_type+',' +str(module_u)+',' +str(module_v)+'),'+ module_energy +','
                     intmatrix += 2
                 if Layer >26 and args.STCs =='yes':
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
-                    res +=  '('+ str(Layer) +','+module_type+',' +module_u+',' +module_v+','+stc_index+'),'+ stc_energy +','
+                    res +=  '('+ str(Layer) +','+module_type+',' +str(module_u)+',' +str(module_v)+','+stc_index+'),'+ stc_energy +','
                     intmatrix += 3
             if args.Format == 'vh':
                 if Layer <27 or args.STCs == 'no' :

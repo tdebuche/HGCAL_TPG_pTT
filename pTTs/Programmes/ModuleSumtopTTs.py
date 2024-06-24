@@ -27,8 +27,11 @@ def reverse_pTTs(args,Layer,Modules,STCs):
     for module_idx in range(len(pTTs)):
         Module = pTTs[module_idx][0]
         for bin_idx in range(len(pTTs[module_idx][1])):
-              phi,eta,ratio = pTTs[module_idx][1][bin_idx]
-              reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],ratio])
+            phi,eta,ratio = pTTs[module_idx][1][bin_idx]
+            if args.STCs and Layer >26 :
+                reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],Module['index'],ratio])
+            if Layer < 27 or (Layer>=27 and not args.STCs) :
+                reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],ratio])
     return(reversed_pTTs)
 
 

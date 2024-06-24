@@ -108,7 +108,7 @@ def pTTs_single_board(args,Board_number,Modules,STCs):
             for eta in range(nb_bineta):
                 pTT = pTTs_one_layer[phi][eta]
                 if Layer < 34 : 
-                    CEE_pTTs[phi][eta].append([Layer,pTT])
+                    CEH_pTTs[phi][eta].append([Layer,pTT])
                 if Layer > 33:
                     selected_Modules = []
                     for module_idx in range(len(pTT)):

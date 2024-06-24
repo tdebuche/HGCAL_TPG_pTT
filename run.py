@@ -14,4 +14,4 @@ args = parser.parse_args()
 #record_all_boards(args)
 
 #create S1 numbering
-print(record_input(args))
+record_input(args)

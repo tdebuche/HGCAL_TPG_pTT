@@ -8,9 +8,6 @@ with open('ProgrammesRessources/STCs.json','r') as file:
     STCs = json.load(file)
 
 
-CEE_numbering,CEH_numbering = create_module_numbering()
-STC_numbering = create_STC_numbering()
-
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]
 Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43], ['0x64030000', 37], ['0x64040000', 38], ['0x64050000', 35], ['0x64060000', 40], ['0x64070000', 39], ['0x64080000',42], ['0x64090000', 36], ['0x640A0000', 44], ['0x640B0000',45], ['0x640C0000', 46], ['0x640D0000', 34]]
 
@@ -87,9 +84,10 @@ def create_STC_numbering():
   return(STC_numbering)
 
 
+CEE_numbering,CEH_numbering = create_module_numbering()
+STC_numbering = create_STC_numbering()
 
 
-  
 
 def nb_inputs(args,Board):
   nb_CEE_inputs,nb_CEH_inputs = 0,0

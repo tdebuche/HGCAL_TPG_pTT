@@ -72,17 +72,22 @@ def create_STC_numbering():
               STC_numbering[(Layer,stc_type,stc_u,stc_v,0)].append(channel_count)
               STC_numbering[(Layer,stc_type,stc_u,stc_v,0)].append(defaultdict(list))
               channel_count += 1
+              STC_count = 0
+                
             if len(STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1]) < 6:
-              STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1])
+              #STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1])
               STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1][stc_idx].append(STC_count)
+              STC_count += 1
               
             if len(STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1]) == 6:
               if STC_numbering[(Layer,stc_type,stc_u,stc_v,1)] == []:
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)].append(channel_count)
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)].append(defaultdict(list))
                 channel_count += 1
-              STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1])
+                STC_count = 0
+              #STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1])
               STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1][stc_idx].append(STC_count)
+              STC_count += 1
     STC_channels_per_board.append({'Board':Board_number,'STCs_count':channel_count})
     channel_count,STC_count = 0,0
   return(STC_numbering,STC_channels_per_board)

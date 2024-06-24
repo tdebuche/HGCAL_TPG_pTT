@@ -1,10 +1,9 @@
-
 import numpy as np
 import os
 import argparse
 
 from pTTs.Programmes.ModuleSumtoPTT import reverse_pTTs
-from S1_Input.Programmes.create_numbering import nb_inputs,get_module_channel,get_STC_channel
+import S1_Input.Programmes.create_numbering 
 
 with open('ProgrammesRessources/Modules.json','r') as file:
     Modules = json.load(file)
@@ -64,7 +63,7 @@ def record_all_boards():
     
 def files_single_board(args,Board,Modules,STCs):
     CEE_pTTs,CEH_pTTs = pTTs_single_board(args,Board_number,Modules,STCs)
-    nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number)
+    nb_CEE_inputs,nb_CEH_inputs = create_numbering.nb_inputs(args,Board_number)
     if args.Edges: Values = Values2028
     else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
@@ -156,13 +155,13 @@ def single_pTT_text(pTT,phi,eta,intmatrix,adder):
             if args.Format == 'vh':
                 if Layer <27 or not args.STCs :
                     module_energy = str(module[3])
-                    module_channel = get_module_channel(Layer,module[0],module_u,module_v)
+                    module_channel = create_numbering.get_module_channel(Layer,module[0],module_u,module_v)
                     res +=  str(module_channel)+','+ module_energy +','
                     intmatrix += 2
                  if Layer >26 and args.STCs :
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
-                    STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
+                    STC_channel,STC_word = create_numbering.get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
                     res +=  str(STC_channel)+','+str(STC_word)+','+ module_energy +','
                     intmatrix += 3
     res ='/* out'+nbzeros+str(int(i*20+j)).zfill(4)+'_em-eta'+str(j)+'-phi'+str(i)+'*/'+'\t'+str(int(nbmodintower))+', ' +res

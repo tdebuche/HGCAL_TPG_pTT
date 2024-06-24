@@ -94,13 +94,16 @@ def nb_inputs(args,Board):
   return(nb_CEE_inputs,nb_CEH_inputs)
 
 def get_module_channel(Layer,type,module_u,module_v):
-  return(module_numbering[(Layer,type,module_u,module_v)][0])
+    if Layer < 27:
+        return(CEE_numbering[(Layer,type,module_u,module_v)][0])
+    if  Layer >26 :
+        return(CEH_numbering[(Layer,type,module_u,module_v)][0])
 
 def get_STC_channel(Layer,type,module_u,module_v,index):
-  if module_numbering[(Layer,type,module_u,module_v,0)][1][index] != []:
-    STC_channel = module_numbering[(Layer,type,module_u,module_v,0)][0]
-    STC_word = module_numbering[(Layer,type,module_u,module_v,0)][1][index][0]
-  if module_numbering[(Layer,type,module_u,module_v,1)][1][index] != []:
-    STC_channel = module_numbering[(Layer,type,module_u,module_v,1)][0]
-    STC_word = module_numbering[(Layer,type,module_u,module_v,1)][1][index][0]
+  if STC_numbering[(Layer,type,module_u,module_v,0)][1][index] != []:
+    STC_channel = STC_numbering[(Layer,type,module_u,module_v,0)][0]
+    STC_word = STC_numbering[(Layer,type,module_u,module_v,0)][1][index][0]
+  if STC_numbering[(Layer,type,module_u,module_v,1)][1][index] != []:
+    STC_channel = STC_numbering[(Layer,type,module_u,module_v,1)][0]
+    STC_word = STC_numbering[(Layer,type,module_u,module_v,1)][1][index][0]
   return(STC_channel,STC_word)

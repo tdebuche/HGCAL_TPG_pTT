@@ -158,7 +158,7 @@ def single_pTT_text(pTT,phi,eta,intmatrix,adder):
                     module_channel = create_numbering.get_module_channel(Layer,module[0],module_u,module_v)
                     res +=  str(module_channel)+','+ module_energy +','
                     intmatrix += 2
-                 if Layer >26 and args.STCs :
+                if Layer >26 and args.STCs :
                     stc_index = str(module[3])
                     stc_energy = str(module[4])
                     STC_channel,STC_word = create_numbering.get_STC_channel(Layer,module[0],module_u,module_v,stc_index)

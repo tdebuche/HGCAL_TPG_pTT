@@ -21,7 +21,7 @@ def record_input(args):
         text_CEH += '\t' + 'Board = ' + Boards[Board_number][0] +'\n'
         for lay in range(len(Layers)):
             Layer = Layers[lay]
-            if Layer > 26 and args.STCs =='yes': single_layer_modules =  Modules[Layer-1]
+            if Layer > 26 and args.STCs =='yes': single_layer_modules =  STCs[Layer-1]
             else : single_layer_modules =  Modules[Layer-1]
                 
             for module_idx in range(len(single_layer_modules)):

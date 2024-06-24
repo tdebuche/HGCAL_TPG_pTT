@@ -1,3 +1,4 @@
+import argparse
 from S1_Input.Programmes.create_numbering import create_module_numbering
 from pTTs.Programmes.pTTs_to_file import record_all_boards
 

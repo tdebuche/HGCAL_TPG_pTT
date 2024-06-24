@@ -30,17 +30,17 @@ def record_input(args):
                 if Layer <27:
                     channel =get_module_channel(Layer,module_type,module_u,module_v)
                     text_CEE +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel)
-                    text_CEE += ' =  Layer_'+str(Layer)+', ('+str(module_u)+', '+str(module_v)+') ' + module_type +' \n'
+                    text_CEE += ' =  Layer_'+str(Layer)+', ('+str(module_u)+','+str(module_v)+') ' + module_type +' \n'
                 if Layer > 26 and ((lay!=len(Layers)-1 and module_type=='silicon') or (lay==len(Layers)-1 and module_type=='scintillator')):
                     if args.STCs == 'no':
                         channel =get_module_channel(Layer,module_type,module_u,module_v)
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel)
-                        text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+', '+str(module_v)+') ' + module_type +' \n'
+                        text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+','+str(module_v)+') ' + module_type +' \n'
                     if args.STCs == 'yes':
                         stc_idx = module['index']
                         channel,word =get_STC_channel(Layer,module_type,module_u,module_v,stc_idx)
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel) + ', Word_' + str(word) 
-                        text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+', '+str(module_v)+str(stc_idx)+') '+ module_type +' \n'
+                        text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+', '+str(module_v)+','+str(stc_idx)+') '+ module_type +' \n'
     file = open('S1_Input/Ressources/Input_CEE.txt', "w")
     file.write(text_CEE)
     file.close()

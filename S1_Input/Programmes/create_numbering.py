@@ -13,8 +13,8 @@ Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43]
 
     
 def create_module_numbering():
-  CEE_numbering = defaultdict()
-  CEH_numbering = defaultdict()
+  CEE_numbering = defaultdict(list)
+  CEH_numbering = defaultdict(list)
   CEE_count,CEH_count = 0,0
   for Board_number in range(14):
     Layers = Boards[Board_number][1:]

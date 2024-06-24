@@ -42,10 +42,10 @@ def record_input(args):
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel) + ', Word_' + str(word) 
                         text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+', '+str(module_v)+str(stc_idx)+') '+ module_type +' \n'
     file = open('S1_Input/Ressources/Input_CEE.txt', "w")
-    file.write(textCEE)
+    file.write(text_CEE)
     file.close()
     file = open('S1_Input/Ressources/Input_CEH_.txt', "w")
-    file.write(textCEH)
+    file.write(text_CEH)
     file.close()
     return text_CEE,text_CEH
 

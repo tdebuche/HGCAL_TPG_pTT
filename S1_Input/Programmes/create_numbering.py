@@ -82,9 +82,11 @@ def create_STC_numbering():
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)].append(channel_count)
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)].append(defaultdict(list))
                 channel_count += 1
-              STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1])
-              STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1][stc_idx].append(STC_count)
-              
+                STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1])
+                STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1][stc_idx].append(STC_count)
+              else: 
+                STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1])
+                STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1][stc_idx].append(STC_count)             
     STC_channels_per_board.append({'Board':Board_number,'STCs_count':channel_count})
     channel_count,STC_count = 0,0
     

@@ -53,7 +53,7 @@ def create_STC_numbering():
   STC_numbering = defaultdict(list)
   module_count,STC_count = 0,0
   for Board_number in range(14):
-    Layers = Boards[Board_number]
+    Layers = Boards[Board_number][1:]
     Layers.append(Boards_scintillators[Board_number][1])
     for lay in range(len(Layers)):
       Layer = Layers[lay]

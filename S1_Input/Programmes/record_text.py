@@ -17,8 +17,8 @@ def record_input(args):
     for Board_number in range(14):
         Layers = Boards[Board_number][1:]
         Layers.append(Boards_scintillators[Board_number][1])
-        text_CEE += '\t' + 'Board = ' + Board[0] +'\n'
-        text_CEH += '\t' + 'Board = ' + Board[0] +'\n'
+        text_CEE += '\t' + 'Board = ' + Boards[Board_number][0] +'\n'
+        text_CEH += '\t' + 'Board = ' + Boards[Board_number][0] +'\n'
         for lay in range(len(Layers)):
             Layer = Layers[lay]
             if Layer > 26 and args.STCs =='yes': single_layer_modules =  Modules[Layer-1]

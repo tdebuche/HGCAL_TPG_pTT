@@ -94,9 +94,9 @@ STC_numbering,STC_channels_per_board = create_STC_numbering()
 
 
 def nb_inputs(args,Board_number):
-  if args.STCs == "yes":
-    return(nb_modules_per_board[Board_number]['CEE_count'],nb_modules_per_board[Board_number]['CEH_count'])
   if args.STCs == "no":
+    return(nb_modules_per_board[Board_number]['CEE_count'],nb_modules_per_board[Board_number]['CEH_count'])
+  if args.STCs == "yes":
     return(nb_modules_per_board[Board_number]['CEE_count'],STC_channels_per_board[Board_number]['STCs_count'])
     
 def get_module_channel(Layer,type,module_u,module_v):

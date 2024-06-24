@@ -77,7 +77,7 @@ def create_STC_numbering():
               STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1])
               STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1][stc_idx].append(STC_count)
               
-            if len(STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1]) == 6:
+            elif len(STC_numbering[(Layer,stc_type,stc_u,stc_v,0)][1]) == 6:
               if STC_numbering[(Layer,stc_type,stc_u,stc_v,1)] == []:
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)].append(channel_count)
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)].append(defaultdict(list))

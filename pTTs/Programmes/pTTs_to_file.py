@@ -1,3 +1,4 @@
+
 import numpy as np
 import argparse
 import json
@@ -21,8 +22,8 @@ def record_all_boards(args):
     if args.Format == 'readable':path = "pTTs/Ressources/v2/Readable_files"
     if args.Edges == 'yes' : path += '/28_Phi_Bins'
     if args.Edges == 'no' : path += '/24_Phi_Bins'
-    if args.STCs == 'yes' : path += '/with_STCs'
-    if args.STCs == 'no' : path += '/without_STCs'
+    if args.STCs == 'yes' : path += '/with_STCs/'
+    if args.STCs == 'no' : path += '/without_STC/s'
     all_boards_CEE,all_boards_CEH = '',''
     for Board in range(14):
         text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs)
@@ -40,11 +41,11 @@ def record_all_boards(args):
         file = open(path+name, "w")
         file.write(text_CEH)
         file.close()
-    name = CE_E_allBoards
+    name ="CE_E_allBoards"
     file = open(path+name+".txt", "w")
     file.write(all_boards_CEE)
     file.close()
-    name = CE_H_allBoards
+    name =" CE_H_allBoards"
     file = open(path+name+".txt", "w")
     file.write(all_boards_CEH)
     file.close()

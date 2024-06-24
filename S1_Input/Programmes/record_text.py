@@ -1,5 +1,5 @@
 from S1_Input.Programmes.create_numbering import create_module_numbering,create_STC_numbering
-
+import json
 
 with open('ProgrammesRessources/Modules.json','r') as file:
     Modules = json.load(file)

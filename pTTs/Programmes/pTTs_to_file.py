@@ -54,7 +54,7 @@ def record_all_boards(args):
 def files_single_board(args,Board_number,Modules,STCs):
     CEE_pTTs,CEH_pTTs = pTTs_single_board(args,Board_number,Modules,STCs)
     nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number)
-    if args.Edges: Values = Values2028
+    if args.Edges == "yes": Values = Values2028
     else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
@@ -93,7 +93,7 @@ def files_single_board(args,Board_number,Modules,STCs):
 
 
 def pTTs_single_board(args,Board_number,Modules,STCs):
-    if args.Edges: Values = Values2028
+    if args.Edges == "yes": Values = Values2028
     else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)

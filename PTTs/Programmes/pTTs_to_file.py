@@ -18,7 +18,7 @@ Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43]
 #Parameters:
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--Format",default = 'readable', help="textfile : readable, vhfile: vh",type=int)
+parser.add_argument("--Format",default = 'readable', help="textfile : readable, vhfile: vh")
 parser.add_argument("--STCs",default = 'yes', help="With (yes) or without STCs (no)")
 parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(no)")
 args = parser.parse_args()

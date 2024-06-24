@@ -1,4 +1,4 @@
-from S1_Input.Programmes.create_numbering import create_module_numbering,create_STC_numbering
+from S1_Input.Programmes.create_numbering import get_STC_channel,get_module_channel 
 import json
 
 with open('ProgrammesRessources/Modules.json','r') as file:

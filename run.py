@@ -12,6 +12,6 @@ args = parser.parse_args()
 
 
 #record_all_boards(args)
-
+record_all_boards(args)
 #create S1 numbering
 record_input(args)

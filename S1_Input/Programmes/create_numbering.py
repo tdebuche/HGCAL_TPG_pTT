@@ -113,4 +113,4 @@ def get_STC_channel(Layer,type,module_u,module_v,index):
   if STC_numbering[(Layer,type,module_u,module_v,1)][1][index] != []:
     STC_channel = STC_numbering[(Layer,type,module_u,module_v,1)][0]
     STC_word = STC_numbering[(Layer,type,module_u,module_v,1)][1][index][0]
-      return(STC_channel,STC_word)
+    return(STC_channel,STC_word)

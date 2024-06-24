@@ -1,9 +1,6 @@
 import argparse
-from S1_Input.Programmes.create_numbering import create_module_numbering
 from pTTs.Programmes.pTTs_to_file import record_all_boards
-
-#create S1 numbering
-print(create_module_numbering())
+from S1_Input.Programmes.record_text import record_input
 
 #record pTTs
 
@@ -14,4 +11,7 @@ parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(
 args = parser.parse_args()
 
 
-record_all_boards(args)
+#record_all_boards(args)
+
+#create S1 numbering
+print(record_input(args))

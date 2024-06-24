@@ -83,6 +83,7 @@ def create_STC_numbering():
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)].append(defaultdict(list))
                 channel_count += 1
                 print(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)])
+                print(len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1]))
                 STC_count = len(STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1])
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1][stc_idx].append(STC_count)
               else: 

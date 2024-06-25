@@ -5,9 +5,9 @@ import json
 from pTTs.Programs.Energy_Sharing import reverse_pTTs
 from S1_Input.Programs.create_numbering import nb_inputs,get_STC_channel,get_module_channel 
 
-with open('src/Modules.json','r') as file:
+with open('src/v13.1/Modules.json','r') as file:
     Modules = json.load(file)
-with open('src/STCs.json','r') as file:
+with open('src/v13.1/STCs.json','r') as file:
     STCs = json.load(file)
     
 Values2024 = np.load('src/ValuesBins2024.npy')
@@ -18,8 +18,8 @@ Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43]
 
 
 def record_all_boards(args):
-    if args.Format == 'vh': path = "pTTs/Results/v2/VH_files"
-    if args.Format == 'readable':path = "pTTs/Results/v2/Readable_files"
+    if args.Format == 'vh': path = "pTTs/Results/v3/VH_files"
+    if args.Format == 'readable':path = "pTTs/Results/v3/Readable_files"
     if args.Edges == 'yes' : path += '/28_Phi_Bins'
     if args.Edges == 'no' : path += '/24_Phi_Bins'
     if args.STCs == 'yes' : path += '/with_STCs/'

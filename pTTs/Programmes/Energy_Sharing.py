@@ -1,13 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
-import pTTs.Programmes.functions as functions
+import pTTs.Programs.functions as functions
 
-Binetaphi2024 = np.load('ProgrammesRessources/Binetaphi2024.npy')
-Binetaphi2028 = np.load('ProgrammesRessources/Binetaphi2028.npy')
-Z = np.load('ProgrammesRessources/Z.npy')
-Values2024 = np.load('ProgrammesRessources/ValuesBins2024.npy')
-Values2028 = np.load('ProgrammesRessources/ValuesBins2028.npy')
+Binetaphi2024 = np.load('src/Binetaphi2024.npy')
+Binetaphi2028 = np.load('src/Binetaphi2028.npy')
+Z = np.load('src/Z.npy')
+Values2024 = np.load('src/ValuesBins2024.npy')
+Values2028 = np.load('src/ValuesBins2028.npy')
                      
 
 N = 16 #energies divided by N (for the sharing)

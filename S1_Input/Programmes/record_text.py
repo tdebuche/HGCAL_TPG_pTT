@@ -1,9 +1,9 @@
-from S1_Input.Programmes.create_numbering import get_STC_channel,get_module_channel 
+from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel 
 import json
 
-with open('ProgrammesRessources/Modules.json','r') as file:
+with open('src/Modules.json','r') as file:
     Modules = json.load(file)
-with open('ProgrammesRessources/STCs.json','r') as file:
+with open('src/STCs.json','r') as file:
     STCs = json.load(file)
 
 

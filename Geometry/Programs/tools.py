@@ -1,9 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
+import json
 
+def item_list(jsonfile,item,layer):
+  L = []
+  with open(jsonfile,'r') as file:
+    data = json.load(file)[layer-1]
+  for module_idx in range(len(data)):
+    if item =="id":
+      L.append(data[module_idx]['id'])
+    if item =="irot":
+      L.append(data[module_idx]['irot'])
+    if item =="TCcount":
+      L.append(data[module_idx]['TCcount'])
+    if item =="uv":
+      L.append([data[module_idx]['u'],data[module_idx]['v']])
+    if item =="vertices":
+      L.append([data[module_idx]['verticesX'],data[module_idx]['verticesY']])
+  return L
 
-####################### Few function used for the conversion XY/EtaPhi and the building of list and array for plots (XXXtoXXXVertices) #########
+####################### Few function used for the conversion XY/EtaPhi  #########
 
 def pointtopolygon(L):
     points = []
@@ -89,58 +106,5 @@ def etaphicentre(Module,z):
     return(XYtoetaphi(x/nbsommet,y/nbsommet,z))
 
 
-def ModulestoVertices(M):
-    L =[]
-    l1 = []
-    l2 = []
-    for i in range(len(M)):
-        j = 0
-        while j != 6 and (M[i,0,j] != 0 or M[i,1,j] != 0 )  :
-            l1.append(M[i,0,j])
-            l2.append(M[i,1,j])
-            j = j+1
 
-        if l1 != []:
-            L.append([l1,l2])
-        l1 = []
-        l2 = []
-    return(L)
-
-def BintoBinVertices(M):
-    L =[]
-    l1 = []
-    l2 = []
-    for i in range(len(M)):
-        j = 0
-        while j != 4 and (M[i,0,j] != 0 or M[i,1,j] != 0 )  :
-            l1.append(M[i,0,j])
-            l2.append(M[i,1,j])
-            j = j+1
-
-        if l1 != []:
-            L.append([l1,l2])
-        l1 = []
-        l2 = []
-    return(L)
-
-def STCtoSTCVertices(M):
-    L =[]
-    lmod =[]
-    l1 = []
-    l2 = []
-    for i in range(len(M)):
-        for j in range(len(M[i])):
-            k = 0
-            while k != 5 and (M[i,j,0,k] != 0 or M[i,j,1,k] != 0 )  :
-                l1.append(M[i,j,0,k])
-                l2.append(M[i,j,1,k])
-                k = k+1
-
-            if l1 != []:
-                lmod.append([l1,l2])
-            l1 = []
-            l2 = []
-        L.append(lmod)
-        lmod = []
-    return(L)
 

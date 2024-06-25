@@ -2,24 +2,24 @@
 import numpy as np
 import argparse
 import json
-from pTTs.Programmes.Energy_Sharing import reverse_pTTs
-from S1_Input.Programmes.create_numbering import nb_inputs,get_STC_channel,get_module_channel 
+from pTTs.Programs.Energy_Sharing import reverse_pTTs
+from S1_Input.Programs.create_numbering import nb_inputs,get_STC_channel,get_module_channel 
 
-with open('./ProgrammesRessources/Modules.json','r') as file:
+with open('src/Modules.json','r') as file:
     Modules = json.load(file)
-with open('./ProgrammesRessources/STCs.json','r') as file:
+with open('src/STCs.json','r') as file:
     STCs = json.load(file)
     
-Values2024 = np.load('ProgrammesRessources/ValuesBins2024.npy')
-Values2028 = np.load('ProgrammesRessources/ValuesBins2028.npy')
+Values2024 = np.load('src/ValuesBins2024.npy')
+Values2028 = np.load('src/ValuesBins2028.npy')
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]
 Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43], ['0x64030000', 37], ['0x64040000', 38], ['0x64050000', 35], ['0x64060000', 40], ['0x64070000', 39], ['0x64080000',42], ['0x64090000', 36], ['0x640A0000', 44], ['0x640B0000',45], ['0x640C0000', 46], ['0x640D0000', 34]]
 
 
 
 def record_all_boards(args):
-    if args.Format == 'vh': path = "pTTs/Ressources/v2/VH_files"
-    if args.Format == 'readable':path = "pTTs/Ressources/v2/Readable_files"
+    if args.Format == 'vh': path = "pTTs/Results/v2/VH_files"
+    if args.Format == 'readable':path = "pTTs/Results/v2/Readable_files"
     if args.Edges == 'yes' : path += '/28_Phi_Bins'
     if args.Edges == 'no' : path += '/24_Phi_Bins'
     if args.STCs == 'yes' : path += '/with_STCs/'

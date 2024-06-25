@@ -42,7 +42,7 @@ def plot_layer(args,Layer):
 	        Yvertices= vertices[1] +[vertices[1][0]]
 	        plt.plot(Xvertices,Yvertices,linewidth = 0.2,color  = 'blue')
     if args.Record_plots == 'no':
-        plt.show()
+	    plt.show()
     if args.Record_plots == 'yes':
 	    path = "Geometry/Plots/v2"
 	    if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":

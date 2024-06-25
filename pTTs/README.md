@@ -8,7 +8,7 @@ Results :
 
 
 In each version, you can create readable/ vh files, in different scenarios.
-vh files are used to develop the firmware. Readable files are used for simulations (repository S1-S2_interface_test)
+vh files are used to develop the firmware. Readable files are used for simulations (repository : S1-S2_interface_test)
 
 v1 --> modmap v15.5 (CMSSW v16), STCs are arbitrarily defined. 
 

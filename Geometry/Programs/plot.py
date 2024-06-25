@@ -44,7 +44,7 @@ def plot_layer(args,Layer):
     if args.Record_plots == 'no':
         plt.show()
     if args.Record_plots == 'yes':
-		path = "Geometry/Plots/v2"
+	    path = "Geometry/Plots/v2"
 		if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":
 			path += "/Layers_with_Bins"
 		if args.STCs == "no" and args.Bins == "no" and args.UV == "yes" and args.irot == "no":

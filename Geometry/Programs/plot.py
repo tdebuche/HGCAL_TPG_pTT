@@ -14,9 +14,9 @@ def plot_layer(args,Layer):
 	plt.xlabel('x (mm)')
 	plt.ylabel('y (mm)')
 	#plot Module
-	Module_Vertices = item_list('src/Modules.json','vertices',Layer)
-	Module_irot = item_list('src/Modules.json','irot',Layer)
-	Module_UV = item_list('src/Modules.json','uv',Layer)
+	Module_Vertices = item_list('src/v13.1/Modules.json','vertices',Layer)
+	Module_irot = item_list('src/v13.1//Modules.json','irot',Layer)
+	Module_UV = item_list('src/v13.1//Modules.json','uv',Layer)
 	for module_idx in range(len(Module_Vertices)):
 		irot = Module_irot[module_idx]
 		if irot != 999: # no rotations for scintillators
@@ -35,7 +35,7 @@ def plot_layer(args,Layer):
 			plt.annotate(str(irot),(x-60,y-10),size =  '8')
 			plt.scatter((x+Xvertices[0])/2,(y+Yvertices[0])/2 ,color ="red")
 	if args.STCs == "yes":
-		STC_Vertices = item_list('src/STCs.json','vertices',Layer)
+		STC_Vertices = item_list('src/v13.1//STCs.json','vertices',Layer)
 		for STC_idx in range(len(STC_Vertices)):
 			vertices = STC_Vertices[STC_idx]
 			Xvertices= vertices[0] +[vertices[0][0]]
@@ -44,7 +44,7 @@ def plot_layer(args,Layer):
 	if args.Record_plots == 'no':
 		plt.show()
 	if args.Record_plots == 'yes':
-		path = "Geometry/Plots/v2"
+		path = "Geometry/Plots/v3"
 		if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":
 			path += "/Layers_with_Bins"
 		if args.STCs == "no" and args.Bins == "no" and args.UV == "yes" and args.irot == "no":

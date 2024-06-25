@@ -49,7 +49,7 @@ def plot_layer(args,Layer):
 
 
 def record_all_layers(args):
-    path = "Geometry/v2/Plots"
+    path = "Geometry/Plots/v2"
     if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":
         path += "/Layers_with_Bins"
     if args.STCs == "no" and args.Bins == "no" and args.UV == "yes" and args.irot == "no":

@@ -34,26 +34,13 @@ def allocation4linksNoEdges(Sector,S2Board):
                             t = tower(Boards[i],eta,phi,0,Sector)
                         if j%2 == 1 :
                             t = tower(Boards[i],eta,phi,1,Sector)
-                        if res < 10:
-                            nbzeros = '00'
-                        if  res > 9:
-                            nbzeros = '0'
-                        text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'"  pTT="'+ t+'" />' + '\n'
+                        text += '\t\t\t'+'<Frame id = "'+str(res).zfill(3)+'"  pTT="'+ t+'" />' + '\n'
                         res +=1
-                    if res < 10:
-                        nbzeros = '00'
-                    if  res > 9:
-                        nbzeros = '0'
-                    if res > 99:
-                        nbzeros = ''
-                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str( res)+'" />'+'\n'
+                    text += '\t\t\t'+'<Frame id = "'++str(res).zfill(3)+'" />'+'\n'
                     res +=1
                 for f in range(res,108):
-                    if f < 100:
-                        nbzeros = '0'
-                    else:
-                        nbzeros = ''
-                    text += '\t\t\t'+'<Frame id = "'+nbzeros +str(f)+'" />' + '\n'
+                    text += '\t\t\t'+'<Frame id = "'+str(res).zfill(3)+'" />' + '\n'
+                    res +=1
                 text += '\t\t'+'</Channel>' + '\n'
         text += '\t'+'</S1>'+'\n'
 

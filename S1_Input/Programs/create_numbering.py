@@ -2,9 +2,9 @@ import json
 from collections import defaultdict
 
 
-with open('src/Modules.json','r') as file:
+with open('src/v13.1/Modules.json','r') as file:
     Modules = json.load(file)
-with open('src/STCs.json','r') as file:
+with open('src/v13.1/STCs.json','r') as file:
     STCs = json.load(file)
 
 

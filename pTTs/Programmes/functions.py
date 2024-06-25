@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import json
 
-####################### Few functions used for the conversion XY/EtaPhi and the building of list and array for plots #########
+####################### Few functions used for the conversion XY/EtaPhi  #########
 
 
 def item_list(jsonfile,item):
@@ -109,58 +109,4 @@ def etaphicentre(Module,z):
     return(XYtoetaphi(x/nbsommet,y/nbsommet,z))
 
 
-def ModulestoVertices(M):
-    L =[]
-    l1 = []
-    l2 = []
-    for i in range(len(M)):
-        j = 0
-        while j != 6 and (M[i,0,j] != 0 or M[i,1,j] != 0 )  :
-            l1.append(M[i,0,j])
-            l2.append(M[i,1,j])
-            j = j+1
-
-        if l1 != []:
-            L.append([l1,l2])
-        l1 = []
-        l2 = []
-    return(L)
-
-def BintoBinBVertices(M):
-    L =[]
-    l1 = []
-    l2 = []
-    for i in range(len(M)):
-        j = 0
-        while j != 4 and (M[i,0,j] != 0 or M[i,1,j] != 0 )  :
-            l1.append(M[i,0,j])
-            l2.append(M[i,1,j])
-            j = j+1
-
-        if l1 != []:
-            L.append([l1,l2])
-        l1 = []
-        l2 = []
-    return(L)
-
-def STCtoSTCVertices(M):
-    L =[]
-    lmod =[]
-    l1 = []
-    l2 = []
-    for i in range(len(M)):
-        for j in range(len(M[i])):
-            k = 0
-            while k != 5 and (M[i,j,0,k] != 0 or M[i,j,1,k] != 0 )  :
-                l1.append(M[i,j,0,k])
-                l2.append(M[i,j,1,k])
-                k = k+1
-
-            if l1 != []:
-                lmod.append([l1,l2])
-            l1 = []
-            l2 = []
-        L.append(lmod)
-        lmod = []
-    return(L)
 

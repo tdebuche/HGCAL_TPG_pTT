@@ -46,7 +46,7 @@ if args.S1_Input == "yes":
 
 #plot Layer
 if args.Plot == "yes":
-  plot_layer(args)
+  plot_layer(args,args.Layer)
 
 #Record plots of all layer
 if args.Record_plots == "yes":

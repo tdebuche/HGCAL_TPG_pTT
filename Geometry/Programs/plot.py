@@ -35,18 +35,18 @@ def plot_layer(args,Layer):
 		    plt.annotate(str(irot),(x-60,y-10),size =  '8')
 		    plt.scatter((x+Xvertices[0])/2,(y+Yvertices[0])/2 ,color ="red")
     if args.STCs == "yes":
-        STC_Vertices = item_list('src/STCs.json','vertices',Layer)
-        for STC_idx in range(len(STC_Vertices)):
-	        vertices = STC_Vertices[STC_idx]
-	        Xvertices= vertices[0] +[vertices[0][0]]
-	        Yvertices= vertices[1] +[vertices[1][0]]
-	        plt.plot(Xvertices,Yvertices,linewidth = 0.2,color  = 'blue')
+	    STC_Vertices = item_list('src/STCs.json','vertices',Layer)
+	    for STC_idx in range(len(STC_Vertices)):
+		    vertices = STC_Vertices[STC_idx]
+		    Xvertices= vertices[0] +[vertices[0][0]]
+		    Yvertices= vertices[1] +[vertices[1][0]]
+		    plt.plot(Xvertices,Yvertices,linewidth = 0.2,color  = 'blue')
     if args.Record_plots == 'no':
 	    plt.show()
-    if args.Record_plots == 'yes':
-	    path = "Geometry/Plots/v2"
-	    if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":
-		    path += "/Layers_with_Bins"
+	if args.Record_plots == 'yes':
+		path = "Geometry/Plots/v2"
+		if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":
+			path += "/Layers_with_Bins"
 		if args.STCs == "no" and args.Bins == "no" and args.UV == "yes" and args.irot == "no":
 			path += "/Layers_with_UV"
 		if args.STCs == "no" and args.Bins == "no" and args.UV == "no" and args.irot == "yes":

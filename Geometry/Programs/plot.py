@@ -53,7 +53,7 @@ def plot_layer(args,Layer):
 				path += "/Layers_with_irot"
 		os.chdir(path)
 		plt.savefig('Layer '+str(Layer)+'.png')
-		os.chdir("HGCAL_TPG_pTT")
+		os.chdir("../../../../")
 
 
 

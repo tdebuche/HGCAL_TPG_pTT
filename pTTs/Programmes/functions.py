@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import json
 
-####################### Few functions used for the conversion XY/EtaPhi  #########
+####################### Few functions used for the  XY/EtaPhi conversion  #########
 
 
 def item_list(jsonfile,item):

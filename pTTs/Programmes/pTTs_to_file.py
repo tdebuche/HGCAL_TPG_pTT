@@ -2,7 +2,7 @@
 import numpy as np
 import argparse
 import json
-from pTTs.Programmes.ModuleSum_to_pTTs import reverse_pTTs
+from pTTs.Programmes.Energy_Sharing import reverse_pTTs
 from S1_Input.Programmes.create_numbering import nb_inputs,get_STC_channel,get_module_channel 
 
 with open('./ProgrammesRessources/Modules.json','r') as file:

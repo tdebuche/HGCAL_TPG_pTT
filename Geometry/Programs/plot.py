@@ -9,7 +9,6 @@ from Geometry.Programs.tools import *
 
 
 def plot_layer(args,Layer):
-	Layer = args.Layer
 	plt.figure(figsize = (12,8))
 	plt.title(label =  'Layer '+str(Layer))
 	plt.xlabel('x (mm)')

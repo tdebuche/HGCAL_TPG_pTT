@@ -1,9 +1,9 @@
 from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel 
 import json
 
-with open('src/Modules.json','r') as file:
+with open('src/v13.1/Modules.json','r') as file:
     Modules = json.load(file)
-with open('src/STCs.json','r') as file:
+with open('src/v13.1/STCs.json','r') as file:
     STCs = json.load(file)
 
 
@@ -41,10 +41,10 @@ def record_input(args):
                         channel,word =get_STC_channel(Layer,module_type,module_u,module_v,stc_idx)
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel) + ', Word_' + str(word) 
                         text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+','+str(module_v)+','+str(stc_idx)+') '+ module_type +' \n'
-    file = open('S1_Input/Results/Input_CEE.txt', "w")
+    file = open('S1_Input/Results/v3/Input_CEE.txt', "w")
     file.write(text_CEE)
     file.close()
-    file = open('S1_Input/Results/Input_CEH_.txt', "w")
+    file = open('S1_Input/Results/v3/Input_CEH_.txt', "w")
     file.write(text_CEH)
     file.close()
     return text_CEE,text_CEH

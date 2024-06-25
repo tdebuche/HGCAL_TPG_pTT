@@ -27,6 +27,7 @@ def plot_layer(args,Layer):
 		Yvertices= vertices[1] +[vertices[1][0]]
 		plt.plot(Xvertices,Yvertices,color = "black")
 		if args.UV == "yes":
+			x,y = np.sum(np.array(vertices[0]))/len(vertices[0]),np.sum(np.array(vertices[1]))/len(vertices[0])
 			u,v = Module_UV[module_idx][0],Module_UV[module_idx][1]
 			plt.annotate("("+str(u)+","+str(v)+")",(x-60,y-10),size =  '8')
 		if args.irot == "yes":

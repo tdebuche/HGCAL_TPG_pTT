@@ -31,8 +31,8 @@ def plot_layer(args,Layer):
 	        u,v = Module_UV[module_idx][0],Module_UV[module_idx][1]
 	        plt.annotate("("+str(u)+","+str(v)+")",(x-60,y-10),size =  '8')
 	    if args.irot == "yes":
-		    plt.annotate(str(irot),(x-60,y-10),size =  '8')
 		    x,y = np.sum(np.array(vertices[0]))/len(vertices[0]),np.sum(np.array(vertices[1]))/len(vertices[0])
+		    plt.annotate(str(irot),(x-60,y-10),size =  '8')
 		    plt.scatter((x+Xvertices[0])/2,(y+Yvertices[0])/2 ,color ="red")
     if args.STCs == "yes":
         STC_Vertices = item_list('src/STCs.json','vertices',Layer)

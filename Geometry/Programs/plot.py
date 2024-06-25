@@ -44,23 +44,24 @@ def plot_layer(args,Layer):
     if args.Record_plots == 'no':
         plt.show()
     if args.Record_plots == 'yes':
-        plt.savefig('Layer '+str(Layer)+'.png')
+		path = "Geometry/Plots/v2"
+		if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":
+			path += "/Layers_with_Bins"
+		if args.STCs == "no" and args.Bins == "no" and args.UV == "yes" and args.irot == "no":
+			path += "/Layers_with_UV"
+		if args.STCs == "no" and args.Bins == "no" and args.UV == "no" and args.irot == "yes":
+			path += "/Layers_with_irot"
+		os.chdir(path)
+		plt.savefig('Layer '+str(Layer)+'.png')
+		os.chdir("HGCAL_TPG_pTT")
 
 
 
 def record_all_layers(args):
-    path = "Geometry/Plots/v2"
-    if args.STCs == "yes" and args.Bins == "yes" and args.UV == "no" and args.irot == "no":
-        path += "/Layers_with_Bins"
-    if args.STCs == "no" and args.Bins == "no" and args.UV == "yes" and args.irot == "no":
-        path += "/Layers_with_UV"
-    if args.STCs == "no" and args.Bins == "no" and args.UV == "no" and args.irot == "yes":
-        path += "/Layers_with_irot"
-    os.chdir(path)
     for Layer in range(1,48):
         if not (Layer < 27 and Layer%2==0):
             plot_layer(args,Layer)
-    os.chdir("HGCAL_TPG_pTT")
+
 
 
 

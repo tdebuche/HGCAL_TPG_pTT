@@ -1,7 +1,9 @@
 Programs :
 
 Energy_sharing --> python tools to create the energy sharing for one layer, for different scenarios (with/without edges, with/without STCs)
+
 pTTs_to_file   --> programs to record 14*2 files for a given scenario. Files can be vh or readable (text) files. 
+
 tools          --> some geometric tools used by the Energy_sharing programs
 
 Results :

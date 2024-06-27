@@ -30,6 +30,8 @@ def record_all_boards(args):
     all_boards_CEE,all_boards_CEH = '',''
     for Board in range(14):
         text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering)
+        all_boards_CEE += 'Board '+ Boards[Board][0]
+        all_boards_CEH += 'Board '+ Boards[Board][0]
         all_boards_CEE += text_CEE
         all_boards_CEH += text_CEH
         name = 'CE_E_'+  str(Board)+ '_v2'

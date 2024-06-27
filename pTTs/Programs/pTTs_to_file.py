@@ -90,7 +90,7 @@ def files_single_board(args,Board_number,Modules,STCs,CEE_numbering,CEH_numberin
     text_CEH = '//* total number of input in adders '+str(int(adderH-1))+' */' + '\n' + '\n' + text_CEH
     text_CEH = '//* max inputs per outputs = '+str(int(maxH))+' */'+ '\n' + text_CEH
     text_CEH = '/* num outputs = '+str(int(nb_binphi*nb_bineta))+'(out0-out'+str(int(nb_binphi*nb_bineta-1))+') */' + '\n' + text_CEH
-    text_CEH = '/* num inputs = ' +str(int(nb_CEH_inputs))+ '(in0-in' + str(int(nb_CEH_inputs-1)) + ') */' + '\n' + text_CEH
+    text_CEH = '/* num inputs = ' +str(int(nb_CEH_inputs+nb_CEE_inputs))+ '(in0-in' + str(int(nb_CEH_inputs+nb_CEE_inputs-1)) + ') */' + '\n' + text_CEH
     text_CEH = 'parameter integer matrixH [0:'+str(int(intmatrixH))+'] = {' + '\n' + text_CEH
     text_CEH += '};'
 

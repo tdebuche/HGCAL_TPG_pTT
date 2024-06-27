@@ -1,4 +1,4 @@
-from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel 
+from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel,create_module_numbering,create_STC_numbering
 import json
 
 
@@ -12,6 +12,8 @@ def record_input(args):
         Modules = json.load(file)
     with open('src/'+args.Modmap_version+'/STCs.json','r') as file:
         STCs = json.load(file)
+    CEE_numbering,CEH_numbering,nb_modules_per_board = create_module_numbering(args)
+    STC_numbering,STC_channels_per_board = create_STC_numbering(args)
     text_CEE = 'Input CEE pTT Stage 1' + '\n\n'
     text_CEH = 'Input CEH pTT Stage 1'   '\n\n'
     for Board_number in range(14):
@@ -28,17 +30,17 @@ def record_input(args):
                 module = single_layer_modules[module_idx]
                 module_type,module_u,module_v = module['type'],module['u'], module['v']
                 if Layer <27:
-                    channel =get_module_channel(Layer,module_type,module_u,module_v)
+                    channel =get_module_channel(Layer,module_type,module_u,module_v,CEE_numbering,CEH_numbering)
                     text_CEE +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel)
                     text_CEE += ' =  Layer_'+str(Layer)+', ('+str(module_u)+','+str(module_v)+') ' + module_type +' \n'
                 if Layer > 26 and ((lay!=len(Layers)-1 and module_type=='silicon') or (lay==len(Layers)-1 and module_type=='scintillator')):
                     if args.STCs == 'no':
-                        channel =get_module_channel(Layer,module_type,module_u,module_v)
+                        channel =get_module_channel(Layer,module_type,module_u,module_v,CEE_numbering,CEH_numbering)
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel)
                         text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+','+str(module_v)+') ' + module_type +' \n'
                     if args.STCs == 'yes':
                         stc_idx = module['index']
-                        channel,word =get_STC_channel(Layer,module_type,module_u,module_v,stc_idx)
+                        channel,word =get_STC_channel(Layer,module_type,module_u,module_v,stc_idx,STC_numbering)
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel) + ', Word_' + str(word) 
                         text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+','+str(module_v)+','+str(stc_idx)+') '+ module_type +' \n'
     file = open('S1_Input/Results/"+args.pTT_version+"/Input_CEE.txt', "w")

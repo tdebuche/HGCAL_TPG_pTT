@@ -8,6 +8,12 @@ from Geometry.Programs.plot import record_all_layers
 
 parser = argparse.ArgumentParser()
 
+#Modmap version
+parser.add_argument("--Modmap_version",default = 'v13.1', help="Geometry version")
+
+#pTT version 
+parser.add_argument("--pTT_version",default = 'v13.1', help="Geometry version")
+
 #Scenario
 parser.add_argument("--STCs",default = 'yes', help="With (yes) or without STCs (no)")
 parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(no)")

@@ -90,9 +90,7 @@ def create_STC_numbering(args):
 
 
 
-def nb_inputs(args,Board_number):
-  CEE_numbering,CEH_numbering,nb_modules_per_board = create_module_numbering(args)
-  STC_numbering,STC_channels_per_board = create_STC_numbering(args)
+def nb_inputs(args,Board_number,nb_modules_per_board,,STC_channels_per_board):
   if args.STCs == "no":
     return(nb_modules_per_board[Board_number]['CEE_count'],nb_modules_per_board[Board_number]['CEH_count'])
   if args.STCs == "yes":

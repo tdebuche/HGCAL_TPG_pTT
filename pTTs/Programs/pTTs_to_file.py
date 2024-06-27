@@ -29,7 +29,7 @@ def record_all_boards(args):
     if args.STCs == 'no' : path += '/without_STC/s'
     all_boards_CEE,all_boards_CEH = '',''
     for Board in range(14):
-        text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs)
+        text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering)
         all_boards_CEE += text_CEE
         all_boards_CEH += text_CEH
         name = 'CE_E_'+  str(Board)+ '_v2'
@@ -54,7 +54,7 @@ def record_all_boards(args):
     file.close()
 
     
-def files_single_board(args,Board_number,Modules,STCs):
+def files_single_board(args,Board_number,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering):
     CEE_pTTs,CEH_pTTs = pTTs_single_board(args,Board_number,Modules,STCs)
     nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number)
     if args.Edges == "yes": Values = Values2028
@@ -67,10 +67,10 @@ def files_single_board(args,Board_number,Modules,STCs):
     maxE,maxH = 0,0
     for phi in range(nb_binphi):
         for eta in range(nb_bineta):
-            resE,intmatrixE,adderE,nbmodintowerE = single_pTT_text(args,CEE_pTTs,phi,eta,intmatrixE,adderE)
+            resE,intmatrixE,adderE,nbmodintowerE = single_pTT_text(args,CEE_pTTs,phi,eta,intmatrixE,adderE,CEE_numbering,CEH_numbering,STC_numbering)
             if nbmodintowerE > maxE:
                 maxE = nbmodintowerE
-            resH,intmatrixH,adderH,nbmodintowerH = single_pTT_text(args,CEH_pTTs,phi,eta,intmatrixH,adderH)
+            resH,intmatrixH,adderH,nbmodintowerH = single_pTT_text(args,CEH_pTTs,phi,eta,intmatrixH,adderH,CEE_numbering,CEH_numbering,STC_numbering)
             if nbmodintowerH > maxH:
                 maxH = nbmodintowerH
             if (phi == nb_binphi-1) and (eta == nb_bineta-1): 
@@ -124,7 +124,7 @@ def pTTs_single_board(args,Board_number,Modules,STCs):
 
     return(CEE_pTTs,CEH_pTTs)
 
-def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
+def single_pTT_text(args,pTT,phi,eta,intmatrix,adder,CEE_numbering,CEH_numbering,STC_numbering):
     res = ''
     nb_module_in_pTT = 0
     intmatrix +=1    #pour le nbmodintower

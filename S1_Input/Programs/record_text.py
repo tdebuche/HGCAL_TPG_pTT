@@ -1,10 +1,6 @@
 from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel 
 import json
 
-with open('src/v13.1/Modules.json','r') as file:
-    Modules = json.load(file)
-with open('src/v13.1/STCs.json','r') as file:
-    STCs = json.load(file)
 
 
 Boards = [['0x64000000', 3, 34], ['0x64010000', 1, 36, 47], ['0x64020000', 33, 40, 41], ['0x64030000', 9, 39, 44], ['0x64040000', 7, 42, 43], ['0x64050000', 13, 38, 46], ['0x64060000', 17, 27], ['0x64070000', 25, 31], ['0x64080000', 23, 30], ['0x64090000', 15, 32], ['0x640A0000', 19, 29], ['0x640B0000', 21, 28], ['0x640C0000', 5, 35], ['0x640D0000', 11, 37, 45]]

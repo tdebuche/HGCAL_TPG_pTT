@@ -14,7 +14,9 @@ Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43]
 
 
 
-def create_module_numbering():
+def create_module_numbering(args):
+  with open('src/'+args.Modmap_version+'/Modules.json','r') as file:
+    Modules = json.load(file)
   CEE_numbering = defaultdict(list)
   CEH_numbering = defaultdict(list)
   CEE_count,CEH_count = 0,0
@@ -42,7 +44,9 @@ def create_module_numbering():
     
 
 
-def create_STC_numbering():
+def create_STC_numbering(args):
+  with open('src/'+args.Modmap_version+'/STCs.json','r') as file:
+    STCs = json.load(file)
   STC_numbering = defaultdict(list)
   channel_count,STC_count = 0,0
   STC_channels_per_board = []
@@ -84,24 +88,23 @@ def create_STC_numbering():
   return(STC_numbering,STC_channels_per_board)
 
 
-CEE_numbering,CEH_numbering,nb_modules_per_board = create_module_numbering()
-STC_numbering,STC_channels_per_board = create_STC_numbering()
-
 
 
 def nb_inputs(args,Board_number):
+  CEE_numbering,CEH_numbering,nb_modules_per_board = create_module_numbering(args)
+  STC_numbering,STC_channels_per_board = create_STC_numbering(args)
   if args.STCs == "no":
     return(nb_modules_per_board[Board_number]['CEE_count'],nb_modules_per_board[Board_number]['CEH_count'])
   if args.STCs == "yes":
     return(nb_modules_per_board[Board_number]['CEE_count'],STC_channels_per_board[Board_number]['STCs_count'])
     
-def get_module_channel(Layer,type,module_u,module_v):
+def get_module_channel(Layer,type,module_u,module_v,CEE_numbering,CEH_numbering):
     if Layer < 27:
         return(CEE_numbering[(Layer,type,module_u,module_v)][0])
     if  Layer >26 :
         return(CEH_numbering[(Layer,type,module_u,module_v)][0])
 
-def get_STC_channel(Layer,type,module_u,module_v,index):
+def get_STC_channel(Layer,type,module_u,module_v,index,STC_numbering):
   if STC_numbering[(Layer,type,module_u,module_v,0)][1][index] != []:
     STC_channel = STC_numbering[(Layer,type,module_u,module_v,0)][0]
     STC_word = STC_numbering[(Layer,type,module_u,module_v,0)][1][index][0]

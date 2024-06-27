@@ -3,7 +3,7 @@ import numpy as np
 import argparse
 import json
 from pTTs.Programs.Energy_Sharing import reverse_pTTs
-from S1_Input.Programs.create_numbering import nb_inputs,get_STC_channel,get_module_channel 
+from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel,create_module_numbering,create_STC_numbering
 
 
     
@@ -19,6 +19,8 @@ def record_all_boards(args):
         Modules = json.load(file)
     with open('src/'+args.Modmap_version+'/STCs.json','r') as file:
         STCs = json.load(file)
+    CEE_numbering,CEH_numbering,nb_modules_per_board = create_module_numbering(args)
+    STC_numbering,STC_channels_per_board = create_STC_numbering(args)
     if args.Format == 'vh': path = "pTTs/Results/"+args.pTT_version+"/VH_files"
     if args.Format == 'readable':path = "pTTs/Results/"+args.pTT_version+"/Readable_files"
     if args.Edges == 'yes' : path += '/28_Phi_Bins'
@@ -148,14 +150,14 @@ def single_pTT_text(args,pTT,phi,eta,intmatrix,adder):
             if args.Format == 'vh':
                 if Layer <27 or args.STCs == 'no' :
                     module_energy = str(module[3])
-                    module_channel = get_module_channel(Layer,module[0],module_u,module_v)
+                    module_channel = get_module_channel(Layer,module[0],module_u,module_v,CEE_numbering,CEH_numbering)
                     res +=  str(module_channel)+','+ module_energy +','
                     intmatrix += 2
                 if Layer >26 and args.STCs =='yes' :
                     stc_index = module[3]
                     stc_energy = str(module[4])
                     print(Layer,module[0],module_u,module_v,stc_index)
-                    STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index)
+                    STC_channel,STC_word = get_STC_channel(Layer,module[0],module_u,module_v,stc_index,STC_numbering)
                     res +=  str(STC_channel)+','+str(STC_word)+','+ stc_energy +','
                     intmatrix += 3
     res ='/* out'+str(int(phi*20+eta)).zfill(4)+'_em-eta'+str(eta)+'-phi'+str(phi)+'*/'+'\t'+str(nb_module_in_pTT)+',' + res

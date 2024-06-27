@@ -48,7 +48,7 @@ def record_all_boards(args):
     file = open(path+name+".txt", "w")
     file.write(all_boards_CEE)
     file.close()
-    name =" CE_H_allBoards"
+    name ="CE_H_allBoards"
     file = open(path+name+".txt", "w")
     file.write(all_boards_CEH)
     file.close()

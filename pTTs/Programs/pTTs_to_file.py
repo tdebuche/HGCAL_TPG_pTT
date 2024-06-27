@@ -3,7 +3,7 @@ import numpy as np
 import argparse
 import json
 from pTTs.Programs.Energy_Sharing import reverse_pTTs
-from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel,create_module_numbering,create_STC_numbering
+from S1_Input.Programs.create_numbering import get_STC_channel,get_module_channel,create_module_numbering,create_STC_numbering,nb_inputs
 
 
     

@@ -46,7 +46,7 @@ def record_input(args):
     file = open('S1_Input/Results/txt_files/'+args.pTT_version+'/Input_CEE.txt', "w")
     file.write(text_CEE)
     file.close()
-    file = open('S1_Input/Results/txt_files/'+args.pTT_version+'/Input_CEH_.txt', "w")
+    file = open('S1_Input/Results/txt_files/'+args.pTT_version+'/Input_CEH.txt', "w")
     file.write(text_CEH)
     file.close()
     return text_CEE,text_CEH

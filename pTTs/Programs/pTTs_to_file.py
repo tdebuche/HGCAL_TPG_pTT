@@ -29,7 +29,7 @@ def record_all_boards(args):
     if args.STCs == 'no' : path += '/without_STC/s'
     all_boards_CEE,all_boards_CEH = '',''
     for Board in range(14):
-        text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering)
+        text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering,nb_modules_per_board,STC_channels_per_board)
         all_boards_CEE += 'Board '+ Boards[Board][0]
         all_boards_CEH += 'Board '+ Boards[Board][0]
         all_boards_CEE += text_CEE
@@ -56,9 +56,9 @@ def record_all_boards(args):
     file.close()
 
     
-def files_single_board(args,Board_number,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering):
+def files_single_board(args,Board_number,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering,nb_modules_per_board,STC_channels_per_board):
     CEE_pTTs,CEH_pTTs = pTTs_single_board(args,Board_number,Modules,STCs)
-    nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number)
+    nb_CEE_inputs,nb_CEH_inputs = nb_inputs(args,Board_number,nb_modules_per_board,STC_channels_per_board)
     if args.Edges == "yes": Values = Values2028
     else : Values = Values2024
     nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values

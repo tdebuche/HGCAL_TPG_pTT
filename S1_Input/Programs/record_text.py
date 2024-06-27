@@ -12,6 +12,10 @@ Boards_scintillators = [['0x64000000', 47], ['0x64010000',41], ['0x64020000',43]
 
 
 def record_input(args):
+    with open('src/'+args.Modmap_version+'/Modules.json','r') as file:
+        Modules = json.load(file)
+    with open('src/'+args.Modmap_version+'/STCs.json','r') as file:
+        STCs = json.load(file)
     text_CEE = 'Input CEE pTT Stage 1' + '\n\n'
     text_CEH = 'Input CEH pTT Stage 1'   '\n\n'
     for Board_number in range(14):
@@ -41,10 +45,10 @@ def record_input(args):
                         channel,word =get_STC_channel(Layer,module_type,module_u,module_v,stc_idx)
                         text_CEH +='\t\t Board_' + str(Board_number) + ', Channel_' + str(channel) + ', Word_' + str(word) 
                         text_CEH += ' =  Layer_'+str(Layer)+', ('+str(module_u)+','+str(module_v)+','+str(stc_idx)+') '+ module_type +' \n'
-    file = open('S1_Input/Results/v3/Input_CEE.txt', "w")
+    file = open('S1_Input/Results/"+args.pTT_version+"/Input_CEE.txt', "w")
     file.write(text_CEE)
     file.close()
-    file = open('S1_Input/Results/v3/Input_CEH_.txt', "w")
+    file = open('S1_Input/Results/"+args.pTT_version+"/Input_CEH_.txt', "w")
     file.write(text_CEH)
     file.close()
     return text_CEE,text_CEH

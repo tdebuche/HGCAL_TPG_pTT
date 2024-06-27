@@ -11,3 +11,11 @@ Each part is divided into two folders : the first one gathers programmes, and th
 
 src gathers files used by programs (geometry of modules, STCs, bins)
 
+Results :
+
+
+v1 --> modmap v15.5 (CMSSW v????), STCs are arbitrarily defined.
+
+v2 --> modmap v15.5 (CMSSW v?????), STCs are the good ones for the entire modules but not good at all for the partial ones. Scintillator STCs need also some corrections
+
+v3 --> modmap v13.1 (CMSSW 16), without the good partial module STCs and without scintilators. Module rotations are very different from the v15.5, they are the same as CMSSW 16

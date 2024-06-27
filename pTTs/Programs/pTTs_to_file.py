@@ -120,7 +120,7 @@ def pTTs_single_board(args,Board_number,Modules,STCs):
                     selected_Modules = []
                     for module_idx in range(len(pTT)):
                         module_type = pTT[module_idx][0]
-                        if module_type == 'silicon' and (lay!=len(Layers)) : selected_Modules.append(pTT[module_idx])
+                        if module_type == 'silicon' and (lay!=len(Layers)-1) : selected_Modules.append(pTT[module_idx])
                         if module_type == 'scintillator' and (lay==len(Layers)-1) : selected_Modules.append(pTT[module_idx])
                     CEH_pTTs[phi][eta].append([Layer,selected_Modules])
 

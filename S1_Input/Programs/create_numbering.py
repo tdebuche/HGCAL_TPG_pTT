@@ -84,7 +84,6 @@ def create_STC_numbering(args):
                 STC_numbering[(Layer,stc_type,stc_u,stc_v,1)][1][stc_idx].append(STC_count)
     STC_channels_per_board.append({'Board':Board_number,'STCs_count':channel_count})
     channel_count,STC_count = 0,0
-  print(STC_numbering,STC_channels_per_board)
   return(STC_numbering,STC_channels_per_board)
 
 

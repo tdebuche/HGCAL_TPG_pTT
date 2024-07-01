@@ -32,8 +32,8 @@ def record_all_boards(args):
         text_CEE,text_CEH = files_single_board(args,Board,Modules,STCs,CEE_numbering,CEH_numbering,STC_numbering,nb_modules_per_board,STC_channels_per_board)
         all_boards_CEE += 'Board '+ Boards[Board][0] + '\n'
         all_boards_CEH += 'Board '+ Boards[Board][0]+ '\n'
-        all_boards_CEE += text_CEE
-        all_boards_CEH += text_CEH
+        all_boards_CEE += text_CEE  + '\n'
+        all_boards_CEH += text_CEH + '\n'
         name = 'CE_E_'+  str(Board)+ '_v2'
         if args.Format == 'vh': name += '.vh'
         if args.Format == 'readable': name += '.txt'

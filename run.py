@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--Modmap_version",default = 'v13.1', help="Geometry version")
 
 #pTT version 
-parser.add_argument("--pTT_version",default = 'v13.1', help="Geometry version")
+parser.add_argument("--pTT_version",default = 'v3', help="Geometry version")
 
 #Scenario
 parser.add_argument("--STCs",default = 'yes', help="With (yes) or without STCs (no)")

@@ -46,7 +46,7 @@ def create_2_links_allocation(args):
     for board_idx in range(len(Boards)):
         S1_Board = Boards[board_idx]
         mapping +=  '\t'+ '<S1 id="'+S1_Board+'">'+'\n'
-        for link in range(2):
+        for link in range(4,6):
             for word in range(2):
                 mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
                 eta_min,eta_max = 10*(word%2),10*(word%2 + 1) -1

@@ -20,6 +20,7 @@ def create_4_links_allocation(args):
     mapping = '<pTT_Allocation S2_Sector='+str(args.Sector)+' S2_Board='+str(args.S2_Board)+'>'+'\n'
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
+        S1_Board = Boards[board_idx]
         mapping +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for link in range(4):
             for word in range(2):
@@ -33,7 +34,7 @@ def create_4_links_allocation(args):
                     phi_min,phi_max = 15,23
                 if link // 2 == 1 and args.Edges == "no":
                     phi_min,phi_max = 6,14
-                mapping += fill_channel(args,link % 2,phi_min,phi_max,eta_min,eta_max)
+                mapping += fill_channel(args,S1_Board,link % 2,phi_min,phi_max,eta_min,eta_max)
                 mapping +=  '\t\t'+'</Channel>'+'\n'
         mapping +=  '\t'+'</S1>'+'\n'
     mapping += '</pTT_Allocation>'+'\n'
@@ -43,6 +44,7 @@ def create_2_links_allocation(args):
     mapping = '<pTT_Duplication S2_Sector='+str(args.Sector)+' S2_Board='+str(args.S2_Board)+'>'+'\n'
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
+        S1_Board = Boards[board_idx]
         mapping +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for link in range(2):
             for word in range(2):
@@ -52,7 +54,7 @@ def create_2_links_allocation(args):
                    phi_min,phi_max= 0,8
                 if args.Edges == "no":
                     phi_min,phi_max = 0,6
-                mapping += fill_channel(args,link % 2,phi_min,phi_max,eta_min,eta_max)
+                mapping += fill_channel(args,S1_Board,link % 2,phi_min,phi_max,eta_min,eta_max)
                 mapping +=  '\t\t'+'</Channel>'+'\n'
         mapping +=  '\t'+'</S1>'+'\n'
     mapping += '</pTT_Duplication>'+'\n'

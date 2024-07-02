@@ -6,6 +6,8 @@ from Geometry.Programs.plot import plot_layer
 from Geometry.Programs.plot import record_all_layers
 from S1S2_Mapping.Programs.pTT_Mapping import record_mapping
 from S1S2_Mapping.Programs.XML_to_firmware_format import record_pTT_firmware_mapping,record_TC_firmware_mapping
+from Geometry.Programs.Z_coordinate import create_Z_coordinates
+from Geometry.Programs.create_Bins import 20_24_Bins,20_28_Bins
 
 #record pTTs
 
@@ -31,6 +33,7 @@ parser.add_argument("--Layer", default = 1 ,help="Layer to display",type=int)
 parser.add_argument("--UV",default = 'no', help="With or without UV")
 parser.add_argument("--irot",default = 'no', help="With or without rot")
 parser.add_argument("--Bins",default = 'no', help="With or without bins")
+
 #Record plots 
 parser.add_argument("--Record_plots",default = 'no', help="record all layers")
 
@@ -42,10 +45,20 @@ parser.add_argument("--S1S2_Mapping",default = 'no', help="run and record the S1
 parser.add_argument("--Sector", default = 0 ,help="S2 Sector",type=int)
 parser.add_argument("--S2_Board", default = 0 ,help="S2 Board input to record",type=int)
 
+#create z coordinates and bins
+parser.add_argument("--Create_Bins",default = 'no', help="create z and bins")
+
 args = parser.parse_args()
 
+#create Bins and Z coordinates
+if args.Create_Bins == "yes":
+  create_Z_coordinates()
+  record_20_24_Bins()
+  record_20_28_Bins()
 
 
+
+  
 #Build and record files to build pTTs
 if args.pTTs == "yes":
   record_all_boards(args)

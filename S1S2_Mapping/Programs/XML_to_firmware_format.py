@@ -29,7 +29,7 @@ def record_firmware_mapping(args):
                         if CEECEH == 0 : CEECEH = "CE-E"
                         if CEECEH == 1 : CEECEH = "CE-H"
                         firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+args.str(args.S2_Board)+', Frame id = '+frame+', Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board='+str(S1Board)+', eta='+str(eta)+', phi='+str(phi)+', '+ CEECEH +'\n'
-                        if S1_index != S1Board: print(error)
+                        if S1_index != S1Board: print("error")
                     if not pTT:
                         firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+args.str(args.S2_Board)+', Frame id = '+frame+', Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
                     

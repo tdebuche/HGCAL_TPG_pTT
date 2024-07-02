@@ -1,4 +1,4 @@
-import numpy as np
+import json
 from Geometry.Programs.tools import *
 
 with open('src/Z_coordinates.json','r') as file:
@@ -6,34 +6,39 @@ with open('src/Z_coordinates.json','r') as file:
     
 #record two scenarios : 20*24 bins and 20*28 bins
 
-etamin = 1.305
-bin_size = "pi/36"
-
 #First scenario : 20 * 24 bins, 0 to 120 degree
 
-nb_binphi = 24
-nb_bineta = 20
+def 20_24_Bins():
+    bin_size = "pi/36"
+    nb_phibin = 24
+    nb_etabin = 20
+    etamin = 1.305
+    etamax = etamin + np.pi *20/36
+    phimin = 0 * np.pi/180
+    phimax = 120 * np.pi/180
+    Bins = Bins(etamin,phimin,nb_etabin,nb_phibin)
+    header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
+    with open('src/2024_Bins.json', 'w') as recordfile:
+        json.dump({'header' : header, 'Bins' : Bins }, recordfile)
 
-etamin = 1.305
-etamax = etamin + np.pi *20/36
 
-phimin = 0 * np.pi/180
-phimax = 120 * np.pi/180
 
-np.save('ValuesBins2024',np.array([nb_binphi,nb_bineta,phimin,phimax,etamin,etamax]))
 
 #Second scenario: 20 * 28 bins, -15 to 125 degrees
+def 20_24_Bins():
+    bin_size = "pi/36"
+    nb_phibin = 28
+    nb_etabin = 20
+    etamin = 1.305
+    etamax = etamin + np.pi *20/36
+    phimin = -15 * np.pi/180
+    phimax = 125 * np.pi/180
+    Bins = Bins(etamin,phimin,nb_etabin,nb_phibin)
+    header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
+    with open('src/2028_Bins.json', 'w') as recordfile:
+        json.dump({'header' : header, 'Bins' : Bins }, recordfile)
 
-nb_binphi = 28
-nb_bineta = 20
 
-etamin = 1.305
-etamax = etamin + np.pi *20/36
-
-phimin = -15 * np.pi/180
-phimax = 125 * np.pi/180
-
-np.save('ValuesBins2028',np.array([nb_binphi,nb_bineta,phimin,phimax,etamin,etamax]))
 
 
 def Bins(etamin,phimin,nbeta,nbphi): 
@@ -55,30 +60,5 @@ def Bins(etamin,phimin,nbeta,nbphi):
 
 
 
-#record the files
 
 
-#without edges
-phimin = 0
-phimax = 120
-nb_binphi = 24
-nb_bineta = 20
-
-BIN = Bins(etamin,phimin,nb_bineta,nb_binphi)
-os.chdir(dir_path+"../Ressources")
-np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
-os.chdir(dir_path+"../../ProgrammesRessources")
-np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
-
-#with edges
-
-phimin = -15 * np.pi/180
-phimax = 125 * np.pi/18
-nb_binphi = 28
-nb_bineta = 20
-
-BIN = Bins(etamin,phimin,nb_bineta,nb_binphi)
-os.chdir(dir_path + "../Geometry/Ressources")
-np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)
-os.chdir(dir_path+"../../ProgrammesRessources")
-np.save('Binetaphi'+str(nb_bineta)+str(nb_binphi),BIN)

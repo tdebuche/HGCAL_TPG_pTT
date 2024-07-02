@@ -1,4 +1,4 @@
-from S1-S2_Mapping.Programs import *
+from S1S2_Mapping.Programs import *
 
 
 def fill_channel(args,CEECEH,phi_min,phi_max,eta_min,eta_max):

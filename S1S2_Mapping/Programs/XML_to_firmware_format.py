@@ -50,9 +50,9 @@ def record_TC_firmware_mapping(args):
                     module  = frame_element.get('Module')
                     index  = frame_element.get('index')
                     if module:
-                        firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', TC : Module='+module+', index='+index+'\n'
+                        firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//3)+', Word='+str(channel%3)+', TC : Module='+module+', index='+index+'\n'
                     if not module:
-                        firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', TC : Module='+str(9999)+', index='+str(9999)+'\n'
+                        firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//3)+', Word='+str(channel%3)+', TC : Module='+str(9999)+', index='+str(9999)+'\n'
                     
         S1_index += 1
     file = open("S1S2_Mapping/Results/TC_Mapping.txt", "w")

@@ -66,11 +66,11 @@ def record_mapping(args):
         path += '/28_Phi_Bins/'
     if args.Edges == 'no':
         path += '/24_Phi_Bins/'
-    file = open("S1S2_Mapping/Results/AllocationpTTsEdges.xml", "w")
+    file = open(path+"/Allocation.xml", "w")
     text = create_4_links_allocation(args)
     file.write(text)
     file.close()
-    file = open("S1S2_Mapping/Results/DuplicationpTTsEdges.xml", "w")
+    file = open(path+"/Duplication.xml", "w")
     text = create_2_links_allocation(args)
     file.write(text)
     file.close()

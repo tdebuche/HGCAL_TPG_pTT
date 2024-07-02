@@ -8,7 +8,7 @@ with open('src/Z_coordinates.json','r') as file:
 
 #First scenario : 20 * 24 bins, 0 to 120 degree
 
-def 20_24_Bins():
+def record_20_24_Bins():
     bin_size = "pi/36"
     nb_phibin = 24
     nb_etabin = 20
@@ -25,7 +25,7 @@ def 20_24_Bins():
 
 
 #Second scenario: 20 * 28 bins, -15 to 125 degrees
-def 20_24_Bins():
+def record_20_28_Bins():
     bin_size = "pi/36"
     nb_phibin = 28
     nb_etabin = 20

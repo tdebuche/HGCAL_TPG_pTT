@@ -5,7 +5,7 @@ import numpy as np
 import awkward as ak
 from S1S2_Mapping.Programs.tools  import *
 
-def record_firmware_mapping(args):
+def record_pTT_firmware_mapping(args):
     if args.Edges == 'yes':
         path = 'S1S2_Mapping/Results/28_Phi_Bins/'
     if args.Edges == 'no':
@@ -36,3 +36,25 @@ def record_firmware_mapping(args):
     file.write(firmware_mapping)
     file.close()
 
+def record_TC_firmware_mapping(args):
+    tree = ET.parse('src/S1.ChannelAllocation.xml')
+    root = tree.getroot()
+    firmware_mapping = ''
+    S1_index = 0
+    for s1_element in root.findall('.//S1'):
+        for channel_element in s1_element.findall('.//Channel'):
+            channel = int(channel_element.get('aux-id'))
+            for frame_element in channel_element.findall('.//Frame'):
+                if all(attr in frame_element.attrib for attr in ['id']):
+                    frame  = frame_element.get('id')
+                    module  = frame_element.get('pTT')
+                    index  = frame_element.get('index')
+                    if module:
+                        firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', TC : Module='+module+', index='+index+'\n'
+                    if not pTT:
+                        firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', TC : Module='+str(9999)+', index='+str(9999)+'\n'
+                    
+        S1_index += 1
+    file = open("S1S2_Mapping/Results/TC_Mapping.txt", "w")
+    file.write(firmware_mapping)
+    file.close()

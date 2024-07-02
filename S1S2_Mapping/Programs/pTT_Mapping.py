@@ -24,7 +24,7 @@ def create_4_links_allocation(args):
         mapping +=  '\t'+ '<S1 id="'+S1_Board+'">'+'\n'
         for link in range(4):
             for word in range(2):
-                mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(j*2+k)+'">'+'\n'
+                mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
                 eta_min,eta_max = 10*(k%2),10*(k%2 + 1) -1
                 if link // 2 == 0 and args.Edges == "yes":
                     phi_min,phi_max = 18,27
@@ -48,7 +48,7 @@ def create_2_links_allocation(args):
         mapping +=  '\t'+ '<S1 id="'+S1_Board+'">'+'\n'
         for link in range(2):
             for word in range(2):
-                mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(j*2+k)+'">'+'\n'
+                mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
                 eta_min,eta_max = 10*(k%2),10*(k%2 + 1) -1
                 if args.Edges == "yes":
                    phi_min,phi_max= 0,8

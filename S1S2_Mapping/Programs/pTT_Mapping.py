@@ -1,12 +1,12 @@
-from S1S2_Mapping.Programs import *
+from S1S2_Mapping.Programs.tools  import *
+Endcap = 0
 
-
-def fill_channel(args,CEECEH,phi_min,phi_max,eta_min,eta_max):
+def fill_channel(args,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
     channel = ''
     frame = 0 
     for eta in range(eta_min,eta_max+1):
         for phi in range(phi_max,phi_min-1,-1):
-            t = tower(Boards[i],eta,phi,CEECEH,args.Sector)
+            t = tower(S1_Board,eta,phi,CEECEH,args.Sector)
             channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'"  pTT="'+ t+'" />' +'\n'
             frame +=1
         if args.Edges == "no" or phi < 97:
@@ -18,7 +18,7 @@ def fill_channel(args,CEECEH,phi_min,phi_max,eta_min,eta_max):
 
 def create_4_links_allocation(args):
     mapping = '<pTT_Allocation S2_Sector='+str(args.Sector)+' S2_Board='+str(args.S2_Board)+'>'+'\n'
-    Boards = [S1ID(Sector,board) for board in range(14)]
+    Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
         mapping +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for link in range(4):
@@ -41,8 +41,7 @@ def create_4_links_allocation(args):
 
 def create_2_links_allocation(args):
     mapping = '<pTT_Duplication S2_Sector='+str(args.Sector)+' S2_Board='+str(args.S2_Board)+'>'+'\n'
-    Boards = [S1ID(Sector,board) for board in range(14)]
-    mapping = ''
+    Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
         mapping +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
         for link in range(2):

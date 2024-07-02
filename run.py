@@ -1,3 +1,4 @@
+
 import argparse
 from pTTs.Programs.pTTs_to_file import record_all_boards
 from S1_Input.Programs.record_text import record_input
@@ -37,6 +38,7 @@ parser.add_argument("--S1_Input",default = 'no', help="run and record the S1 num
 
 #S1-S2_Mapping
 parser.add_argument("--S1S2_Mapping",default = 'no', help="run and record the S1-S2_Mapping")
+parser.add_argument("--Sector", default = 0 ,help="S2 Sector",type=int)
 parser.add_argument("--S2_Board", default = 0 ,help="S2 Board input to record",type=int)
 
 args = parser.parse_args()

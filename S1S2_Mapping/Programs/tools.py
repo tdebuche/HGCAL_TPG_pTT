@@ -1,3 +1,8 @@
+
+Endcap = 0
+Subsector = 0
+
+
 def channel(board,link,word,args):
     Sector,S2Board = args.Sector,args.S2_Board
     subsystem  = 1

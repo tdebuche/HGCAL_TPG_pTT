@@ -37,6 +37,7 @@ parser.add_argument("--S1_Input",default = 'no', help="run and record the S1 num
 
 #S1-S2_Mapping
 parser.add_argument("--S1S2_Mapping",default = 'no', help="run and record the S1-S2_Mapping")
+parser.add_argument("--S2_Board", default = 0 ,help="S2 Board input to record",type=int)
 
 args = parser.parse_args()
 
@@ -60,7 +61,9 @@ if args.Record_plots == "yes":
   record_all_layers(args)
 
 
-
+#S1-S2 mapping
+if args.S1S2_Mapping == "yes":
+  record_mapping(args)
 
 
 

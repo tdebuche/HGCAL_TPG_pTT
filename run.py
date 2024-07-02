@@ -5,6 +5,7 @@ from S1_Input.Programs.record_text import record_input
 from Geometry.Programs.plot import plot_layer
 from Geometry.Programs.plot import record_all_layers
 from S1S2_Mapping.Programs.pTT_Mapping import record_mapping
+from S1S2_Mapping.Programs.XML_to_firmware_format import record_firmware_mapping
 
 #record pTTs
 
@@ -66,6 +67,7 @@ if args.Record_plots == "yes":
 #S1-S2 mapping
 if args.S1S2_Mapping == "yes":
   record_mapping(args)
+  record_firmware_mapping(args)
 
 
 

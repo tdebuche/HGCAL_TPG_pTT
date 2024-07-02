@@ -11,7 +11,7 @@ def record_firmware_mapping(args):
     if args.Edges == 'no':
         path = 'S1S2_Mapping/Results/24_Phi_Bins'
         
-    tree = ET.parse('S1S2_Mapping/Results/'++'Allocation.xml')
+    tree = ET.parse(path+'Allocation.xml')
     root = tree.getroot()
     firmware_mapping = ''
     S1_index = 0
@@ -34,4 +34,5 @@ def record_firmware_mapping(args):
         S1_index += 1
     file = open(path+"/For_Toni.txt", "w")
     file.write(firmware_mapping)
+    file.close()
 

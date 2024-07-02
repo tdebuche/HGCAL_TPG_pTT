@@ -66,7 +66,7 @@ def record_mapping(args):
         path += '/28_Phi_Bins/'
     if args.Edges == 'no':
         path += '/24_Phi_Bins/'
-    file = open("S1S2_Mapping/Results/AllocationpTTsNoEdges.xml", "w")
+    file = open("S1S2_Mapping/Results/AllocationpTTsEdges.xml", "w")
     text = create_4_links_allocation(args)
     file.write(text)
     file.close()

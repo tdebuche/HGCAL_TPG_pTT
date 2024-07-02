@@ -23,7 +23,9 @@ def record_firmware_mapping(args):
                     frame  = frame_element.get('id')
                     pTT  = frame_element.get('pTT')
                     if pTT:
+                        print(pTT)
                         pTT_Sector,S1Board,eta,phi,CEECEH = get_pTT_numbers(pTT)
+                        print(pTT_Sector,S1Board,eta,phi,CEECEH)
                         if CEECEH == 0 : CEECEH = "CE-E"
                         if CEECEH == 1 : CEECEH = "CE-H"
                         firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+args.str(args.S2_Board)+', Frame id = '+frame+', Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board='+str(S1Board)+', eta='+str(eta)+', phi='+str(phi)+', '+ CEECEH +'\n'

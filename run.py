@@ -68,7 +68,7 @@ if args.Record_plots == "yes":
 if args.S1S2_Mapping == "yes":
   record_mapping(args)
   record_pTT_firmware_mapping(args)
-  record_firmware_pTT_mapping(args)
+  record_TC_firmware_mapping(args)
 
 
 

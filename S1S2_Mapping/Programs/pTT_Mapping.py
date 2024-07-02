@@ -21,7 +21,7 @@ def create_4_links_allocation(args):
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
         S1_Board = Boards[board_idx]
-        mapping +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        mapping +=  '\t'+ '<S1 id="'+S1_Board+'">'+'\n'
         for link in range(4):
             for word in range(2):
                 mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(j*2+k)+'">'+'\n'
@@ -45,7 +45,7 @@ def create_2_links_allocation(args):
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
         S1_Board = Boards[board_idx]
-        mapping +=  '\t'+ '<S1 id="'+Boards[i]+'">'+'\n'
+        mapping +=  '\t'+ '<S1 id="'+S1_Board+'">'+'\n'
         for link in range(2):
             for word in range(2):
                 mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(j*2+k)+'">'+'\n'

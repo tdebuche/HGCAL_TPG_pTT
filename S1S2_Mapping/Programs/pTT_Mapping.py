@@ -17,7 +17,7 @@ def fill_channel(args,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
     return channel
 
 def create_4_links_allocation(args):
-    mapping = '<pTT_Allocation S2_Sector='+str(args.Sector)+' S2_Board='+str(args.S2_Board)+'>'+'\n'
+    mapping = '<pTT_Allocation S2_Sector="'+str(args.Sector)+'" S2_Board="'+str(args.S2_Board)+'">'+'\n'
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
         S1_Board = Boards[board_idx]
@@ -41,7 +41,7 @@ def create_4_links_allocation(args):
     return mapping
 
 def create_2_links_allocation(args):
-    mapping = '<pTT_Duplication S2_Sector='+str(args.Sector)+' S2_Board='+str(args.S2_Board)+'>'+'\n'
+    mapping = '<pTT_Duplication S2_Sector="'+str(args.Sector)+'" S2_Board="'+str(args.S2_Board)+'">'+'\n'
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
         S1_Board = Boards[board_idx]

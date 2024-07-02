@@ -7,9 +7,9 @@ from S1S2_Mapping.Programs.tools  import *
 
 def record_firmware_mapping(args):
     if args.Edges == 'yes':
-        path = 'S1S2_Mapping/Results/28_Phi_Bins'
+        path = 'S1S2_Mapping/Results/28_Phi_Bins/'
     if args.Edges == 'no':
-        path = 'S1S2_Mapping/Results/24_Phi_Bins'
+        path = 'S1S2_Mapping/Results/24_Phi_Bins/'
         
     tree = ET.parse(path+'Allocation.xml')
     root = tree.getroot()
@@ -32,7 +32,7 @@ def record_firmware_mapping(args):
                         firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+args.str(args.S2_Board)+', Frame id = '+frame+', Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board=99, eta=99, phi=99, CE-E' +'\n'
                     
         S1_index += 1
-    file = open(path+"/For_Toni.txt", "w")
+    file = open(path+"For_Toni.txt", "w")
     file.write(firmware_mapping)
     file.close()
 

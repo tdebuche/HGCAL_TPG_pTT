@@ -61,16 +61,16 @@ def create_2_links_allocation(args):
     return mapping
 
 def record_mapping(args):
-    path = 'S1-S2_Mapping/Results'
+    path = 'S1S2_Mapping/Results'
     if args.Edges == 'yes':
         path += '/28_Phi_Bins/'
     if args.Edges == 'no':
         path += '/24_Phi_Bins/'
-    file = open("AllocationpTTsNoEdges.xml", "w")
+    file = open("S1S2_Mapping/Results/AllocationpTTsNoEdges.xml", "w")
     text = create_4_links_allocation(args)
     file.write(text)
     file.close()
-    file = open("DuplicationpTTsEdges.xml", "w")
+    file = open("S1S2_Mapping/Results/DuplicationpTTsEdges.xml", "w")
     text = create_2_links_allocation(args)
     file.write(text)
     file.close()

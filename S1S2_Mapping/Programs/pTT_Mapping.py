@@ -9,7 +9,7 @@ def fill_channel(args,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
             t = tower(S1_Board,eta,phi,CEECEH,args.Sector)
             channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'"  pTT="'+ t+'" />' +'\n'
             frame +=1
-        if args.Edges == "no" or phi < 97:
+        if args.Edges == "no" or frame < 97:
             channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'" />'+'\n'
             frame +=1
     for empty_frame in range(frame,108):

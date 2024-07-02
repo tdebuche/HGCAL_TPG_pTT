@@ -47,7 +47,7 @@ def record_TC_firmware_mapping(args):
             for frame_element in channel_element.findall('.//Frame'):
                 if all(attr in frame_element.attrib for attr in ['id']):
                     frame  = frame_element.get('id')
-                    module  = frame_element.get('pTT')
+                    module  = frame_element.get('Module')
                     index  = frame_element.get('index')
                     if module:
                         firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', TC : Module='+module+', index='+index+'\n'

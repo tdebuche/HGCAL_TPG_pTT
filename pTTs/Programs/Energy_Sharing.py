@@ -7,37 +7,31 @@ from collections import defaultdict
 
 
 def import_bins(args,Layer):
-  if args.Edges == 'yes':
+	if args.Edges == 'yes':
 		path = 'src/2028_Bins.json'
 	if args.Edges == 'no':
 		path = 'src/2024_Bins.json'
 	with open(path,'r') as file:
 		Bins = json.load(file)['Bins'][Layer-1]
-  with open(path,'r') as file:
-    header = json.load(file)['header']
-  list_vertices = defaultdict(list)
+	with open(path,'r') as file:
+		header = json.load(file)['header']
+	list_vertices = defaultdict(list)
+	for bin_idx in range(len(Bins)):
+		X_Vertices,Y_Vertices = Bins[bin_idx]['verticesX'],Bins[bin_idx]['verticesY']
+		eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['phi_index']
+		list_vertices[(eta,phi)].append([X_Vertices,Y_Vertices])
+	return list_vertices,header
 
-
-
-
-Binetaphi2024 = np.load('src/Binetaphi2024.npy')
-Binetaphi2028 = np.load('src/Binetaphi2028.npy')
-Z = np.load('src/Z.npy')
-Values2024 = np.load('src/ValuesBins2024.npy')
-Values2028 = np.load('src/ValuesBins2028.npy')
-                     
 
 N = 16 #energies divided by N (for the sharing)
-etamin = 1.305
 
 def reverse_pTTs(args,Layer,Modules,STCs):
+	Bins,Values = import_bins(args,Layer)
     if Layer < 27 or (Layer>=27 and not args.STCs):
         pTTs = pTT_single_layer(args,Layer,Modules)
     else :
         pTTs = pTT_single_layer(args,Layer,STCs)
-    if args.Edges == "yes": Values = Values2028
-    else : Values = Values2024
-    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+    nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
 
     reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  
@@ -52,29 +46,23 @@ def reverse_pTTs(args,Layer,Modules,STCs):
     return(reversed_pTTs)
 
 
-def pTT_single_layer(args,Layer,Modules): #Share the energy of each module pf one layer
+def pTT_single_layer(args,Layer,Modules,Bins,Values): #Share the energy of each module pf one layer
     #choose the scenario
-    if args.Edges == "yes":
-        BinXY= functions.binetaphitoXY(Binetaphi2028,Z[Layer-1])
-        Values = Values2028
-    else :
-        BinXY= functions.binetaphitoXY(Binetaphi2024,Z[Layer-1])
-        Values = Values2024
     Modules = Modules[Layer-1]
-    
     #create a list with the enegy sharing
     Bins_per_Modules = []
     for module_idx in range(len(Modules)):
         Module_vertices = [Modules[module_idx]['verticesX'],Modules[module_idx]['verticesY']]
-        Bins = areatocoef(pTT_single_Module(BinXY,Module_vertices,Values,Z[Layer-1]))
+        Bins = areatocoef(pTT_single_Module(Bins,Module_vertices,Values))
         Bins_per_Modules.append([Modules[module_idx],Bins])
     return(Bins_per_Modules)
 
 
 
 
-def pTT_single_Module(BinXY,Module,Values,z): # Return the sharing of the energy of each module
-    nb_binphi,nb_bineta,phimin,phimax,etamin,etamax = Values
+def pTT_single_Module(Bins,Module,Values): # Return the sharing of the energy of each module
+	nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
+    phimin,etamin =  Values['phimin'],Values['etamin']
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     pTTs = []
     Module_Polygon = functions.pointtopolygon(Module)
@@ -88,7 +76,7 @@ def pTT_single_Module(BinXY,Module,Values,z): # Return the sharing of the energy
             eta_idx = eta_center + eta
             if phi_idx >= 0 and phi_idx < nb_binphi:
                 if eta_idx >= 0 and eta_idx < nb_bineta:
-                    Area = AireBinModule(Module,BinXY[(phi_idx)*20 + (eta_idx)])
+                    Area = AireBinModule(Module,Bins[(phi_idx,eta_idx)][0])
                     if Area !=0:
                         pTTs.append([phi_idx,eta_idx,Area/area_module])
     return(pTTs)

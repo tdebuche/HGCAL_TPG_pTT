@@ -12,7 +12,7 @@ def create_Z_coordinates():
     Z = []
     layer = 1
     for i in range(len(L1)-1):
-        z = (L1[i]+L1[i+1])/2)
+        z = (L1[i]+L1[i+1])/2
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
         Z.append({'Layer' : layer, 'Z_coordinate' : z})

@@ -72,28 +72,9 @@ def etaphiRADtoXY(eta,phi,z):
     return(x,y)
 
 
-def binetaphitoXY(B,z):
-    XY = np.zeros(np.shape(B))
-    for i in range(len(B)):
-        for j in range(4):
-            eta = B[i,0,j]
-            phi = B[i,1,j]
-            x,y = etaphitoXY(eta,phi,z)
-            XY[i,0,j] = x
-            XY[i,1,j] = y
-    return XY
 
 
-def binetaphiRADtoXY(B,z):
-    XY = np.zeros(np.shape(B))
-    for i in range(len(B)):
-        for j in range(4):
-            eta = B[i,0,j]
-            phi = B[i,1,j]
-            x,y = etaphiRADtoXY(eta,phi,z)
-            XY[i,0,j] = x
-            XY[i,1,j] = y
-    return XY
+
 
 
 

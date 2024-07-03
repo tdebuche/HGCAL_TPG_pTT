@@ -17,6 +17,13 @@ def plot_layer(args,Layer):
 	Module_Vertices = item_list('src/v13.1/Modules.json','vertices',Layer)
 	Module_irot = item_list('src/v13.1//Modules.json','irot',Layer)
 	Module_UV = item_list('src/v13.1//Modules.json','uv',Layer)
+	if args.Edges == 'yes':
+		path = 'src/2028_Bins.json'
+	if args.Edges == 'no':
+		path = 'src/2024_Bins.json'
+	with open(path,'r') as file:
+		Bins = json.load(file)['Bins'][Layer-1]
+
 	for module_idx in range(len(Module_Vertices)):
 		irot = Module_irot[module_idx]
 		if irot != 999: # no rotations for scintillators
@@ -41,6 +48,15 @@ def plot_layer(args,Layer):
 			Xvertices= vertices[0] +[vertices[0][0]]
 			Yvertices= vertices[1] +[vertices[1][0]]
 			plt.plot(Xvertices,Yvertices,linewidth = 0.2,color  = 'blue')
+	if args.Bins == 'yes':
+		for bin_idx in range(len(Bins)):
+			X_Vertices,Y_Vertices = Bins[bin_idx]['verticesX']+[Bins[bin_idx]['verticesX'][0]],Bins[bin_idx]['verticesY']+[Bins[bin_idx]['verticesY'][0]]
+			eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['eta_index']
+			plt.plot(X_Vertices,Y_Vertices,color  = 'red')
+			if Layer == 1:
+				x,y = np.sum(np.array(X_Vertices))/len(Y_Vertices),np.sum(np.array(Y_Vertices))/len(Y_Vertices)
+				plt.annotate("(eta="+str(eta)+",phi="+str(phi)+")",(x-60,y-10),size =  '8')
+			
 	if args.Record_plots == 'no':
 		plt.show()
 	if args.Record_plots == 'yes':
@@ -54,6 +70,7 @@ def plot_layer(args,Layer):
 		os.chdir(path)
 		plt.savefig('Layer '+str(Layer)+'.png')
 		os.chdir("../../../../")
+	
 
 
 

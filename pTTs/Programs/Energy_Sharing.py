@@ -28,9 +28,9 @@ N = 16 #energies divided by N (for the sharing)
 def reverse_pTTs(args,Layer,Modules,STCs):
 	Bins,Values = import_bins(args,Layer)
 	if Layer < 27 or (Layer>=27 and not args.STCs):
-		pTTs = pTT_single_layer(args,Layer,Modules)
+		pTTs = pTT_single_layer(args,Layer,Modules,Bins,Values)
 	else :
-		pTTs = pTT_single_layer(args,Layer,STCs)
+		pTTs = pTT_single_layer(args,Layer,STCs,Bins,Values)
 		nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
 		nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
 		reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  

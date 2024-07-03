@@ -8,27 +8,12 @@ import json
 with open('src/Z_coordinates.json','r') as file:
 	Z_Layers = json.load(file)
 
-def import_bins(args,Layer):
-	if args.Edges == 'yes':
-		path = 'src/2028_Bins.json'
-	if args.Edges == 'no':
-		path = 'src/2024_Bins.json'
-	with open(path,'r') as file:
-		Bins = json.load(file)['Bins'][Layer-1]
-	with open(path,'r') as file:
-		header = json.load(file)['header']
-	list_vertices = defaultdict(list)
-	for bin_idx in range(len(Bins)):
-		X_Vertices,Y_Vertices = Bins[bin_idx]['verticesX'],Bins[bin_idx]['verticesY']
-		eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['phi_index']
-		list_vertices[(eta,phi)].append([X_Vertices,Y_Vertices])
-	return list_vertices,header
 
 
 N = 16 #energies divided by N (for the sharing)
 
 def reverse_pTTs(args,Layer,Modules,STCs):
-	Bins,Values = import_bins(args,Layer)
+	Bins,Values = functions.import_bins(args,Layer)
 	if Layer < 27 or (Layer>=27 and not args.STCs):
 		pTTs = pTT_single_layer(args,Layer,Modules,Bins,Values)
 	else :

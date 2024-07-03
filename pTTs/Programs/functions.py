@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import json
 from collections import defaultdict
-####################### Few functions used for the  XY/EtaPhi conversion  #########
+
 
 def import_bins(args,Layer):
 	if args.Edges == 'yes':
@@ -38,13 +38,6 @@ def pointtopolygon(vertices):
             points.append((vertices[0][i],vertices[1][i]))
     return(Polygon(points))
 
-def polygontopoints(poly):
-    p = poly.exterior.coords.xy
-    L = [[],[]]
-    for i in range(len(p[0])):
-        L[0].append(p[0][i])
-        L[1].append(p[1][i])
-    return(L)
 
 def XYtoetaphi(x,y,z):
     if x == 0:

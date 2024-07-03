@@ -15,7 +15,7 @@ def record_20_24_Bins():
     etamax = etamin + np.pi *20/36
     phimin = 0 * np.pi/180
     phimax = 120 * np.pi/180
-    Bins = Bins(etamin,phimin,nb_etabin,nb_phibin)
+    Bins = create_Bins(etamin,phimin,nb_etabin,nb_phibin)
     header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
     with open('src/2024_Bins.json', 'w') as recordfile:
         json.dump({'header' : header, 'Bins' : Bins }, recordfile)
@@ -32,7 +32,7 @@ def record_20_28_Bins():
     etamax = etamin + np.pi *20/36
     phimin = -15 * np.pi/180
     phimax = 125 * np.pi/180
-    Bins = Bins(etamin,phimin,nb_etabin,nb_phibin)
+    Bins = create_Bins(etamin,phimin,nb_etabin,nb_phibin)
     header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
     with open('src/2028_Bins.json', 'w') as recordfile:
         json.dump({'header' : header, 'Bins' : Bins }, recordfile)
@@ -40,7 +40,7 @@ def record_20_28_Bins():
 
 
 
-def Bins(etamin,phimin,nbeta,nbphi): 
+def create_Bins(etamin,phimin,nbeta,nbphi): 
     with open('src/Z_coordinates.json','r') as file:
         Z_Layers = json.load(file)
     all_layers_Bins = []

@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import pTTs.Programs.functions as functions
-from collections import defaultdict
+
 import json
 
 with open('src/Z_coordinates.json','r') as file:

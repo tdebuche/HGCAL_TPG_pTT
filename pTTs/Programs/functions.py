@@ -21,7 +21,7 @@ def import_bins(args,Layer):
 		list_vertices[(eta,phi)].append([X_Vertices,Y_Vertices])
 	return list_vertices,header
   
-def import_header(args,Layer):
+def import_header(args):
 	if args.Edges == 'yes':
 		path = 'src/2028_Bins.json'
 	if args.Edges == 'no':

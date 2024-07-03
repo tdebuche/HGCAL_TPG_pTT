@@ -2,6 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import pTTs.Programs.functions as functions
+from collections import defaultdict
+
+
+
+def import_bins(args,Layer):
+  if args.Edges == 'yes':
+		path = 'src/2028_Bins.json'
+	if args.Edges == 'no':
+		path = 'src/2024_Bins.json'
+	with open(path,'r') as file:
+		Bins = json.load(file)['Bins'][Layer-1]
+  with open(path,'r') as file:
+    header = json.load(file)['header']
+  list_vertices = defaultdict(list)
+
+
+
 
 Binetaphi2024 = np.load('src/Binetaphi2024.npy')
 Binetaphi2028 = np.load('src/Binetaphi2028.npy')

@@ -1,8 +1,7 @@
 import json
 from Geometry.Programs.tools import *
 
-with open('src/Z_coordinates.json','r') as file:
-    Z_Layers = json.load(file)
+
     
 #record two scenarios : 20*24 bins and 20*28 bins
 
@@ -42,6 +41,8 @@ def record_20_28_Bins():
 
 
 def Bins(etamin,phimin,nbeta,nbphi): 
+    with open('src/Z_coordinates.json','r') as file:
+        Z_Layers = json.load(file)
     all_layers_Bins = []
     for layer in range(1,48):
         single_layer_Bins = []

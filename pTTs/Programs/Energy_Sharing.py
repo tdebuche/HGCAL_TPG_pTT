@@ -46,7 +46,7 @@ def pTT_single_layer(args,Layer,Modules,Bins,header): #Share the energy of each 
 
 
 
-def pTT_single_Module(Layer,Bins,Module,Values): # Return the sharing of the energy of each module
+def pTT_single_Module(Layer,Bins,Module,header): # Return the sharing of the energy of each module
 	nb_binphi,nb_bineta = header['nb_phibin'],header['nb_etabin']
 	phimin,etamin =  header['phimin'],header['etamin']
 	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)

@@ -27,23 +27,22 @@ N = 16 #energies divided by N (for the sharing)
 
 def reverse_pTTs(args,Layer,Modules,STCs):
 	Bins,Values = import_bins(args,Layer)
-    if Layer < 27 or (Layer>=27 and not args.STCs):
-        pTTs = pTT_single_layer(args,Layer,Modules)
-    else :
-        pTTs = pTT_single_layer(args,Layer,STCs)
-    nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
-    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-
-    reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  
-    for module_idx in range(len(pTTs)):
-        Module = pTTs[module_idx][0]
-        for bin_idx in range(len(pTTs[module_idx][1])):
-            phi,eta,ratio = pTTs[module_idx][1][bin_idx]
-            if args.STCs and Layer >26 :
-                reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],Module['index'],ratio])
-            if Layer < 27 or (Layer>=27 and not args.STCs) :
-                reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],ratio])
-    return(reversed_pTTs)
+	if Layer < 27 or (Layer>=27 and not args.STCs):
+		pTTs = pTT_single_layer(args,Layer,Modules)
+	else :
+		pTTs = pTT_single_layer(args,Layer,STCs)
+		nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
+		nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
+		reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  
+		for module_idx in range(len(pTTs)):
+			Module = pTTs[module_idx][0]
+			for bin_idx in range(len(pTTs[module_idx][1])):
+				phi,eta,ratio = pTTs[module_idx][1][bin_idx]
+				if args.STCs and Layer >26 :
+					reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],Module['index'],ratio])
+				if Layer < 27 or (Layer>=27 and not args.STCs) :
+					reversed_pTTs[phi][eta].append([Module['type'],Module['u'],Module['v'],ratio])
+	return(reversed_pTTs)
 
 
 def pTT_single_layer(args,Layer,Modules,Bins,Values): #Share the energy of each module pf one layer
@@ -62,24 +61,24 @@ def pTT_single_layer(args,Layer,Modules,Bins,Values): #Share the energy of each 
 
 def pTT_single_Module(Bins,Module,Values): # Return the sharing of the energy of each module
 	nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
-    phimin,etamin =  Values['phimin'],Values['etamin']
-    nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
-    pTTs = []
-    Module_Polygon = functions.pointtopolygon(Module)
-    area_module = Module_Polygon.area
-    eta,phi = functions.etaphicentre(Module,z)
-    phi_center = int((phi-phimin) *36 /np.pi)
-    eta_center = int((eta -etamin) *36 /np.pi)
-    for phi in range(-4,5):
-        for eta in range(-4,5):
-            phi_idx = phi_center + phi
-            eta_idx = eta_center + eta
-            if phi_idx >= 0 and phi_idx < nb_binphi:
-                if eta_idx >= 0 and eta_idx < nb_bineta:
-                    Area = AireBinModule(Module,Bins[(phi_idx,eta_idx)][0])
-                    if Area !=0:
-                        pTTs.append([phi_idx,eta_idx,Area/area_module])
-    return(pTTs)
+	phimin,etamin =  Values['phimin'],Values['etamin']
+	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
+	pTTs = []
+	Module_Polygon = functions.pointtopolygon(Module)
+	area_module = Module_Polygon.area
+	eta,phi = functions.etaphicentre(Module,z)
+	phi_center = int((phi-phimin) *36 /np.pi)
+	eta_center = int((eta -etamin) *36 /np.pi)
+	for phi in range(-4,5):
+		for eta in range(-4,5):
+			phi_idx = phi_center + phi
+			eta_idx = eta_center + eta
+			if phi_idx >= 0 and phi_idx < nb_binphi:
+				if eta_idx >= 0 and eta_idx < nb_bineta:
+					Area = AireBinModule(Module,Bins[(phi_idx,eta_idx)][0])
+					if Area !=0:
+						pTTs.append([phi_idx,eta_idx,Area/area_module])
+	return(pTTs)
 
 
 

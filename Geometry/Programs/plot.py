@@ -51,11 +51,11 @@ def plot_layer(args,Layer):
 	if args.Bins == 'yes':
 		for bin_idx in range(len(Bins)):
 			X_Vertices,Y_Vertices = Bins[bin_idx]['verticesX']+[Bins[bin_idx]['verticesX'][0]],Bins[bin_idx]['verticesY']+[Bins[bin_idx]['verticesY'][0]]
-			eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['eta_index']
+			eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['phi_index']
 			plt.plot(X_Vertices,Y_Vertices,color  = 'red')
 			if Layer == 1:
 				x,y = np.sum(np.array(X_Vertices))/len(Y_Vertices),np.sum(np.array(Y_Vertices))/len(Y_Vertices)
-				plt.annotate("(eta="+str(eta)+",phi="+str(phi)+")",(x-60,y-10),size =  '8')
+				plt.annotate("("+str(eta)+","+str(phi)+")",(x-60,y-10),size =  '8')
 			
 	if args.Record_plots == 'no':
 		plt.show()

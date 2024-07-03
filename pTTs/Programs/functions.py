@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import json
-
+from collections import defaultdict
 ####################### Few functions used for the  XY/EtaPhi conversion  #########
 
 def import_bins(args,Layer):

@@ -61,23 +61,6 @@ def XYtoetaphi(x,y,z):
         return((-np.log(np.tan(0.5*np.arctan(x/(z * np.cos(phi)))))),phi)
 
 
-def etaphitoXY(eta,phi,z):
-    x = z * np.tan(2*np.arctan(np.exp(-eta))) * np.cos(phi)
-    y = z * np.tan(2*np.arctan(np.exp(-eta))) * np.sin(phi)
-    return(x,y)
-
-def etaphiRADtoXY(eta,phi,z):
-    x = z * np.tan(eta) * np.cos(phi)
-    y = z * np.tan(eta) * np.sin(phi)
-    return(x,y)
-
-
-
-
-
-
-
-
 def etaphicentre(Module,z):
     nbsommet = 0
     x = 0

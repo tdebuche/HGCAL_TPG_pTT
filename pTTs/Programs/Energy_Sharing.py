@@ -5,6 +5,8 @@ import pTTs.Programs.functions as functions
 from collections import defaultdict
 import json
 
+with open('src/Z_coordinates.json','r') as file:
+	Z_Layers = json.load(file)
 
 def import_bins(args,Layer):
 	if args.Edges == 'yes':
@@ -66,7 +68,7 @@ def pTT_single_Module(Bins,Module,Values): # Return the sharing of the energy of
 	pTTs = []
 	Module_Polygon = functions.pointtopolygon(Module)
 	area_module = Module_Polygon.area
-	eta,phi = functions.etaphicentre(Module,z)
+	eta,phi = functions.etaphicentre(Module,Z_Layers[Layer-1]["Z_coordinate"])
 	phi_center = int((phi-phimin) *36 /np.pi)
 	eta_center = int((eta -etamin) *36 /np.pi)
 	for phi in range(-4,5):

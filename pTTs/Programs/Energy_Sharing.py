@@ -77,7 +77,7 @@ def pTT_single_Module(Layer,Bins,Module,Values): # Return the sharing of the ene
 			eta_idx = eta_center + eta
 			if phi_idx >= 0 and phi_idx < nb_binphi:
 				if eta_idx >= 0 and eta_idx < nb_bineta:
-					Area = AireBinModule(Module,Bins[(phi_idx,eta_idx)][0])
+					Area = AireBinModule(Module,Bins[(eta_idx,phi_idx)][0])
 					if Area !=0:
 						pTTs.append([phi_idx,eta_idx,Area/area_module])
 	return(pTTs)

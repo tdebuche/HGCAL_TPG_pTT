@@ -5,30 +5,30 @@ import json
 
 ####################### Few functions used for the  XY/EtaPhi conversion  #########
 
-
-def item_list(jsonfile,item):
-  L = []
-  res = []
-  with open(jsonfile,'r') as file:
-    alldata = json.load(file)
-  for layer in range(47):
-    data = alldata[layer-1]
-    for module_idx in range(len(data)):
-      if item =="id":
-        res.append(data[module_idx]['id'])
-      if item =="irot":
-        res.append(data[module_idx]['irot'])
-      if item =="TCcount":
-        res.append(data[module_idx]['TCcount'])
-      if item =="index":
-        res.append(data[module_idx]['index'])
-      if item =="uv":
-        res.append([data[module_idx]['u'],data[module_idx]['v']])
-      if item =="vertices":
-        res.append([data[module_idx]['verticesX'],data[module_idx]['verticesY']])
-    L.append(res)
-    res = []
-  return L
+def import_bins(args,Layer):
+	if args.Edges == 'yes':
+		path = 'src/2028_Bins.json'
+	if args.Edges == 'no':
+		path = 'src/2024_Bins.json'
+	with open(path,'r') as file:
+		Bins = json.load(file)['Bins'][Layer-1]
+	with open(path,'r') as file:
+		header = json.load(file)['header']
+	list_vertices = defaultdict(list)
+	for bin_idx in range(len(Bins)):
+		X_Vertices,Y_Vertices = Bins[bin_idx]['verticesX'],Bins[bin_idx]['verticesY']
+		eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['phi_index']
+		list_vertices[(eta,phi)].append([X_Vertices,Y_Vertices])
+	return list_vertices,header
+  
+def import_header(args,Layer):
+	if args.Edges == 'yes':
+		path = 'src/2028_Bins.json'
+	if args.Edges == 'no':
+		path = 'src/2024_Bins.json'
+	with open(path,'r') as file:
+		header = json.load(file)['header']
+	return header
 
 
 def pointtopolygon(vertices):

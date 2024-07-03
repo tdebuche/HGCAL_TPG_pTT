@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
-import pTTs.Programs.functions as functions
+import pTTs.Programs.tools as tools
 
 import json
 
@@ -13,7 +13,7 @@ with open('src/Z_coordinates.json','r') as file:
 N = 16 #energies divided by N (for the sharing)
 
 def reverse_pTTs(args,Layer,Modules,STCs):
-	Bins,header = functions.import_bins(args,Layer)
+	Bins,header = tools.import_bins(args,Layer)
 	if Layer < 27 or (Layer>=27 and not args.STCs):
 		pTTs = pTT_single_layer(args,Layer,Modules,Bins,header)
 	else :
@@ -51,9 +51,9 @@ def pTT_single_Module(Layer,Bins,Module,header): # Return the sharing of the ene
 	phimin,etamin =  header['phimin'],header['etamin']
 	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
 	pTTs = []
-	Module_Polygon = functions.pointtopolygon(Module)
+	Module_Polygon = tools.pointtopolygon(Module)
 	area_module = Module_Polygon.area
-	eta,phi = functions.etaphicentre(Module,Z_Layers[Layer-1]["Z_coordinate"])
+	eta,phi = tools.etaphicentre(Module,Z_Layers[Layer-1]["Z_coordinate"])
 	phi_center = int((phi-phimin) *36 /np.pi)
 	eta_center = int((eta -etamin) *36 /np.pi)
 	for phi in range(-4,5):
@@ -70,8 +70,8 @@ def pTT_single_Module(Layer,Bins,Module,header): # Return the sharing of the ene
 
 
 def AireBinModule(Module,Bin): # Return [area(intersection module and bin)] for a given module and a given bin
-    Module = functions.pointtopolygon(Module)
-    Bin = functions.pointtopolygon(Bin)
+    Module = tools.pointtopolygon(Module)
+    Bin = tools.pointtopolygon(Bin)
     if Module.intersects(Bin):
         return(Module.intersection(Bin).area)
     else :

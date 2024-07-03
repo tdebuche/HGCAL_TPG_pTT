@@ -56,7 +56,8 @@ def create_Bins(etamin,phimin,nbeta,nbphi):
                     x,y = etaphitoXY(Eta_vertices[vertex_idx],Phi_vertices[vertex_idx],z)
                     verticesX.append(x)
                     verticesY.append(y)
-                single_layer_Bins.append({'index' : bin_idx, 'eta_index' : eta, 'phi_index' : phi_index,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices,})
+                single_layer_Bins.append({'index' : bin_idx, 'eta_index' : eta, 'phi_index' : phi,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices,})
+                bin_idx +=1
         all_layers_Bins.append(single_layer_Bins)
     return(all_layers_Bins)
 

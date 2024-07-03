@@ -54,14 +54,14 @@ def pTT_single_layer(args,Layer,Modules,Bins,Values): #Share the energy of each 
     Bins_per_Modules = []
     for module_idx in range(len(Modules)):
         Module_vertices = [Modules[module_idx]['verticesX'],Modules[module_idx]['verticesY']]
-        Bins = areatocoef(pTT_single_Module(Bins,Module_vertices,Values))
+        Bins = areatocoef(pTT_single_Module(Layer,Bins,Module_vertices,Values))
         Bins_per_Modules.append([Modules[module_idx],Bins])
     return(Bins_per_Modules)
 
 
 
 
-def pTT_single_Module(Bins,Module,Values): # Return the sharing of the energy of each module
+def pTT_single_Module(Layer,Bins,Module,Values): # Return the sharing of the energy of each module
 	nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
 	phimin,etamin =  Values['phimin'],Values['etamin']
 	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)

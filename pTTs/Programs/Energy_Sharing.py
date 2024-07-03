@@ -13,12 +13,12 @@ with open('src/Z_coordinates.json','r') as file:
 N = 16 #energies divided by N (for the sharing)
 
 def reverse_pTTs(args,Layer,Modules,STCs):
-	Bins,Values = functions.import_bins(args,Layer)
+	Bins,header = functions.import_bins(args,Layer)
 	if Layer < 27 or (Layer>=27 and not args.STCs):
-		pTTs = pTT_single_layer(args,Layer,Modules,Bins,Values)
+		pTTs = pTT_single_layer(args,Layer,Modules,Bins,header)
 	else :
-		pTTs = pTT_single_layer(args,Layer,STCs,Bins,Values)
-	nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
+		pTTs = pTT_single_layer(args,Layer,STCs,Bins,header)
+	nb_binphi,nb_bineta = header['nb_phibin'],header['nb_etabin']
 	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
 	reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  
 	for module_idx in range(len(pTTs)):
@@ -32,14 +32,14 @@ def reverse_pTTs(args,Layer,Modules,STCs):
 	return(reversed_pTTs)
 
 
-def pTT_single_layer(args,Layer,Modules,Bins,Values): #Share the energy of each module pf one layer
+def pTT_single_layer(args,Layer,Modules,Bins,header): #Share the energy of each module pf one layer
     #choose the scenario
     Modules = Modules[Layer-1]
     #create a list with the enegy sharing
     Bins_per_Modules = []
     for module_idx in range(len(Modules)):
         Module_vertices = [Modules[module_idx]['verticesX'],Modules[module_idx]['verticesY']]
-        single_module_Bins = areatocoef(pTT_single_Module(Layer,Bins,Module_vertices,Values))
+        single_module_Bins = areatocoef(pTT_single_Module(Layer,Bins,Module_vertices,header))
         Bins_per_Modules.append([Modules[module_idx],single_module_Bins])
     return(Bins_per_Modules)
 
@@ -47,8 +47,8 @@ def pTT_single_layer(args,Layer,Modules,Bins,Values): #Share the energy of each 
 
 
 def pTT_single_Module(Layer,Bins,Module,Values): # Return the sharing of the energy of each module
-	nb_binphi,nb_bineta = Values['nb_phibin'],Values['nb_etabin']
-	phimin,etamin =  Values['phimin'],Values['etamin']
+	nb_binphi,nb_bineta = header['nb_phibin'],header['nb_etabin']
+	phimin,etamin =  header['phimin'],header['etamin']
 	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
 	pTTs = []
 	Module_Polygon = functions.pointtopolygon(Module)

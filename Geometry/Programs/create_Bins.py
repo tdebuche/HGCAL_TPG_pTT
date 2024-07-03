@@ -51,6 +51,7 @@ def create_Bins(etamin,phimin,nbeta,nbphi):
         for phi in range(nbphi):
             for eta in range(nbeta):
                 Eta_vertices,Phi_vertices = [eta * np.pi/36 + etamin,(eta+1) * np.pi/36 + etamin,(eta+1) * np.pi/36 + etamin,eta * np.pi/36 + etamin],[phi * np.pi/36  + phimin,phi * np.pi/36 + phimin,(phi+1) * np.pi/36 + phimin,(phi+1) * np.pi/36 + phimin]
+                verticesX,verticesY = [],[]
                 for vertex_idx in range(len(Eta_vertices)):
                     x,y = etaphitoXY(Eta_vertices[vertex_idx],Phi_vertices[vertex_idx],z)
                     verticesX.append(x)

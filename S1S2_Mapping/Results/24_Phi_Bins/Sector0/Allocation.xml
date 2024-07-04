@@ -1,4 +1,4 @@
-<pTT_Allocation S2_Sector=0 S2_Board=0>
+<pTT_Allocation S2_Sector="0" S2_Board="0">
 	<S1 id="0x04000000">
 		<Channel id="0x05400000" aux-id="0">
 			<Frame id="000"  pTT="0x05800017" />

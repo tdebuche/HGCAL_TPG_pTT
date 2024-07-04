@@ -63,9 +63,9 @@ def create_2_links_allocation(args):
 def record_mapping(args):
     path = 'S1S2_Mapping/Results'
     if args.Edges == 'yes':
-        path += '/28_Phi_Bins/'
+        path += '/28_Phi_Bins/Sector'+str(args.Sector)
     if args.Edges == 'no':
-        path += '/24_Phi_Bins/'
+        path += '/24_Phi_Bins/Sector'+str(args.Sector)
     file = open(path+"/Allocation.xml", "w")
     text = create_4_links_allocation(args)
     file.write(text)

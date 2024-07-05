@@ -7,7 +7,7 @@ from Geometry.Programs.plot import record_all_layers
 from S1S2_Mapping.Programs.pTT_Mapping import record_mapping
 from S1S2_Mapping.Programs.XML_to_firmware_format import record_pTT_firmware_mapping,record_TC_firmware_mapping
 from Geometry.Programs.Z_coordinate import create_Z_coordinates
-from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins
+from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins,record_20_24_Bins_all_endcap,record_20_28_Bins_all_endcap
 
 #record pTTs
 
@@ -55,6 +55,8 @@ if args.Create_Bins == "yes":
   create_Z_coordinates()
   record_20_24_Bins()
   record_20_28_Bins()
+  record_20_24_Bins_all_endcap()
+  record_20_28_Bins_all_endcap()
 
 
 

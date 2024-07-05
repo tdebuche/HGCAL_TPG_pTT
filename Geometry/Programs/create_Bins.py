@@ -15,9 +15,22 @@ def record_20_24_Bins_all_endcap():
     phimin = 0 * np.pi/180
     phimax = 120 * np.pi/180
     Bins = create_Bins_all_endcap(etamin,phimin,nb_etabin,nb_phibin)
+    header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
+    with open('src/all_endcap_2024_Bins.json', 'w') as recordfile:
+        json.dump({'header' : header, 'Bins' : Bins }, recordfile)
 
-
-
+def record_20_28_Bins_all_endcap():
+    bin_size = "pi/36"
+    nb_phibin = 28
+    nb_etabin = 20
+    etamin = 1.305
+    etamax = etamin + np.pi *20/36
+    phimin = -15 * np.pi/180
+    phimax = 125 * np.pi/180
+    Bins = create_Bins_all_endcap(etamin,phimin,nb_etabin,nb_phibin)
+    header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
+    with open('src/all_endcap_2028_Bins.json', 'w') as recordfile:
+        json.dump({'header' : header, 'Bins' : Bins }, recordfile)
 
 
 

@@ -53,7 +53,7 @@ def create_2_links_allocation(args):
                 if args.Edges == "yes":
                    phi_min,phi_max= 0,8
                 if args.Edges == "no":
-                    phi_min,phi_max = 0,6
+                    phi_min,phi_max = 0,5
                 mapping += fill_channel(args,S1_Board,link % 2,phi_min,phi_max,eta_min,eta_max)
                 mapping +=  '\t\t'+'</Channel>'+'\n'
         mapping +=  '\t'+'</S1>'+'\n'

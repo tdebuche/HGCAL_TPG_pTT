@@ -1,12 +1,12 @@
 from S1S2_Mapping.Programs.tools  import *
 Endcap = 0
 
-def fill_channel(args,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
+def fill_channel(args,S1_Sector,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
     channel = ''
     frame = 0 
     for eta in range(eta_min,eta_max+1):
         for phi in range(phi_max,phi_min-1,-1):
-            t = tower(S1_Board,eta,phi,CEECEH,args.Sector)
+            t = tower(S1_Board,eta,phi,CEECEH,S1_Sector)
             channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'"  pTT="'+ t+'" />' +'\n'
             frame +=1
         if args.Edges == "no" or frame < 97:
@@ -17,6 +17,7 @@ def fill_channel(args,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
     return channel
 
 def create_4_links_allocation(args):
+    S1_Sector = args.Sector
     mapping = '<pTT_Allocation S2_Sector="'+str(args.Sector)+'" S2_Board="'+str(args.S2_Board)+'">'+'\n'
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
@@ -34,13 +35,14 @@ def create_4_links_allocation(args):
                     phi_min,phi_max = 15,23
                 if link // 2 == 1 and args.Edges == "no":
                     phi_min,phi_max = 6,14
-                mapping += fill_channel(args,S1_Board,link % 2,phi_min,phi_max,eta_min,eta_max)
+                mapping += fill_channel(args,S1_Sector,S1_Board,link % 2,phi_min,phi_max,eta_min,eta_max)
                 mapping +=  '\t\t'+'</Channel>'+'\n'
         mapping +=  '\t'+'</S1>'+'\n'
     mapping += '</pTT_Allocation>'+'\n'
     return mapping
 
 def create_2_links_allocation(args):
+    S1_Sector = args.Sector+1
     mapping = '<pTT_Duplication S2_Sector="'+str(args.Sector)+'" S2_Board="'+str(args.S2_Board)+'">'+'\n'
     Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
     for board_idx in range(len(Boards)):
@@ -54,7 +56,7 @@ def create_2_links_allocation(args):
                    phi_min,phi_max= 0,8
                 if args.Edges == "no":
                     phi_min,phi_max = 0,5
-                mapping += fill_channel(args,S1_Board,link % 2,phi_min,phi_max,eta_min,eta_max)
+                mapping += fill_channel(args,S1_Sector,S1_Board,link % 2,phi_min,phi_max,eta_min,eta_max)
                 mapping +=  '\t\t'+'</Channel>'+'\n'
         mapping +=  '\t'+'</S1>'+'\n'
     mapping += '</pTT_Duplication>'+'\n'

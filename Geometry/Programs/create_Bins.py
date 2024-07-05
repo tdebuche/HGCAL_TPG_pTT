@@ -95,8 +95,6 @@ def create_Bins_all_endcap(etamin,phimin,nbeta,nbphi):
     with open('src/Z_coordinates.json','r') as file:
         Z_Layers = json.load(file)
     all_layers_Bins = []
-    if nb_phi = 24 : offset = 0
-    if nb_phi = 24 : offset = 3
     for layer in range(1,48):
         single_layer_Bins = []
         bin_idx = 0 
@@ -115,20 +113,20 @@ def create_Bins_all_endcap(etamin,phimin,nbeta,nbphi):
                 if nbphi == 24:
                     S1_coordinates =  {'eta_index' : eta, 'phi_index' : phi%24}
                     nameS1coordinates  = 'S1_Sector'+str(phi//24)
-                    single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates'=S2_coordinates,nameS1coordinates=S1_coordinates,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
+                    single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates':S2_coordinates,nameS1coordinates:S1_coordinates,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
                 if nbphi == 28 : 
                     S1_coordinates =  {'Sector': (phi)//24,  'eta_index' : eta, 'phi_index' : phi%24 + 3}
                     nameS1coordinates  = 'S1_Sector'+str(phi//24)
                     if phi%24 == 0: 
                         nameS1coordinatesbis  = 'S1_Sector'+str((phi//24 -1)%3)
                         S1_coordinatesbis = {'eta_index' : eta, 'phi_index' : 27}
-                        single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates'=S2_coordinates,nameS1coordinates=S1_coordinates,nameS1coordinatesbis=S1_coordinatesbis,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
+                        single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates':S2_coordinates,nameS1coordinates:S1_coordinates,nameS1coordinatesbis:S1_coordinatesbis,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
                     elif phi%24 > 20: 
                         nameS1coordinatesbis  = 'S1_Sector'+str((phi//24 +1)%3)
                         S1_coordinatesbis = {'eta_index' : eta, 'phi_index' : phi%24 -21}
-                        single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates'=S2_coordinates,nameS1coordinates=S1_coordinates,nameS1coordinatesbis=S1_coordinatesbis,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
+                        single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates':S2_coordinates,nameS1coordinates:S1_coordinates,nameS1coordinatesbis:S1_coordinatesbis,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
                     else :
-                        single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates'=S2_coordinates,nameS1coordinates=S1_coordinates,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
+                        single_layer_Bins.append({'index' : bin_idx, 'S2_coordinates':S2_coordinates,nameS1coordinates:S1_coordinates,'verticesX' : verticesX,'verticesY' : verticesY, 'Eta_vertices' : Eta_vertices,'Phi_vertices' : Phi_vertices})
                 bin_idx +=1
         all_layers_Bins.append(single_layer_Bins)
     return(all_layers_Bins)

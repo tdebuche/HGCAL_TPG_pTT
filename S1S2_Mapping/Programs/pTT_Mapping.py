@@ -27,13 +27,13 @@ def create_4_links_allocation(args):
             for word in range(2):
                 mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
                 eta_min,eta_max = 10*(word%2),10*(word%2 + 1) -1
-                if link // 2 == 1 and args.Edges == "yes":
+                if (link-1) // 2 == 1 and args.Edges == "yes":
                     phi_min,phi_max = 18,27
-                if link // 2 == 0 and args.Edges == "yes":
+                if (link-1) // 2 == 0 and args.Edges == "yes":
                    phi_min,phi_max= 9,17
-                if link // 2 == 1 and args.Edges == "no":
+                if (link-1) // 2 == 1 and args.Edges == "no":
                     phi_min,phi_max = 15,23
-                if link // 2 == 0 and args.Edges == "no":
+                if (link-1) // 2 == 0 and args.Edges == "no":
                     phi_min,phi_max = 6,14
                 mapping += fill_channel(args,S1_Sector,S1_Board,1-link%2,phi_min,phi_max,eta_min,eta_max)
                 mapping +=  '\t\t'+'</Channel>'+'\n'

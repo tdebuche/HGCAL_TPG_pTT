@@ -66,7 +66,7 @@ def create_2_links_allocation(args):
     mapping += '</pTT_Duplication>'+'\n'
     return mapping
 
-def record_mapping(args):
+def record_S1_mapping(args):
     path = 'S1S2_Mapping/Results/S2_Mapping'
     if args.Edges == 'yes':
         path += '/28_Phi_Bins/Sector'+str(args.Sector) +'/'

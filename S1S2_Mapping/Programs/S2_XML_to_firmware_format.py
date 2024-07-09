@@ -7,9 +7,9 @@ from S1S2_Mapping.Programs.tools  import *
 
 def record_pTT_firmware_mapping(args):
     if args.Edges == 'yes':
-        path = 'S1S2_Mapping/Results/28_Phi_Bins/Sector'+str(args.Sector) +'/'
+        path = 'S1S2_Mapping/Results/S2_Mapping/28_Phi_Bins/Sector'+str(args.Sector) +'/'
     if args.Edges == 'no':
-        path = 'S1S2_Mapping/Results/24_Phi_Bins/Sector'+str(args.Sector) +'/'
+        path = 'S1S2_Mapping/Results/S2_Mapping/24_Phi_Bins/Sector'+str(args.Sector) +'/'
 
     tree = ET.parse(path+'Allocation.xml')
     root = tree.getroot()
@@ -37,9 +37,9 @@ def record_pTT_firmware_mapping(args):
     file.close()
 
     if args.Edges == 'yes':
-        path = 'S1S2_Mapping/Results/28_Phi_Bins/Sector'+str(args.Sector) +'/'
+        path = 'S1S2_Mapping/Results/S2_Mapping/28_Phi_Bins/Sector'+str(args.Sector) +'/'
     if args.Edges == 'no':
-        path = 'S1S2_Mapping/Results/24_Phi_Bins/Sector'+str(args.Sector) +'/'
+        path = 'S1S2_Mapping/Results/S2_Mapping/24_Phi_Bins/Sector'+str(args.Sector) +'/'
 
     tree = ET.parse(path+'Duplication.xml')
     root = tree.getroot()

@@ -3,11 +3,11 @@
 
 
 def get_pTT_numbers(pTT): #get pTT information from the pTT id
-    S1Board = int(pTT[4:6],16) & 0x3F
+    S1Board = int(pTT,16) >> 16 & 0x3F
     phi = int(pTT,16) & 0x1F
-    eta = (int(pTT,16) & 0x3E0) //(16 * 2)
-    CEECEH = (int(pTT,16) & 0x400) //(16*16*4)
-    S1_Sector = (int(pTT[2],16) &  0x6)//2
+    eta = int(pTT,16)>> 5 & 0x1F
+    CEECEH = int(pTT,16)>>10 & 0x1
+    S1_Sector = int(pTT,16) >> 29 & 0x3
     return(S1_Sector,S1Board,eta,phi,CEECEH)
 
 
@@ -31,17 +31,17 @@ def get_pTT_id(S1_Sector,S1_Board,eta,phi,CEECEH): # CEECEH is 0 for CEE 1 for C
     Subsector = 0 
     Subsystem  = 1
     Obj_type = 6
-    S1ID = S1_board
+    S1ID = S1_Board
     return hex(0x00000000 |((Endcap & 0x1) << 31) | ((Sector & 0x3) << 29) | ((Subsector & 0x1) << 28) | ((Subsystem & 0x3) << 26) | ((Obj_type & 0xF) << 22)  | ((S1ID & 0x3F) << 16) |  ((CEECEH & 0x1) << 10) | ((eta & 0x1F) << 5) | ((phi & 0x1F) << 0))
 
 
-def get_S1Board_id(S1_Sector,S1_board):
+def get_S1Board_id(S1_Sector,S1_Board):
     Endcap = 0
     Sector = S1_Sector
     Subsector = 0 
     Subsystem  = 1
     Obj_type = 0
-    S1ID = S1_board
+    S1ID = S1_Board
     return hex(0x00000000 |((Endcap & 0x1) << 31) | ((Sector & 0x3) << 29) | ((Subsector & 0x1) << 28) | ((Subsystem & 0x3) << 26) | ((Obj_type & 0xF) << 22)  | ((S1ID & 0x3F) << 16))
 
 

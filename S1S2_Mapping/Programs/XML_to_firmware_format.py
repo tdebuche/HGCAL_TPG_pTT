@@ -7,7 +7,7 @@ from S1S2_Mapping.Programs.tools  import *
 
 # convert the xml files to txt files used by the ingeniors of Split to build the firmware
 
-def read_S2_xml_mapping(file,S1_Sector):
+def read_S2_xml_mapping(args,file,S1_Sector):
     tree = ET.parse(file)
     root = tree.getroot()
     firmware_mapping = ''
@@ -24,7 +24,7 @@ def read_S2_xml_mapping(file,S1_Sector):
                         pTT_Sector,S1Board,eta,phi,CEECEH = get_pTT_numbers(pTT) #find the info on pTT
                         if CEECEH == 0 : CEECEH = "CE-E"
                         if CEECEH == 1 : CEECEH = "CE-H"
-                        if S1_index != S1Board: print("error") #check if the pTT S1board matches with the link S1Board 
+                        if S1_index != S1Board: print("error in stage 1 board : from pTT board "+str(S1Board)+"from xml board "+str(S1_index)+'pTT '+pTT) #check if the pTT S1board matches with the link S1Board 
                         #add the line with all the info
                         firmware_mapping += "S1_Sector="+str(S1_Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board='+str(S1Board)+', eta='+str(eta)+', phi='+str(phi)+', '+ CEECEH +'\n'
                     if not pTT:
@@ -32,10 +32,11 @@ def read_S2_xml_mapping(file,S1_Sector):
                         if (channel > 1 and channel < 10 and ((channel//2-1)%2 ==0)) or (channel < 2): CEECEH = "CE-E"
                         if (channel > 1 and channel < 10 and ((channel//2-1)%2 ==1)) or (channel > 9): CEECEH = "CE-H"
                         firmware_mapping += "S1_Sector="+str(S1_Sector)+", S2_board="+str(args.S2_Board)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board=99, eta=99, phi=99, '+CEECEH +'\n'
+        S1_index += 1
     return firmware_mapping
 
 
-def read_S1_xml_mapping(file,S2_Sector):
+def read_S1_xml_mapping(args,file,S2_Sector):
     tree = ET.parse(file)
     root = tree.getroot()
     firmware_mapping = ''
@@ -50,6 +51,7 @@ def read_S1_xml_mapping(file,S2_Sector):
                     pTT  = frame_element.get('pTT')
                     if pTT:
                         pTT_Sector,S1Board,eta,phi,CEECEH = get_pTT_numbers(pTT) #find the info on pTT
+                        if args.S1_Board != S1Board: print("error in stage 1 board : from pTT board "+str(S1Board)+"from args "+str(args.S1_Board)+'pTT '+pTT) #check if the pTT S1board matches with the link S1Board 
                         if CEECEH == 0 : CEECEH = "CE-E"
                         if CEECEH == 1 : CEECEH = "CE-H"
                         #add the line with all the info
@@ -58,7 +60,7 @@ def read_S1_xml_mapping(file,S2_Sector):
                         #when the frame is empty, we fill the line with S1Board=99, eta=99 and phi=99
                         if (channel > 1 and channel < 10 and ((channel//2-1)%2 ==0)) or (channel < 2): CEECEH = "CE-E"
                         if (channel > 1 and channel < 10 and ((channel//2-1)%2 ==1)) or (channel > 9): CEECEH = "CE-H"
-                        firmware_mapping += "S2_Sector="+str(args.Sector)+", S2_board="+str(S2_index)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board=99, eta=99, phi=99, '+CEECEH +'\n'
+                        firmware_mapping += "S2_Sector="+str(S2_Sector)+", S2_board="+str(S2_index)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board='+str(args.S1_Board)+', eta=99, phi=99, '+CEECEH +'\n'
         S2_index +=1
     return firmware_mapping
 
@@ -70,14 +72,14 @@ def record_pTT_firmware_mapping(args):
     if args.Edges == 'no':
         path = 'S1S2_Mapping/Results/S2_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S1_Sector = args.Sector
-    S2_firmware_mapping += read_S2_xml_mapping(path+'/Allocation.txt',S1_Sector)
+    S2_firmware_mapping += read_S2_xml_mapping(args,path+'/Allocation.xml',S1_Sector)
     
     if args.Edges == 'yes':
         path = 'S1S2_Mapping/Results/S2_Mapping/28_Phi_Bins/Sector'+str(args.Sector) 
     if args.Edges == 'no':
         path = 'S1S2_Mapping/Results/S2_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S1_Sector = (args.Sector+1)%3
-    S2_firmware_mapping += read_S2_xml_mapping(path+'/Duplication.txt',S1_Sector)
+    S2_firmware_mapping += read_S2_xml_mapping(args,path+'/Duplication.xml',S1_Sector)
     
     file = open(path+"/S2_Sector"+str(args.Sector)+"_S2_Board"+str(args.S2_Board)+".txt", "w")
     file.write(S2_firmware_mapping)
@@ -90,14 +92,14 @@ def record_pTT_firmware_mapping(args):
     if args.Edges == 'no':
         path = 'S1S2_Mapping/Results/S1_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S2_Sector = args.Sector
-    S1_firmware_mapping += read_S1_xml_mapping(path+'/Allocation.txt',S2_Sector)
+    S1_firmware_mapping += read_S1_xml_mapping(args,path+'/Allocation.xml',S2_Sector)
     
     if args.Edges == 'yes':
         path = 'S1S2_Mapping/Results/S1_Mapping/28_Phi_Bins/Sector'+str(args.Sector) 
     if args.Edges == 'no':
         path = 'S1S2_Mapping/Results/S1_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S2_Sector = (args.Sector-1)%3
-    S1_firmware_mapping += read_S1_xml_mapping(path+'/Duplication.txt',S2_Sector)
+    S1_firmware_mapping += read_S1_xml_mapping(args,path+'/Duplication.xml',S2_Sector)
     
     file = open(path+"/S1_Sector"+str(args.Sector)+"_S1_Board"+str(args.S1_Board)+".txt", "w")
     file.write(S1_firmware_mapping)

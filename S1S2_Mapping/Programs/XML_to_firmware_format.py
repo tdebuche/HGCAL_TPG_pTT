@@ -5,7 +5,7 @@ import numpy as np
 import awkward as ak
 from S1S2_Mapping.Programs.tools  import *
 
-def record_pTT_firmware_mapping(args):
+def record_pTT_firmware_S1_mapping(args):
     if args.Edges == 'yes':
         path = 'S1S2_Mapping/Results/S2_Mapping/28_Phi_Bins/Sector'+str(args.Sector) +'/'
     if args.Edges == 'no':

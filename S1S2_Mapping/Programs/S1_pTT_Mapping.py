@@ -19,14 +19,15 @@ def fill_channel(args,S1_Sector,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max)
 
 def create_4_links_allocation(args):
     S1_Sector = args.Sector
-    mapping = '<pTT_Allocation S2_Sector="'+str(args.Sector)+'" S2_Board="'+str(args.S2_Board)+'">'+'\n'
-    Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
+    S2_Sector = args.Sector
+    mapping = '<pTT_Allocation S1_Sector="'+str(S1_Sector)+'" S1_Board="'+str(args.S1_Board)+'">'+'\n'
+    Boards = [S2ID(S2_Sector,board_idx) for board_idx in range(18)]
     for board_idx in range(len(Boards)):
-        S1_Board = Boards[board_idx]
-        mapping +=  '\t'+ '<S1 id="'+S1_Board+'">'+'\n'
+        S2_Board = Boards[board_idx]
+        mapping +=  '\t'+ '<S2 id="'+S2_Board+'">'+'\n'
         for link in range(1,5):
             for word in range(2):
-                mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
+                mapping += '\t'+'\t' +'<Channel id="'+ channel(args.S1_Board,S2_Board,link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
                 eta_min,eta_max = 10*(word%2),10*(word%2 + 1) -1
                 if (link-1) // 2 == 1 and args.Edges == "yes":
                     phi_min,phi_max = 18,27
@@ -43,15 +44,16 @@ def create_4_links_allocation(args):
     return mapping
 
 def create_2_links_allocation(args):
-    S1_Sector = (args.Sector+1)%3
-    mapping = '<pTT_Duplication S2_Sector="'+str(args.Sector)+'" S2_Board="'+str(args.S2_Board)+'">'+'\n'
-    Boards = [S1ID(args.Sector,board_idx) for board_idx in range(14)]
+    S1_Sector = args.Sector
+    S2_Sector = (args.Sector+1)%3
+    mapping = '<pTT_Duplication S1_Sector="'+str(S1_Sector)+'" S1_Board="'+str(args.S1_Board)+'">'+'\n'
+    Boards = [S2ID(S2_Sector,board_idx) for board_idx in range(18)]
     for board_idx in range(len(Boards)):
-        S1_Board = Boards[board_idx]
-        mapping +=  '\t'+ '<S1 id="'+S1_Board+'">'+'\n'
+        S2_Board = Boards[board_idx]
+        mapping +=  '\t'+ '<S2 id="'+S2_Board+'">'+'\n'
         for link in range(0,6,5):
             for word in range(2):
-                mapping += '\t'+'\t' +'<Channel id="'+ channel(Boards[board_idx],link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
+                mapping += '\t'+'\t' +'<Channel id="'+ channel(args.S1_Board,S2_Board,link,word,args)+'" aux-id="'+ str(link*2+word)+'">'+'\n'
                 eta_min,eta_max = 10*(word%2),10*(word%2 + 1) -1
                 if args.Edges == "yes":
                    phi_min,phi_max= 0,8
@@ -64,7 +66,7 @@ def create_2_links_allocation(args):
     return mapping
 
 def record_mapping(args):
-    path = 'S1S2_Mapping/Results'
+    path = 'S1S2_Mapping/Results/S1_Mapping'
     if args.Edges == 'yes':
         path += '/28_Phi_Bins/Sector'+str(args.Sector) +'/'
     if args.Edges == 'no':

@@ -104,7 +104,7 @@ def create_Bins_all_endcap(etamin,phimin,nbeta,nbphi):
                 verticesY.append(y)
             S2_sector =  ((phi-6)//24)
             if S2_sector < 0 : S2_sector = 2
-            S2_coordinates = {'Sector': S2_sector,  'eta_index' : eta, 'phi_index' : phi%24}
+            S2_coordinates = {'Sector': S2_sector,  'eta_index' : eta, 'phi_index' : (phi-6)%24}
             if nbphi == 24:
                 S1_coordinates =  {'eta_index' : eta, 'phi_index' : phi%24}
                 nameS1coordinates  = 'S1_Sector'+str(phi//24)

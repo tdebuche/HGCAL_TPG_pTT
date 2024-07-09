@@ -58,7 +58,7 @@ def read_S1_xml_mapping(file,S2_Sector):
                         #when the frame is empty, we fill the line with S1Board=99, eta=99 and phi=99
                         if (channel > 1 and channel < 10 and ((channel//2-1)%2 ==0)) or (channel < 2): CEECEH = "CE-E"
                         if (channel > 1 and channel < 10 and ((channel//2-1)%2 ==1)) or (channel > 9): CEECEH = "CE-H"
-                        firmware_mapping += "Sector="+str(args.Sector)+", S2_board="+str(S2_index)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board=99, eta=99, phi=99, '+CEECEH +'\n'
+                        firmware_mapping += "S2_Sector="+str(args.Sector)+", S2_board="+str(S2_index)+', Frame id = "'+frame+'", Link='+str(channel//2)+', Word='+str(channel%2)+', pTT : S1_Board=99, eta=99, phi=99, '+CEECEH +'\n'
         S2_index +=1
     return firmware_mapping
 

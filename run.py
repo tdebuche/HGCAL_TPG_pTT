@@ -6,7 +6,7 @@ from Geometry.Programs.plot import plot_layer
 from Geometry.Programs.plot import record_all_layers
 from S1S2_Mapping.Programs.S2_pTT_Mapping import record_S2_mapping
 from S1S2_Mapping.Programs.S1_pTT_Mapping import record_S1_mapping
-from S1S2_Mapping.Programs.S2_XML_to_firmware_format import record_pTT_firmware_mapping,record_TC_firmware_mapping
+from S1S2_Mapping.Programs.XML_to_firmware_format import record_S1_pTT_firmware_mapping,record_S2_pTT_firmware_mapping,record_TC_firmware_mapping
 from Geometry.Programs.Z_coordinate import create_Z_coordinates
 from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins,record_20_24_Bins_all_endcap,record_20_28_Bins_all_endcap
 
@@ -44,6 +44,7 @@ parser.add_argument("--S1_Input",default = 'no', help="run and record the S1 num
 #S1-S2_Mapping
 parser.add_argument("--S1S2_Mapping",default = 'no', help="run and record the S1-S2_Mapping")
 parser.add_argument("--Sector", default = 0 ,help="S2 Sector",type=int)
+parser.add_argument("--S1_Board", default = 0 ,help="S1 Board output to record",type=int)
 parser.add_argument("--S2_Board", default = 0 ,help="S2 Board input to record",type=int)
 
 #create z coordinates and bins
@@ -85,6 +86,7 @@ if args.S1S2_Mapping == "yes":
   record_S1_mapping(args)
   record_S2_mapping(args)
   record_S1_pTT_firmware_mapping(args)
+  record_S2_pTT_firmware_mapping(args)
   record_TC_firmware_mapping(args)
 
 

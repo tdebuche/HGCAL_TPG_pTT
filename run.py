@@ -4,8 +4,8 @@ from pTTs.Programs.pTTs_to_file import record_all_boards
 from S1_Input.Programs.record_text import record_input
 from Geometry.Programs.plot import plot_layer
 from Geometry.Programs.plot import record_all_layers
-from S1S2_Mapping.Programs.pTT_Mapping import record_mapping
-from S1S2_Mapping.Programs.XML_to_firmware_format import record_pTT_firmware_mapping,record_TC_firmware_mapping
+from S1S2_Mapping.Programs.S2_pTT_Mapping import record_mapping
+from S1S2_Mapping.Programs.S2_XML_to_firmware_format import record_pTT_firmware_mapping,record_TC_firmware_mapping
 from Geometry.Programs.Z_coordinate import create_Z_coordinates
 from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins,record_20_24_Bins_all_endcap,record_20_28_Bins_all_endcap
 

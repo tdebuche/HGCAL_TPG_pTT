@@ -21,7 +21,7 @@ def create_4_links_allocation(args):
     S2_Sector = args.Sector
     S2_Board = args.S2_Board
     mapping = '<pTT_Allocation S2_Sector="'+str(S2_Sector)+'" S2_Board="'+str(S2_Board)+'">'+'\n'
-    Boards = [get_S1Board_id(args.Sector,board_idx) for board_idx in range(14)]
+    Boards = [get_S1Board_id(S1_Sector,board_idx) for board_idx in range(14)]
     for S1_Board in range(len(Boards)):
         S1_Board_id = Boards[S1_Board]
         mapping +=  '\t'+ '<S1 id="'+S1_Board_id+'">'+'\n'
@@ -48,7 +48,7 @@ def create_2_links_allocation(args):
     S1_Sector = (args.Sector+1)%3
     S2_Board = args.S2_Board
     mapping = '<pTT_Duplication S2_Sector="'+str(S2_Sector)+'" S2_Board="'+str(S2_Board)+'">'+'\n'
-    Boards = [get_S1Board_id(args.Sector,board_idx) for board_idx in range(14)]
+    Boards = [get_S1Board_id(S1_Sector,board_idx) for board_idx in range(14)]
     for S1_Board in range(len(Boards)):
         S1_Board_id = Boards[S1_Board]
         mapping +=  '\t'+ '<S1 id="'+S1_Board_id+'">'+'\n'

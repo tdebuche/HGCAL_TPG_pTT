@@ -16,19 +16,23 @@ def create_Z_coordinates():
     L1,L2,L3 = ZlayerCEE,ZlayerCEHfine,ZlayerCEHcoarse
     Z = []
     layer = 1
+    #compute the Z coordinates of CEE layers
     for i in range(len(L1)-1):
         z = (L1[i]+L1[i+1])/2
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
+    #compute the Z coordinates of fine CEH layers
     for i in range(len(L2)//2):
         z = (L2[2*i]+L2[2*i+1])/2
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
+    #compute the Z coordinates of coarse CEH layers
     for i in range(len(L3)//2):
         z = (L3[2*i]+L3[2*i+1])/2
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
+    #create and record the json file 
     with open('src/Z_coordinates.json', 'w') as recordfile:
         json.dump(Z, recordfile)

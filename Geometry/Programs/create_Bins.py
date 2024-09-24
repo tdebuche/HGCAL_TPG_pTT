@@ -1,11 +1,10 @@
 import json
 from Geometry.Programs.tools import *
 
-
+#two scenarios are poroposed here. The first one is with 20*24 bins (pTTs) per sector and the second one with 20*28 bins
     
-#record two scenarios : 20*24 bins and 20*28 bins
 
-#First scenario : 20 * 24 bins, 0 to 120 degree
+#record all the bins of an endcap (360°), for the first scenario : 20 * 24 bins
 def record_20_24_Bins_all_endcap():
     bin_size = "pi/36"
     nb_phibin = 24
@@ -14,11 +13,16 @@ def record_20_24_Bins_all_endcap():
     etamax = etamin + np.pi *20/36
     phimin = 0 * np.pi/180
     phimax = 120 * np.pi/180
+    #compute the bin coordinates
     Bins = create_Bins_all_endcap(etamin,phimin,nb_etabin,nb_phibin)
     header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
+    #record the json file
     with open('src/all_endcap_2024_Bins.json', 'w') as recordfile:
         json.dump({'header' : header, 'Bins' : Bins }, recordfile)
 
+
+
+#record all the bins of an endcap (360°), for the second scenario : 20 * 28 bins
 def record_20_28_Bins_all_endcap():
     bin_size = "pi/36"
     nb_phibin = 28
@@ -27,15 +31,17 @@ def record_20_28_Bins_all_endcap():
     etamax = etamin + np.pi *20/36
     phimin = -15 * np.pi/180
     phimax = 125 * np.pi/180
+    #compute the bin coordinates
     Bins = create_Bins_all_endcap(etamin,phimin,nb_etabin,nb_phibin)
     header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
+    #record the json file
     with open('src/all_endcap_2028_Bins.json', 'w') as recordfile:
         json.dump({'header' : header, 'Bins' : Bins }, recordfile)
 
 
 
 
-    
+#record the bins of a single sector, for the first scenario : 20 * 24 bins (0 to 120°)
 def record_20_24_Bins():
     bin_size = "pi/36"
     nb_phibin = 24
@@ -52,7 +58,7 @@ def record_20_24_Bins():
 
 
 
-#Second scenario: 20 * 28 bins, -15 to 125 degrees
+#record the bins of a single sector, for the second scenario : 20 * 28 bins  (-15 to 125°)
 def record_20_28_Bins():
     bin_size = "pi/36"
     nb_phibin = 28
@@ -69,7 +75,8 @@ def record_20_28_Bins():
 
 
 
-def create_Bins(etamin,phimin,nbeta,nbphi): 
+def create_Bins(etamin,phimin,nbeta,nbphi):
+    #upload z-coordinates
     with open('src/Z_coordinates.json','r') as file:
         Z_Layers = json.load(file)
     all_layers_Bins = []
@@ -91,6 +98,7 @@ def create_Bins(etamin,phimin,nbeta,nbphi):
     return(all_layers_Bins)
 
 
+#create bins for the whole endcap. For each bin, the program computes the eta-phi coordinates, the Stage 1 sector(s) and the  Stage 2 sector
 def create_Bins_all_endcap(etamin,phimin,nbeta,nbphi):
     Bins = []
     for phi in range(72):

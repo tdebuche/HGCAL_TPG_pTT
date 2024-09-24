@@ -1,5 +1,10 @@
 import json
 
+#The z-coordinates currently used are constructed there. The input is the z-position of each layer (absorber).
+#One can modify this program if he needs other z-coordinates to create a new json file.
+
+# THE JSON FILE IS USED BY MANY PROGRAMS 
+
 ############################# Return a  list(47) with z for each layers ############################################################
 
 ZlayerCEE = [3210.50,3238.87,3269.44,3300.01,3330.01,3361.15,3391.72,3422.29,3452.86,3483.43,3517.25,3551.07,3584.89,3619.71]

@@ -7,16 +7,18 @@ from Geometry.Programs.tools import *
 
 
 
-
+#to plot a layer, with different items (depending on the arguments)
 def plot_layer(args,Layer):
 	plt.figure(figsize = (12,8))
 	plt.title(label =  'Layer '+str(Layer))
 	plt.xlabel('x (mm)')
 	plt.ylabel('y (mm)')
 	#plot Module
+	#upload items
 	Module_Vertices = item_list('src/v13.1/Modules.json','vertices',Layer)
 	Module_irot = item_list('src/v13.1//Modules.json','irot',Layer)
 	Module_UV = item_list('src/v13.1//Modules.json','uv',Layer)
+	#upload bins
 	if args.Edges == 'yes':
 		path = 'src/2028_Bins.json'
 	if args.Edges == 'no':
@@ -25,6 +27,7 @@ def plot_layer(args,Layer):
 		Bins = json.load(file)['Bins'][Layer-1]
 
 	for module_idx in range(len(Module_Vertices)):
+		#upload and use the module rotations 
 		irot = Module_irot[module_idx]
 		if irot != 999: # no rotations for scintillators
 			vertices = reorganize_vertices(Module_Vertices[module_idx],irot)
@@ -56,7 +59,7 @@ def plot_layer(args,Layer):
 			if Layer == 1:
 				x,y = np.sum(np.array(X_Vertices))/len(Y_Vertices),np.sum(np.array(Y_Vertices))/len(Y_Vertices)
 				plt.annotate("("+str(eta)+","+str(phi)+")",(x-60,y-10),size =  '8')
-			
+	#record or show the plot	
 	if args.Record_plots == 'no':
 		plt.show()
 	if args.Record_plots == 'yes':
@@ -73,7 +76,7 @@ def plot_layer(args,Layer):
 	
 
 
-
+#record all layers
 def record_all_layers(args):
     for Layer in range(1,48):
         if not (Layer < 27 and Layer%2==0):

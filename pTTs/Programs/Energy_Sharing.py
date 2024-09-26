@@ -2,15 +2,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import pTTs.Programs.tools as tools
-
 import json
 
+#import z coordinates
 with open('src/Z_coordinates.json','r') as file:
 	Z_Layers = json.load(file)
 
-
-
 N = 16 #energies divided by N (for the sharing)
+
+
 
 def reverse_pTTs(args,Layer,Modules,STCs):
 	Bins,header = tools.import_bins(args,Layer)

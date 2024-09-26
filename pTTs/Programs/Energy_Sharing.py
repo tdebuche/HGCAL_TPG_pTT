@@ -87,8 +87,8 @@ def AireBinModule(Module,Bin):
         return(0)
 
 
-
-def areatocoef(Areas): # Convert overlap area into fraction of N (N = 16 for now)
+# Convert overlap area into fraction of N (N = 16 for now)
+def areatocoef(Areas): 
     L =[]
     reste = []
     coef = 0

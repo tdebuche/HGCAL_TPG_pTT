@@ -4,7 +4,7 @@ from shapely.geometry import Polygon
 import json
 from collections import defaultdict
 
-
+#import bins
 def import_bins(args,Layer):
 	if args.Edges == 'yes':
 		path = 'src/2028_Bins.json'
@@ -20,7 +20,8 @@ def import_bins(args,Layer):
 		eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['phi_index']
 		list_vertices[(eta,phi)].append([X_Vertices,Y_Vertices])
 	return list_vertices,header
-  
+
+#import the bin header (with some parameters of the pTT scenario)
 def import_header(args):
 	if args.Edges == 'yes':
 		path = 'src/2028_Bins.json'
@@ -30,7 +31,7 @@ def import_header(args):
 		header = json.load(file)['header']
 	return header
 
-
+#take the vertice coordinate of a polygon and return a shapely polygon
 def pointtopolygon(vertices):
     points = []
     for i in range(len(vertices[0])):

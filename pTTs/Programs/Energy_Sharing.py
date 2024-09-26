@@ -11,15 +11,20 @@ with open('src/Z_coordinates.json','r') as file:
 N = 16 #energies divided by N (for the sharing)
 
 
-
+#create a list for the energy mapping
 def reverse_pTTs(args,Layer,Modules,STCs):
+	#the Bin list gathers the pTT coordinates, the header list allows to know the number of pTTs (20*24 or 20*28)
 	Bins,header = tools.import_bins(args,Layer)
 	if Layer < 27 or (Layer>=27 and not args.STCs):
+		#compute the module energy sharing for a sector of a single layer
 		pTTs = pTT_single_layer(args,Layer,Modules,Bins,header)
 	else :
+		#compute the STC energy sharing for a sector of a single layer
 		pTTs = pTT_single_layer(args,Layer,STCs,Bins,header)
+		
 	nb_binphi,nb_bineta = header['nb_phibin'],header['nb_etabin']
 	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
+	#creation of the list with the energy sharing
 	reversed_pTTs = [[[] for j in range(nb_bineta)] for i in range(nb_binphi)]                  
 	for module_idx in range(len(pTTs)):
 		Module = pTTs[module_idx][0]
@@ -32,21 +37,22 @@ def reverse_pTTs(args,Layer,Modules,STCs):
 	return(reversed_pTTs)
 
 
-def pTT_single_layer(args,Layer,Modules,Bins,header): #Share the energy of each module pf one layer
-    #choose the scenario
+#compute the energy sharing of a single layer
+def pTT_single_layer(args,Layer,Modules,Bins,header): 
     Modules = Modules[Layer-1]
     #create a list with the enegy sharing
     Bins_per_Modules = []
     for module_idx in range(len(Modules)):
         Module_vertices = [Modules[module_idx]['verticesX'],Modules[module_idx]['verticesY']]
+	#compute the area ratio (for the energy sharing) of the overlapping pTTs and the ratio of energy per pTT
         single_module_Bins = areatocoef(pTT_single_Module(Layer,Bins,Module_vertices,header))
         Bins_per_Modules.append([Modules[module_idx],single_module_Bins])
     return(Bins_per_Modules)
 
 
 
-
-def pTT_single_Module(Layer,Bins,Module,header): # Return the sharing of the energy of each module
+#compute the overlapping area of a module by the pTTs 
+def pTT_single_Module(Layer,Bins,Module,header): 
 	nb_binphi,nb_bineta = header['nb_phibin'],header['nb_etabin']
 	phimin,etamin =  header['phimin'],header['etamin']
 	nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
@@ -56,20 +62,23 @@ def pTT_single_Module(Layer,Bins,Module,header): # Return the sharing of the ene
 	eta,phi = tools.etaphicentre(Module,Z_Layers[Layer-1]["Z_coordinate"])
 	phi_center = int((phi-phimin) *36 /np.pi)
 	eta_center = int((eta -etamin) *36 /np.pi)
+
+	#look at the pTT defined by eta-phi coordinates close to the one of the module center (no need to compute the energy sharing with pTTs which dont overlap)
 	for phi in range(-4,5):
 		for eta in range(-4,5):
 			phi_idx = phi_center + phi
 			eta_idx = eta_center + eta
-			if phi_idx >= 0 and phi_idx < nb_binphi:
+			if phi_idx >= 0 and phi_idx < nb_binphi: #if the pTT is in the right 120° sector 
 				if eta_idx >= 0 and eta_idx < nb_bineta:
+					#compute the overlapping area
 					Area = AireBinModule(Module,Bins[(eta_idx,phi_idx)][0])
 					if Area !=0:
 						pTTs.append([phi_idx,eta_idx,Area/area_module])
 	return(pTTs)
 
 
-
-def AireBinModule(Module,Bin): # Return [area(intersection module and bin)] for a given module and a given bin
+# Return [area(intersection module and bin)] for a given module and a given bin
+def AireBinModule(Module,Bin): 
     Module = tools.pointtopolygon(Module)
     Bin = tools.pointtopolygon(Bin)
     if Module.intersects(Bin):
@@ -79,7 +88,7 @@ def AireBinModule(Module,Bin): # Return [area(intersection module and bin)] for 
 
 
 
-def areatocoef(Areas): # Convert overlap area into fraction of 16
+def areatocoef(Areas): # Convert overlap area into fraction of N (N = 16 for now)
     L =[]
     reste = []
     coef = 0

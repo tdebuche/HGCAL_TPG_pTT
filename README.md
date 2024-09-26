@@ -2,6 +2,8 @@
 
 This recovery allows one to produce the mappings used in the pTT part of the Stage 1.
 
+THE PROGRAM 'RUN' ALLOWS TO RUN EVERY PROGRAM OF THIS REPOSITORY 
+
 This recovery is splitted in few parts : 
 - Geometry : to build the bins of each layer and make some plots
 - pTTs : to create mapping files used to build the pTTs in the S1 boards

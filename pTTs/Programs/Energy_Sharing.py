@@ -11,7 +11,7 @@ with open('src/Z_coordinates.json','r') as file:
 N = 16 #energies divided by N (for the sharing)
 
 
-#create a list for the energy mapping
+#create a list for the energy mapping of a singla layer
 def reverse_pTTs(args,Layer,Modules,STCs):
 	#the Bin list gathers the pTT coordinates, the header list allows to know the number of pTTs (20*24 or 20*28)
 	Bins,header = tools.import_bins(args,Layer)

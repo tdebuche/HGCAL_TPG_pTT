@@ -20,7 +20,8 @@ The program "run" allows one ot run every program of this repository
 
 Geometry version 
 -
-The results are shared into different folders, corresponding to different geometry versions. Here are explanations of the versions currently used :
+The results are shared into different folders, corresponding to different geometry versions.
+Here are explanations of the versions currently used :
 
 
 v1 --> modmap v15.5 (CMSSW v????), STCs are arbitrarily defined.

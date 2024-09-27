@@ -1,8 +1,10 @@
+This folder allows one to create the energy mapping into pTTs for each Stage 1 board.
+
 Programs :
 
-  - Energy_sharing : python tools to create the energy sharing for one layer, for different scenarios (with/without edges, with/without STCs)
+  - Energy_sharing : create the energy sharing for one layer, for different scenarios (with/without edges, with/without STCs)
 
-  - pTTs_to_file : programs to record 14*2 files for a given scenario. Files can be vh or readable (text) files. 
+  - pTTs_to_file : record 14*2 files for a given scenario. Files can be vh or readable (text) files. 
 
   - tools : some geometric tools used by the Energy_sharing program
 

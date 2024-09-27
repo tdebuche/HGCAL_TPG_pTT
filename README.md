@@ -8,6 +8,7 @@ This recovery is splitted in few parts :
 - S1_Input: to create the numbering of modules/STCs in each board (it has to match with the S1 unpacker). The same numbering is used in the pTTs files
 - S1-S2 Mapping : map the pTTs into links between S1 and S2 boards
 - src : gather files used by programs (geometry of modules, STCs, bins)
+
 Each folder is divided into two folders : the first one gathers programmes, and the second one gathers the files produced by the programmes.
 
 

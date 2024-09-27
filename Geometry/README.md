@@ -1,4 +1,4 @@
-This folder allows one to create a list with the z-coordinate of each layer and the bins (eta-phi bins = pTTs)/
+This folder allows one to create a list with the z-coordinate of each layer and the bins (eta-phi bins = pTTs)
 
 Programs : 
   - import/compute the z-coordinates of layers

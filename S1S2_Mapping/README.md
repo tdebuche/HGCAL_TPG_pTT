@@ -7,4 +7,4 @@ Programs :
 
 
 Results :
-Mappings for a Stage 1 (or Stage 2) board for each sector (and each scenario : 20*24 or 20*28 pTT per secrtor)
+Mappings for a Stage 1 (or Stage 2) board for each sector (and each scenario : 20 * 24 or 20 * 28 pTT per secrtor)

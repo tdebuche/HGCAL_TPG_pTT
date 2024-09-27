@@ -23,17 +23,20 @@ This program has many arguments to know which program has to run with which cond
   
   --pTT_version : pTT version depending on the geometry version and some other updates (default : 'v3' which corresponds to the geometry 'v13.1')
   
+  
 2) Choose the scenario
 
   --STCs : With (yes) or without STCs (no)
   
   --Edges  : With (yes) or without edges(no) --> choose 20 * 28 or 20 * 24 pTTs per sector
   
+  
 3) Choose to create and record the energy mapping
    
   --pTTs : "yes" to build and record the pTTs (default : "no")
   
   --Format : choose the format of recorded files : textfile : "readable", vhfile: "vh"
+  
   
 4) Choose to plot a layer or record the plots of all layers
 
@@ -49,9 +52,11 @@ This program has many arguments to know which program has to run with which cond
   
   --Bins : With or without bins
 
+
 5) Choose to create and record the S1_input numbering
 
   --S1_Input : "yes" to run and record the S1 numbering
+
 
 6) Choose to create and record the pTT mapping in links between Stage 1 and Stage 2
 
@@ -62,6 +67,7 @@ This program has many arguments to know which program has to run with which cond
   --S2_Board : "yes" to recordd the S2 Board input mappings
   
   --Sector : choose the Sector (Stage 1 sector if S1_Board mapping, Stage 1 sector if S2_Board mapping)
+  
 
 7) Choose to create geometry
 

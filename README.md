@@ -17,16 +17,22 @@ The program "run" allows one ot run every program of this repository
 
 This program has many arguments to know which program has to run with which conditions. 
 
-1) Geometry version and pTT version 
+1) Geometry version and pTT version
+
   --Modmap_version : Geometry version (default : 'v13.1')
+  
   --pTT_version : pTT version depending on geometry verion and other updates (default : 'v3' whoch corresponds to the geometry 'v13.1')
-2) Choose the scenario
+  
+3) Choose the scenario
+
   --STCs : With (yes) or without STCs (no)
+  
   --Edges  : With (yes) or without edges(no) --> choose 20 * 28 or 20 * 24 pTTs per sector
-3) Choose to create and record the mapping
+  
+5) Choose to create and record the mapping
   --pTTs : "yes" to build and record the pTTs (default : "no")
   --Format : choose the format of recorded files : textfile : "readable", vhfile: "vh"
-4) Choose to plot a layer or record the plots of all layers
+6) Choose to plot a layer or record the plots of all layers
   --Record_plots : yes to record all layers
                         record all layers
   --Plot PLOT           plot a layer

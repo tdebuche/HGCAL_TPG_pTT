@@ -2,7 +2,7 @@
 from S1S2_Mapping.Programs.tools  import *
 Endcap = 0
 
-#record mappings
+#record the mappings
 def record_S1_mapping(args):
     path = 'S1S2_Mapping/Results/S1_Mapping'
     if args.Edges == 'yes':

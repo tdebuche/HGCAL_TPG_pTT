@@ -17,6 +17,8 @@ THE PROGRAM 'RUN' ALLOWS TO RUN EVERY PROGRAM OF THIS REPOSITORY
 
 
 
+Geometry version 
+-
 The results are shared into different folders, corresponding to different geometry versions. Here are explanations of the versions currently used :
 
 

@@ -15,6 +15,35 @@ Each folder is divided into two folders : the first one gathers programmes, and 
 The program "run" allows one ot run every program of this repository
 -
 
+This program has many arguments to know which program has to run with which conditions. 
+
+1) Geometry version and pTT version 
+  --Modmap_version : Geometry version (default : 'v13.1')
+  --pTT_version : pTT version depending on geometry verion and other updates (default : 'v3' whoch corresponds to the geometry 'v13.1')
+2) Choose the scenario
+  --STCs : With (yes) or without STCs (no)
+  --Edges  : With (yes) or without edges(no) --> choose 20 * 28 or 20 * 24 pTTs per sector
+3) Choose to create and record the mapping
+  --pTTs : "yes" to build and record the pTTs (default : "no")
+  --Format : choose the format of recorded files : textfile : "readable", vhfile: "vh"
+4) Choose to plot a layer or record the plots of all layers
+  --Record_plots : yes to record all layers
+                        record all layers
+  --Plot PLOT           plot a layer
+  --Layer LAYER         Layer to display
+  --UV UV               With or without UV
+  --irot IROT           With or without rot
+  --Bins BINS           With or without bins
+  --Record_plots RECORD_PLOTS
+                        record all layers
+  --S1_Input S1_INPUT   run and record the S1 numbering
+  --S1S2_Mapping S1S2_MAPPING
+                        run and record the S1-S2_Mapping
+  --Sector SECTOR       S2 Sector
+  --S1_Board S1_BOARD   S1 Board output to record
+  --S2_Board S2_BOARD   S2 Board input to record
+  --Create_Bins CREATE_BINS
+                        create z and bins
 
 
 

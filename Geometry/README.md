@@ -1,9 +1,10 @@
 This folder allows one to create a list with the z-coordinate of each layer and the bins (eta-phi bins = pTTs)
 
 Programs : 
-  - import/compute the z-coordinates of layers
-  - create a list with bin coordinates (for a single sector or for the whole endcap)
-  - plot the layers with different items
+  - Z_coordinate : import/compute the z-coordinates of layers
+  - ccreate_Bins : create a list with bin coordinates (for a single sector or for the whole endcap)
+  - plot : plot the layers with different items
+  - tools : some geometrical tools
 
 Plots :
 

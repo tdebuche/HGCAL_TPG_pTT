@@ -2,20 +2,7 @@
 from S1S2_Mapping.Programs.tools  import *
 Endcap = 0
 
-def fill_channel(args,S1_Sector,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
-    channel = ''
-    frame = 0 
-    for eta in range(eta_min,eta_max+1):
-        for phi in range(phi_max,phi_min-1,-1):
-            t = get_pTT_id(S1_Sector,S1_Board,eta,phi,CEECEH)
-            channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'"  pTT="'+ t+'" />' +'\n'
-            frame +=1
-        if args.Edges == "no" or frame < 97:
-            channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'" />'+'\n'
-            frame +=1
-    for empty_frame in range(frame,108):
-        channel += '\t\t\t'+'<Frame id="'+str(empty_frame).zfill(3)+'" />'+'\n'
-    return channel
+
 
 def create_4_links_allocation(args):
     S1_Sector = args.Sector
@@ -66,7 +53,22 @@ def create_2_links_allocation(args):
         mapping +=  '\t'+'</S2>'+'\n'
     mapping += '</pTT_Duplication>'+'\n'
     return mapping
-
+    
+def fill_channel(args,S1_Sector,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
+    channel = ''
+    frame = 0 
+    for eta in range(eta_min,eta_max+1):
+        for phi in range(phi_max,phi_min-1,-1):
+            t = get_pTT_id(S1_Sector,S1_Board,eta,phi,CEECEH)
+            channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'"  pTT="'+ t+'" />' +'\n'
+            frame +=1
+        if args.Edges == "no" or frame < 97:
+            channel += '\t\t\t'+'<Frame id="'+str(frame).zfill(3)+'" />'+'\n'
+            frame +=1
+    for empty_frame in range(frame,108):
+        channel += '\t\t\t'+'<Frame id="'+str(empty_frame).zfill(3)+'" />'+'\n'
+    return channel
+    
 def record_S1_mapping(args):
     path = 'S1S2_Mapping/Results/S1_Mapping'
     if args.Edges == 'yes':

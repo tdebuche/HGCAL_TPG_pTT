@@ -85,7 +85,7 @@ def create_2_links_allocation(args):
     mapping += '</pTT_Duplication>'+'\n'
     return mapping
 
-##fill a given channel
+#fill a given channel
 def fill_channel(args,S1_Sector,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
     channel = ''
     frame = 0 

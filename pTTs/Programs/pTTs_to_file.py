@@ -94,7 +94,7 @@ def files_single_board(args,Board_number,Modules,STCs,CEE_numbering,CEH_numberin
 
 
 def pTTs_single_board(args,Board_number,Modules,STCs):
-    header = functions.import_header(args)
+    header = tools.import_header(args)
     nb_binphi,nb_bineta = header['nb_phibin'],header['nb_etabin']
     nb_binphi,nb_bineta = int(nb_binphi),int(nb_bineta)
     Layers = Boards[Board_number]

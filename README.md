@@ -12,7 +12,7 @@ This recovery is splitted in few parts :
 Each folder is divided into two folders : the first one gathers programmes, and the second one gathers the files produced by the programmes.
 
 
-The program "run" allows one ot run every program of this repository
+The program "run" allows one to run every program of this repository
 -
 
 This program has many arguments to know which program has to run with which conditions. 

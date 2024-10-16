@@ -1,6 +1,9 @@
 # HGCAL_TPG_pTT
 
-This recovery allows one to produce the mappings used in the pTT part of the Stage 1.
+This recovery allows one to produce the mappings used in the pTT part of the Stage 1 : 
+- Energy mapping for the pTT building
+- Stage 1 input mapping (pTT part)
+- pTT mapping into the Stage 1/Stage 2 optical links
 
 This recovery is splitted in few parts : 
 - Geometry : build the bins of each layer and make some plots

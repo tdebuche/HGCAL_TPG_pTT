@@ -1,11 +1,11 @@
 # HGCAL_TPG_pTT
 
-This recovery allows one to produce the mappings used in the pTT part of the Stage 1 : 
+This repository allows one to produce the mappings used in the pTT part of the Stage 1 : 
 - Energy mapping for the pTT building
 - Stage 1 input mapping (pTT part)
 - pTT mapping into the Stage 1/Stage 2 optical links
 
-This recovery is splitted in few parts : 
+This repository is splitted in few parts : 
 - Geometry : build the bins (pTT coordinates) of each layer and make some plots
 - pTTs : create mapping files used to build the pTTs in the S1 boards
 - S1_Input : to create the numbering of modules/STCs in each board (it has to match with the S1 unpacker). The same numbering is used in the pTTs files

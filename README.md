@@ -12,7 +12,7 @@ This recovery is splitted in few parts :
 - S1-S2 Mapping : map the pTTs into links between S1 and S2 boards
 - src : gather files used by programs (geometry of modules, STCs, bins)
 
-Each folder is divided into two folders : the first one gathers programmes, and the second one gathers the files produced by the programmes.
+Each folder is divided into two folders : the first one gathers programmes, and the second one gathers the files produced by the programs. In each folder, there is a README to present each program.
 
 
 The program "run" allows one to run every program of this repository

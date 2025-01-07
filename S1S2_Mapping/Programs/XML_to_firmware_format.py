@@ -67,16 +67,16 @@ def read_S1_xml_mapping(args,file,S2_Sector):
 def record_pTT_firmware_mapping(args):
     S2_firmware_mapping = ""
     
-    if args.Edges == 'yes':
+    if args.nb_bins== 28:
         path = 'S1S2_Mapping/Results/S2_Mapping/28_Phi_Bins/Sector'+str(args.Sector)
-    if args.Edges == 'no':
+    if args.nb_bins== 24:
         path = 'S1S2_Mapping/Results/S2_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S1_Sector = args.Sector
     S2_firmware_mapping += read_S2_xml_mapping(args,path+'/Allocation.xml',S1_Sector)
     
-    if args.Edges == 'yes':
+    if args.nb_bins== 28:
         path = 'S1S2_Mapping/Results/S2_Mapping/28_Phi_Bins/Sector'+str(args.Sector) 
-    if args.Edges == 'no':
+    if args.nb_bins== 24:
         path = 'S1S2_Mapping/Results/S2_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S1_Sector = (args.Sector+1)%3
     S2_firmware_mapping += read_S2_xml_mapping(args,path+'/Duplication.xml',S1_Sector)
@@ -87,16 +87,16 @@ def record_pTT_firmware_mapping(args):
 
     S1_firmware_mapping = ""
     
-    if args.Edges == 'yes':
+    if args.nb_bins== 28:
         path = 'S1S2_Mapping/Results/S1_Mapping/28_Phi_Bins/Sector'+str(args.Sector)
-    if args.Edges == 'no':
+    if args.nb_bins== 24:
         path = 'S1S2_Mapping/Results/S1_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S2_Sector = args.Sector
     S1_firmware_mapping += read_S1_xml_mapping(args,path+'/Allocation.xml',S2_Sector)
     
-    if args.Edges == 'yes':
+    if args.nb_bins== 28:
         path = 'S1S2_Mapping/Results/S1_Mapping/28_Phi_Bins/Sector'+str(args.Sector) 
-    if args.Edges == 'no':
+    if args.nb_bins== 24:
         path = 'S1S2_Mapping/Results/S1_Mapping/24_Phi_Bins/Sector'+str(args.Sector)
     S2_Sector = (args.Sector-1)%3
     S1_firmware_mapping += read_S1_xml_mapping(args,path+'/Duplication.xml',S2_Sector)

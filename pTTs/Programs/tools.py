@@ -6,9 +6,11 @@ from collections import defaultdict
 
 
 def import_bins(args,Layer):
-	if args.Edges == 'yes':
+	if args.nb_bins== 30:
+		path = 'src/2030_Bins.json'
+	if args.nb_bins== 28:
 		path = 'src/2028_Bins.json'
-	if args.Edges == 'no':
+	if args.nb_bins== 24:
 		path = 'src/2024_Bins.json'
 	with open(path,'r') as file:
 		Bins = json.load(file)['Bins'][Layer-1]
@@ -22,9 +24,11 @@ def import_bins(args,Layer):
 	return list_vertices,header
   
 def import_header(args):
-	if args.Edges == 'yes':
+	if args.nb_bins== 30:
+		path = 'src/2030_Bins.json'
+	if args.nb_bins== 28:
 		path = 'src/2028_Bins.json'
-	if args.Edges == 'no':
+	if args.nb_bins== 24:
 		path = 'src/2024_Bins.json'
 	with open(path,'r') as file:
 		header = json.load(file)['header']

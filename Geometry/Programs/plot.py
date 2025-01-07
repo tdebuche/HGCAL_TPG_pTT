@@ -102,6 +102,3 @@ def record_all_layers(args):
 
 
 
-
-    
-    

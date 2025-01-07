@@ -2,6 +2,7 @@
 from S1S2_Mapping.Programs.tools  import *
 Endcap = 0
 
+
 def fill_channel(args,S1_Sector,S1_Board,CEECEH,phi_min,phi_max,eta_min,eta_max):
     channel = ''
     frame = 0 
@@ -67,6 +68,9 @@ def create_2_links_allocation(args):
     mapping += '</pTT_Duplication>'+'\n'
     return mapping
 
+
+#record the mappings
+
 def record_S1_mapping(args):
     path = 'S1S2_Mapping/Results/S1_Mapping'
     if args.nb_bins== 28:
@@ -81,3 +85,5 @@ def record_S1_mapping(args):
     text = create_2_links_allocation(args)
     file.write(text)
     file.close()
+
+

@@ -66,6 +66,8 @@ def create_2_links_allocation(args):
     mapping += '</pTT_Duplication>'+'\n'
     return mapping
 
+
+#record the mappings
 def record_S2_mapping(args):
     path = 'S1S2_Mapping/Results/S2_Mapping'
     if args.nb_bins== 28:

@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from shapely.geometry import Polygon
 import json
 
+#take an item in a json file 
+
 def item_list(jsonfile,item,layer):
   L = []
   with open(jsonfile,'r') as file:
@@ -20,7 +22,7 @@ def item_list(jsonfile,item,layer):
       L.append([data[module_idx]['verticesX'],data[module_idx]['verticesY']])
   return L
 
-
+# order the vertices of a module according to its rotation
 def reorganize_vertices(vertices,irot):
   #find the vertex 0
   y_min = vertices[1][0]
@@ -48,7 +50,7 @@ def etaphitoXY(eta,phi,z):
 
 
 
-
+# compute the eta-phi coordinates of the center of a module 
 def etaphicentre(Module,z):
     nbsommet = 0
     x = 0

@@ -1,5 +1,10 @@
 import json
 
+#The z-coordinates currently used are constructed there. The input is the z-position of each layer (absorber).
+#One can modify this program if he needs other z-coordinates to create a new json file.
+
+# THE JSON FILE IS USED BY MANY PROGRAMS 
+
 ############################# Return a  list(47) with z for each layers ############################################################
 
 ZlayerCEE = [3210.50,3238.87,3269.44,3300.01,3330.01,3361.15,3391.72,3422.29,3452.86,3483.43,3517.25,3551.07,3584.89,3619.71]
@@ -11,19 +16,23 @@ def create_Z_coordinates():
     L1,L2,L3 = ZlayerCEE,ZlayerCEHfine,ZlayerCEHcoarse
     Z = []
     layer = 1
+    #compute the Z coordinates of CEE layers
     for i in range(len(L1)-1):
         z = (L1[i]+L1[i+1])/2
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
+    #compute the Z coordinates of fine CEH layers
     for i in range(len(L2)//2):
         z = (L2[2*i]+L2[2*i+1])/2
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
+    #compute the Z coordinates of coarse CEH layers
     for i in range(len(L3)//2):
         z = (L3[2*i]+L3[2*i+1])/2
         Z.append({'Layer' : layer, 'Z_coordinate' : z})
         layer += 1
+    #create and record the json file 
     with open('src/Z_coordinates.json', 'w') as recordfile:
         json.dump(Z, recordfile)

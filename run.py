@@ -8,7 +8,7 @@ from S1S2_Mapping.Programs.S2_pTT_Mapping import record_S2_mapping
 from S1S2_Mapping.Programs.S1_pTT_Mapping import record_S1_mapping
 from S1S2_Mapping.Programs.XML_to_firmware_format import record_pTT_firmware_mapping,record_TC_firmware_mapping
 from Geometry.Programs.Z_coordinate import create_Z_coordinates
-from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins,record_20_24_Bins_all_endcap,record_20_28_Bins_all_endcap
+from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins,record_20_30_Bins,record_20_24_Bins_all_endcap,record_20_28_Bins_all_endcap
 
 #record pTTs
 
@@ -18,11 +18,11 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--Modmap_version",default = 'v13.1', help="Geometry version")
 
 #pTT version 
-parser.add_argument("--pTT_version",default = 'v3', help="Geometry version")
+parser.add_argument("--pTT_version",default = 'v4', help="Geometry version")
 
 #Scenario
 parser.add_argument("--STCs",default = 'yes', help="With (yes) or without STCs (no)")
-parser.add_argument("--Edges",default = 'no', help="With (yes) or without edges(no)")
+parser.add_argument("--nb_bins",default = 24, help="number of bins in the phi coordinate (24,28,30)",type=int)
 
 #Build and record pTTs
 parser.add_argument("--pTTs",default = 'no', help="build and record the pTTs")
@@ -57,6 +57,7 @@ if args.Create_Bins == "yes":
   create_Z_coordinates()
   record_20_24_Bins()
   record_20_28_Bins()
+  record_20_30_Bins()
   record_20_24_Bins_all_endcap()
   record_20_28_Bins_all_endcap()
 

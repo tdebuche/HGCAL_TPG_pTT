@@ -9,7 +9,7 @@ from Geometry.Programs.tools import *
 
 
 def plot_layer(args,Layer):
-	plt.figure(figsize = (12,8))
+	plt.figure(figsize = (11,12))
 	plt.title(label =  'Layer '+str(Layer))
 	plt.xlabel('x (mm)')
 	plt.ylabel('y (mm)')
@@ -17,10 +17,13 @@ def plot_layer(args,Layer):
 	Module_Vertices = item_list('src/v13.1/Modules.json','vertices',Layer)
 	Module_irot = item_list('src/v13.1//Modules.json','irot',Layer)
 	Module_UV = item_list('src/v13.1//Modules.json','uv',Layer)
-	if args.Edges == 'yes':
-		path = 'src/2028_Bins.json'
-	if args.Edges == 'no':
+	if args.nb_bins== 24:
 		path = 'src/2024_Bins.json'
+	if args.nb_bins== 28:
+		path = 'src/2028_Bins.json'
+	if args.nb_bins== 30:
+		path = 'src/2030_Bins.json'
+
 	with open(path,'r') as file:
 		Bins = json.load(file)['Bins'][Layer-1]
 
@@ -52,7 +55,11 @@ def plot_layer(args,Layer):
 		for bin_idx in range(len(Bins)):
 			X_Vertices,Y_Vertices = Bins[bin_idx]['verticesX']+[Bins[bin_idx]['verticesX'][0]],Bins[bin_idx]['verticesY']+[Bins[bin_idx]['verticesY'][0]]
 			eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['phi_index']
-			plt.plot(X_Vertices,Y_Vertices,color  = 'red')
+			if phi  < 4 or phi  >27 :
+				plt.plot(X_Vertices,Y_Vertices,color  = 'green',linewidth = 1)
+			else : 
+				plt.plot(X_Vertices,Y_Vertices,color  = 'red',linewidth = 1)
+
 			if Layer == 1:
 				x,y = np.sum(np.array(X_Vertices))/len(Y_Vertices),np.sum(np.array(Y_Vertices))/len(Y_Vertices)
 				plt.annotate("("+str(eta)+","+str(phi)+")",(x-60,y-10),size =  '8')

@@ -1,6 +1,6 @@
 Board 0x64000000
 parameter integer matrixH [0:3902] = {
-/* num inputs = 100(in0-in99) */
+/* num inputs = 200(in0-in199) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 9 */
 //* total number of input in adders 1100 */
@@ -608,7 +608,7 @@ parameter integer matrixH [0:3902] = {
 };
 Board 0x64010000
 parameter integer matrixH [0:5288] = {
-/* num inputs = 140(in0-in139) */
+/* num inputs = 280(in0-in279) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 9 */
 //* total number of input in adders 1562 */
@@ -1216,7 +1216,7 @@ parameter integer matrixH [0:5288] = {
 };
 Board 0x64020000
 parameter integer matrixH [0:10130] = {
-/* num inputs = 284(in0-in283) */
+/* num inputs = 520(in0-in519) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 16 */
 //* total number of input in adders 3176 */
@@ -1824,7 +1824,7 @@ parameter integer matrixH [0:10130] = {
 };
 Board 0x64030000
 parameter integer matrixH [0:4637] = {
-/* num inputs = 116(in0-in115) */
+/* num inputs = 232(in0-in231) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 9 */
 //* total number of input in adders 1345 */
@@ -2432,7 +2432,7 @@ parameter integer matrixH [0:4637] = {
 };
 Board 0x64040000
 parameter integer matrixH [0:4409] = {
-/* num inputs = 112(in0-in111) */
+/* num inputs = 224(in0-in223) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 11 */
 //* total number of input in adders 1269 */
@@ -3040,7 +3040,7 @@ parameter integer matrixH [0:4409] = {
 };
 Board 0x64050000
 parameter integer matrixH [0:4556] = {
-/* num inputs = 116(in0-in115) */
+/* num inputs = 232(in0-in231) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 9 */
 //* total number of input in adders 1318 */
@@ -3648,7 +3648,7 @@ parameter integer matrixH [0:4556] = {
 };
 Board 0x64060000
 parameter integer matrixH [0:5651] = {
-/* num inputs = 140(in0-in139) */
+/* num inputs = 232(in0-in231) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 8 */
 //* total number of input in adders 1683 */
@@ -4256,7 +4256,7 @@ parameter integer matrixH [0:5651] = {
 };
 Board 0x64070000
 parameter integer matrixH [0:5849] = {
-/* num inputs = 152(in0-in151) */
+/* num inputs = 256(in0-in255) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 11 */
 //* total number of input in adders 1749 */
@@ -4864,7 +4864,7 @@ parameter integer matrixH [0:5849] = {
 };
 Board 0x64080000
 parameter integer matrixH [0:5885] = {
-/* num inputs = 148(in0-in147) */
+/* num inputs = 248(in0-in247) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 10 */
 //* total number of input in adders 1761 */
@@ -5472,7 +5472,7 @@ parameter integer matrixH [0:5885] = {
 };
 Board 0x64090000
 parameter integer matrixH [0:6020] = {
-/* num inputs = 163(in0-in162) */
+/* num inputs = 278(in0-in277) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 10 */
 //* total number of input in adders 1806 */
@@ -6080,7 +6080,7 @@ parameter integer matrixH [0:6020] = {
 };
 Board 0x640A0000
 parameter integer matrixH [0:5852] = {
-/* num inputs = 144(in0-in143) */
+/* num inputs = 240(in0-in239) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 9 */
 //* total number of input in adders 1750 */
@@ -6688,7 +6688,7 @@ parameter integer matrixH [0:5852] = {
 };
 Board 0x640B0000
 parameter integer matrixH [0:5531] = {
-/* num inputs = 140(in0-in139) */
+/* num inputs = 232(in0-in231) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 8 */
 //* total number of input in adders 1643 */
@@ -7296,7 +7296,7 @@ parameter integer matrixH [0:5531] = {
 };
 Board 0x640C0000
 parameter integer matrixH [0:3848] = {
-/* num inputs = 100(in0-in99) */
+/* num inputs = 200(in0-in199) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 10 */
 //* total number of input in adders 1082 */
@@ -7904,7 +7904,7 @@ parameter integer matrixH [0:3848] = {
 };
 Board 0x640D0000
 parameter integer matrixH [0:5246] = {
-/* num inputs = 140(in0-in139) */
+/* num inputs = 280(in0-in279) */
 /* num outputs = 600(out0-out599) */
 //* max inputs per outputs = 9 */
 //* total number of input in adders 1548 */

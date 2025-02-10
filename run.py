@@ -5,10 +5,12 @@ from S1_Input.Programs.record_text import record_input
 from Geometry.Programs.plot import plot_layer
 from Geometry.Programs.plot import record_all_layers
 from S1S2_Mapping.Programs.S2_pTT_Mapping import record_S2_mapping
+from S1S2_Mapping.Programs.S2_pTT_MappingNEW import record_S2_mappingNEW
+from S1S2_Mapping.Programs.S1_pTT_MappingNEW import record_S1_mappingNEW
 from S1S2_Mapping.Programs.S1_pTT_Mapping import record_S1_mapping
 from S1S2_Mapping.Programs.XML_to_firmware_format import record_pTT_firmware_mapping,record_TC_firmware_mapping
 from Geometry.Programs.Z_coordinate import create_Z_coordinates
-from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins,record_20_30_Bins,record_20_24_Bins_all_endcap,record_20_28_Bins_all_endcap
+from Geometry.Programs.create_Bins import record_20_24_Bins,record_20_28_Bins,record_20_29_Bins,record_20_30_Bins,record_20_24_Bins_all_endcap,record_20_28_Bins_all_endcap
 
 #record pTTs
 
@@ -57,6 +59,7 @@ if args.Create_Bins == "yes":
   create_Z_coordinates()
   record_20_24_Bins()
   record_20_28_Bins()
+  record_20_29_Bins()
   record_20_30_Bins()
   record_20_24_Bins_all_endcap()
   record_20_28_Bins_all_endcap()
@@ -84,8 +87,12 @@ if args.Record_plots == "yes":
 
 #S1-S2 mapping
 if args.S1S2_Mapping == "yes":
-  record_S1_mapping(args)
-  record_S2_mapping(args)
+  if args.nb_bins != 30:
+      record_S1_mapping(args)
+      record_S2_mapping(args)
+  if args.nb_bins == 30:
+      record_S2_mappingNEW(args) 
+      record_S1_mappingNEW(args) 
   record_pTT_firmware_mapping(args)
   record_TC_firmware_mapping(args)
 

@@ -86,6 +86,20 @@ def record_20_30_Bins():
     with open('src/2030_Bins.json', 'w') as recordfile:
         json.dump({'header' : header, 'Bins' : Bins }, recordfile)
 
+#Third scenario: 20 * 29 bins, -15 to 130 degrees
+def record_20_29_Bins():
+    bin_size = "pi/36"
+    nb_phibin = 29
+    nb_etabin = 20
+    etamin = 1.305
+    etamax = etamin + np.pi *20/36
+    phimin = -15 * np.pi/180
+    phimax = 130 * np.pi/180
+    Bins = create_Bins(etamin,phimin,nb_etabin,nb_phibin)
+    header = {'nb_etabin' :nb_etabin,'nb_phibin' :nb_phibin,'etamin' : etamin,'etamax' :etamax,'phimin' :phimin,'phimax' :phimax,'bin_size' : bin_size}
+    with open('src/2029_Bins.json', 'w') as recordfile:
+        json.dump({'header' : header, 'Bins' : Bins }, recordfile)
+
 
 
 def create_Bins(etamin,phimin,nbeta,nbphi):

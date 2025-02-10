@@ -9,7 +9,7 @@ from Geometry.Programs.tools import *
 
 
 def plot_layer(args,Layer):
-	plt.figure(figsize = (11,12))
+	plt.figure(figsize = (12,9))
 	plt.title(label =  'Layer '+str(Layer))
 	plt.xlabel('x (mm)')
 	plt.ylabel('y (mm)')
@@ -23,6 +23,9 @@ def plot_layer(args,Layer):
 		path = 'src/2028_Bins.json'
 	if args.nb_bins== 30:
 		path = 'src/2030_Bins.json'
+	if args.nb_bins== 29:
+		path = 'src/2029_Bins.json'
+
 
 	with open(path,'r') as file:
 		Bins = json.load(file)['Bins'][Layer-1]
@@ -55,7 +58,7 @@ def plot_layer(args,Layer):
 		for bin_idx in range(len(Bins)):
 			X_Vertices,Y_Vertices = Bins[bin_idx]['verticesX']+[Bins[bin_idx]['verticesX'][0]],Bins[bin_idx]['verticesY']+[Bins[bin_idx]['verticesY'][0]]
 			eta,phi = Bins[bin_idx]['eta_index'],Bins[bin_idx]['phi_index']
-			if phi  < 4 or phi  >27 :
+			if phi  < 3 or phi  >26 :
 				plt.plot(X_Vertices,Y_Vertices,color  = 'green',linewidth = 1)
 			else : 
 				plt.plot(X_Vertices,Y_Vertices,color  = 'red',linewidth = 1)
